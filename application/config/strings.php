@@ -26,6 +26,9 @@ return array(
 		'user'    => 'users',
 		'person'  => 'people',
 		'comment' => 'comments',
+		'game'		=> 'games',
+		'player'	=> 'players',
+		'rating'	=> 'ratings',
 
 	),
 

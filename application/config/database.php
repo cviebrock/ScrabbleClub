@@ -44,9 +44,9 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
+			'database' => 'scrabbleclub',
+			'username' => 'scrabble',
+			'password' => 'zyzzyva',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),

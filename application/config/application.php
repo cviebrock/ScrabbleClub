@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'url' => '',
+	'url' => 'http://wsc.local',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ return array(
 	|
 	*/
 
-	'index' => 'index.php',
+	'index' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -41,7 +41,7 @@ return array(
 	|
 	*/
 
-	'key' => '',
+	'key' => 'XaGTsvbwHplZQuCZZf5IyhzdaLZ31whN',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -151,6 +151,7 @@ return array(
 		'URI'        => 'Laravel\\URI',
 		'Validator'  => 'Laravel\\Validator',
 		'View'       => 'Laravel\\View',
+		'Eloquent'	 => 'Eloquent\\Model',
 	),
 
 );
