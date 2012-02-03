@@ -33,4 +33,9 @@
 |
 */
 
-return array();
+return array(
+	'eloquent' => array(
+		'location' => 'eloquent',
+		'auto' => true
+	)
+);
