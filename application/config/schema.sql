@@ -16,6 +16,25 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `bingos`
+--
+
+DROP TABLE IF EXISTS `bingos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bingos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL DEFAULT '0000-00-00',
+  `player_id` int(10) unsigned NOT NULL,
+  `word` varchar(15) NOT NULL DEFAULT '',
+  `score` smallint(5) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `player_id` (`player_id`),
+  KEY `date` (`date`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `games`
 --
 
@@ -25,14 +44,19 @@ DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL DEFAULT '0000-00-00',
+  `order` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `player_id` int(10) unsigned NOT NULL,
   `opponent_id` int(10) unsigned NOT NULL,
-  `player_score` smallint(6) NOT NULL DEFAULT '0',
-  `opponent_score` smallint(6) NOT NULL DEFAULT '0',
+  `player_score` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `opponent_score` smallint(6) unsigned NOT NULL DEFAULT '0',
   `spread` smallint(6) NOT NULL DEFAULT '0',
+  `matching_game` int(10) unsigned NOT NULL DEFAULT '0',
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX (`player_id`),
+  INDEX (`opponent_id`),
+  INDEX (`matching_game`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -85,4 +109,4 @@ CREATE TABLE `ratings` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-03 17:04:08
+-- Dump completed on 2012-02-10 14:22:32
