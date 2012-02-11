@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: scrabbleclub
 -- ------------------------------------------------------
--- Server version	5.5.19
+-- Server version	5.5.19-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,7 +31,7 @@ CREATE TABLE `bingos` (
   PRIMARY KEY (`id`),
   KEY `player_id` (`player_id`),
   KEY `date` (`date`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,10 +54,10 @@ CREATE TABLE `games` (
   `created_at` datetime DEFAULT '0000-00-00 00:00:00',
   `updated_at` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  INDEX (`player_id`),
-  INDEX (`opponent_id`),
-  INDEX (`matching_game`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `player_id` (`player_id`),
+  KEY `opponent_id` (`opponent_id`),
+  KEY `matching_game` (`matching_game`)
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `players` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fullname` (`lastname`(8),`firstname`(8))
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,4 +109,4 @@ CREATE TABLE `ratings` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-10 14:22:32
+-- Dump completed on 2012-02-11 12:34:19
