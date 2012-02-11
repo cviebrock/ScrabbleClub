@@ -147,9 +147,28 @@ class Query {
 	 * @param  string  $type
 	 * @return Query
 	 */
-	public function join($table, $column1, $operator, $column2, $type = 'INNER')
+	public function join($table, $column1, $operator = null, $column2 = null, $type = 'INNER')
 	{
-		$this->joins[] = compact('type', 'table', 'column1', 'operator', 'column2');
+		// If the "column" is really an instance of a Closure, the developer is
+		// trying to create a join with a complex "ON" clause. So, we will add
+		// the join, and then call the Closure with the join.
+		if ($column1 instanceof Closure)
+		{
+			$this->joins[] = new Query\Join($type, $table);
+
+			call_user_func($column1, end($this->joins));
+		}
+		// If the column is just a string, we can assume that the join just
+		// has a simple on clause, and we'll create the join instance and
+		// add the clause automatically for the develoepr.
+		else
+		{
+			$join = new Query\Join($type, $table);
+
+			$join->on($column1, $operator, $column2);
+
+			$this->joins[] = $join;
+		}
 
 		return $this;
 	}
@@ -625,13 +644,13 @@ class Query {
 	/**
 	 * Get an aggregate value.
 	 *
-	 * @param  string  $aggregate
-	 * @param  string  $column
+	 * @param  string  $aggregator
+	 * @param  array   $columns
 	 * @return mixed
 	 */
-	public function aggregate($aggregator, $column)
+	public function aggregate($aggregator, $columns)
 	{
-		$this->aggregate = compact('aggregator', 'column');
+		$this->aggregate = compact('aggregator', 'columns');
 
 		$sql = $this->grammar->select($this);
 
@@ -655,19 +674,21 @@ class Query {
 	public function paginate($per_page = 20, $columns = array('*'))
 	{
 		// Because some database engines may throw errors if we leave orderings
-		// on the query when retrieving the total number of records, we will
-		// remove all of the ordreings and put them back on the query after
-		// we have the count.
+		// on the query when retrieving the total number of records, we'll drop
+		// all of the ordreings and put them back on the query after we have
+		// retrieved the count from the table.
 		list($orderings, $this->orderings) = array($this->orderings, null);
 
-		$page = Paginator::page($total = $this->count(), $per_page);
+		$total = $this->count(reset($columns));
+
+		$page = Paginator::page($total, $per_page);
 
 		$this->orderings = $orderings;
 
-		// Now we're ready to get the actual pagination results from the
-		// database table. The "for_page" method provides a convenient
-		// way to set the limit and offset so we get the correct span
-		// of results from the table.
+		// Now we're ready to get the actual pagination results from the table
+		// using the for_page and get methods. The "for_page" method provides
+		// a convenient way to set the limit and offset so we get the correct
+		// span of results from the table.
 		$results = $this->for_page($page, $per_page)->get($columns);
 
 		return Paginator::make($results, $total, $per_page);
@@ -818,14 +839,9 @@ class Query {
 
 		if (in_array($method, array('count', 'min', 'max', 'avg', 'sum')))
 		{
-			if ($method == 'count')
-			{
-				return $this->aggregate(strtoupper($method), '*');
-			}
-			else
-			{
-				return $this->aggregate(strtoupper($method), $parameters[0]);
-			}
+			if (count($parameters) == 0) $parameters[0] = '*';
+
+			return $this->aggregate(strtoupper($method), (array) $parameters[0]);
 		}
 
 		throw new \Exception("Method [$method] is not defined on the Query class.");
