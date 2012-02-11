@@ -92,9 +92,11 @@ ul.actions li+li {
 #content p,
 #content ul,
 #content ol,
-#content table,
 #content h1 {
 	margin-bottom: 1em;
+}
+#content table {
+	margin-bottom: 2em;
 }
 #content h1 {
 	font-size: 2rem;
@@ -198,7 +200,10 @@ ul.form li {
 
 li.err input,
 li.err textarea,
-li.err select {
+li.err select,
+td.err input,
+td.err textarea,
+td.err select {
 	border-color: #900;
 }
 
@@ -217,9 +222,11 @@ legend.required:after {
 }
 
 div.form_errors {
-	display: inline;
 	font-size: 85%;
 	color: #c00;
+}
+div.form_errors.inline {
+	display: inline;
 }
 div.form_help {
 	font-size: 75%;
@@ -238,4 +245,11 @@ table.games th {
 }
 table.games td {
 	padding: 0 1em 0.5em 0;
+}
+td.numeric {
+	text-align: right;
+}
+td.unmatched {
+	color: #300;
+	background: #fbb;
 }

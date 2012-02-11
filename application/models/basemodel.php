@@ -3,6 +3,7 @@
 class BaseModel extends Eloquent {
 
 	public $rules = array();
+	public $messages = array();
 
 	public $errors = array();
 
@@ -47,7 +48,7 @@ class BaseModel extends Eloquent {
 			}
 		}
 
-		$validator = Validator::make($this->attributes, $rules);
+		$validator = Validator::make($this->attributes, $rules, $this->messages);
 
 		if ($validator->valid()) {
 			$this->errors = array();

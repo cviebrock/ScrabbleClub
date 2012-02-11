@@ -13,6 +13,6 @@ ENGINE = MyISAM
 */
 
 
-class Ratings extends Eloquent {
+class Ratings extends BaseModel {
 
 }

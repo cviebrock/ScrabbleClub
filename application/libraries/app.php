@@ -8,17 +8,34 @@ class App {
 	}
 
 
+	public static function format_date($date, $format='d-M-Y') {
+		if ($date) {
+			if (!($date instanceof DateTime)) {
+				try {
+					$date = new DateTime($date);
+				} catch ( Exception $e ) {
+					return null;
+				}
+			}
+			return $date->format($format);
+		} else {
+			return null;
+		}
+	}
+
+
 	public static function has_errors($object, $field)
 	{
 		return array_key_exists($field, $object->errors);
 	}
 
 
-	public static function errors_for($object, $field)
+	public static function errors_for($object, $field, $inline=true)
 	{
 		if (array_key_exists($field, $object->errors)) {
 			return View::make('partials.form_errors')
-					->with('messages', $object->errors[$field] );
+					->with('messages', $object->errors[$field] )
+					->with('inline' , $inline);
 		} else {
 			return '';
 		}
@@ -35,6 +52,16 @@ class App {
 		}
 	}
 
+
+	public static function all_players()
+	{
+		$players = Player::all();
+		$data = array(0=>'');
+		foreach($players as $player) {
+			$data[ $player->id ] = $player->fullname();
+		}
+		return $data;
+	}
 
 	public static function rwords($num=3, $with_score=true) {
 

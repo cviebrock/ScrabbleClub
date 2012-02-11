@@ -51,4 +51,35 @@ class Player extends BaseModel {
 	}
 
 
+	public function complete_games()
+	{
+		return $this->games()->where('matching_game','!=',0);
+	}
+
+
+	public function games_won() {
+		return $this->complete_games()->where('spread','>',0);
+	}
+
+	public function games_tied() {
+		return $this->complete_games()->where('spread','=',0);
+	}
+
+	public function games_lost() {
+		return $this->complete_games()->where('spread','<',0);
+	}
+
+	public function ratio()
+	{
+		if ($this->complete_games()->count()) {
+			return $this->games_won_or_tied() / $this->complete_games()->count();
+		} else {
+			return -1;
+		}
+	}
+
+	public function games_won_or_tied() {
+		return $this->games_won()->count() + ($this->games_tied()->count() * 0.5);
+	}
+
 }

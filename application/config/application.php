@@ -149,7 +149,7 @@ return array(
 		'Str'        => 'Laravel\\Str',
 		'Task'       => 'Laravel\\CLI\\Tasks\\Task',
 		'URI'        => 'Laravel\\URI',
-		'Validator'  => 'Laravel\\Validator',
+#		'Validator'  => 'Laravel\\Validator',
 		'View'       => 'Laravel\\View',
 		'Eloquent'	 => 'Eloquent\\Model',
 	),

@@ -1,19 +1,5 @@
 <?php
 
-/*
-CREATE  TABLE IF NOT EXISTS `wsc`.`games` (
-	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-	`date` DATE NOT NULL DEFAULT '0000-00-00' ,
-	`player_id` INT UNSIGNED NOT NULL ,
-	`opponent_id` INT UNSIGNED NOT NULL ,
-	`player_score` SMALLINT NOT NULL DEFAULT 0 ,
-	`opponent_score` SMALLINT NOT NULL DEFAULT 0 ,
-	`spread` SMALLINT NOT NULL DEFAULT 0 ,
-	`created_at` DATETIME NULL DEFAULT '0000-00-00' ,
-	`updated_at` DATETIME NULL DEFAULT '0000-00-00' ,
-	PRIMARY KEY (`id`)
-) ENGINE = MyISAM
-*/
 
 
 class Game extends BaseModel {
@@ -22,12 +8,15 @@ class Game extends BaseModel {
 
 	public $rules = array(
 		'date'           => 'required|date',
-		'player_id'      => 'required|not_same_as:opponent_id',
-		'opponent_id'    => 'required|not_same_as:player_id',
+		'player_id'      => 'required|exists:players,id|different:opponent_id',
+		'opponent_id'    => 'required|exists:players,id|different:player_id',
 		'player_score'   => 'required|integer',
 		'opponent_score' => 'required|integer',
 	);
 
+	public $messages = array(
+		'different' => 'Player can not play themselves.'
+	);
 
 	public function player()
 	{
@@ -44,6 +33,39 @@ class Game extends BaseModel {
 	public function is_empty()
 	{
 		return ($this->opponent_id==0 && $this->player_score==0 && $this->opponent_score==0);
+	}
+
+	public function save()
+	{
+		$this->spread = $this->player_score - $this->opponent_score;
+		return parent::save();
+	}
+
+
+	public function set_matching_game()
+	{
+
+		$other = DB::table('games')
+			->where('date', '=', $this->date)
+			->where('player_id', '=', $this->opponent_id)
+			->where('opponent_id', '=', $this->player_id)
+			->where('player_score', '=', $this->opponent_score)
+			->where('opponent_score', '=', $this->player_score)
+			->where('matching_game', '=', 0)
+			->first();
+
+		if (!is_null($other)) {
+			$game = Game::find($other->id);
+			$game->matching_game = $this->id;
+			$this->matching_game = $game->id;
+			$game->save();
+			$this->save();
+
+			return true;
+		}
+
+		return false;
+
 	}
 
 
