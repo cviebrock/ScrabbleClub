@@ -14,14 +14,25 @@
 	<tbody>
 <?php
 foreach ($players as $player) {
+
+		$numerator = $player->wins + ($player->ties / 2 );
+
+		if ($player->games_played == 0) {
+			$ratio = null;
+		} else {
+			$ratio = $numerator / $player->games_played;
+		}
+
 		echo '<tr>';
-		echo '<td>' . $player->fullname() . '</td>';
+		echo '<td>' . $player->fullname . '</td>';
 		echo '<td>' . sprintf('%.1f%s%.1f',
-				$player->games_won_or_tied(),
+				$numerator,
 				' &ndash; ',
-				$player->games_lost()->count()
+				$player->losses
 			) . '</td>';
-		echo '<td>' . ($player->ratio() >= 0 ? sprintf('%1.3f', $player->ratio()) : "" ) . '</td>';
+		echo '<td>' .
+			( $ratio ? sprintf('%1.3f', $ratio) : '' ) .
+			'</td>';
 		echo "<tr>\n";
 }
 ?>
