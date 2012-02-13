@@ -1,5 +1,5 @@
 body {
-	font: normal 16px/24px sans-serif;
+	font: normal 16px/1.5em sans-serif;
 }
 
 a {
@@ -31,7 +31,9 @@ a:hover {
 }
 
 
-#nav ul {}
+#nav {
+	margin-bottom: 0;
+}
 #nav li {
 	list-style: none;
 	float: left;
@@ -47,6 +49,7 @@ a:hover {
 
 ul.actions {
 	font-size: 75%;
+	margin-bottom: 0;
 }
 ul.actions li {
 	display: inline;
@@ -89,19 +92,19 @@ ul.actions li+li {
 	padding: 1em;
 }
 
-#content p,
-#content ul,
-#content ol,
-#content h1 {
-	margin-bottom: 1em;
+p,
+ul,
+ol,
+h1 {
+	margin-bottom: 1rem;
 }
-#content table {
-	margin-bottom: 2em;
+table {
+	margin-bottom: 2rem;
 }
-#content h1 {
+h1 {
 	font-size: 2rem;
 }
-#content h2 {
+h2 {
 	font-size: 1.5rem;
 	margin-bottom: 0.5rem;
 }
@@ -249,7 +252,23 @@ table.games td {
 td.numeric {
 	text-align: right;
 }
+td.nowrap {
+	white-space: nowrap;
+}
 td.unmatched {
 	color: #300;
 	background: #fbb;
+}
+tbody.nogames {
+	color: #999;
+}
+thead tr th,
+tfoot tr th {
+	font-size: 85%;
+	line-height: 1.25em;
+}
+thead tr.small th,
+tfoot tr.small th {
+	font-size: 75%;
+	line-height: 1.25em;
 }

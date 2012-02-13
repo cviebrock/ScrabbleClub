@@ -4,36 +4,53 @@
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Games Played</th>
 			<th>Record</th>
-			<th>Ratio</th>
-			<th>Average Score</th>
-			<th>Best Score</th>
-			<th>Average Spread</th>
+			<th>Winning %</th>
+			<th>Avg. Score</th>
+			<th>Avg. Against</th>
+			<th>Avg. Spread</th>
+			<th>High Score</th>
+			<th>High Spread</th>
 		</tr>
 	</thead>
 	<tbody>
 <?php
+
+$sortable = true;
+
 foreach ($players as $player) {
+
+		if ($sortable && $player->games_played==0) {
+			echo "</tbody>\n<tbody class=\"nogames\">\n";
+			$sortable = false;
+		}
+
 
 		$numerator = $player->wins + ($player->ties / 2 );
 
-		if ($player->games_played == 0) {
-			$ratio = null;
-		} else {
-			$ratio = $numerator / $player->games_played;
-		}
-
 		echo '<tr>';
-		echo '<td>' . $player->fullname . '</td>';
-		echo '<td>' . sprintf('%.1f%s%.1f',
+
+		echo '<td class="nowrap">' . $player->fullname . '</td>';
+		echo '<td class="numeric">' . $player->games_played . '</td>';
+		echo '<td class="nowrap">' . sprintf('%.1f%s%.1f',
 				$numerator,
 				' &ndash; ',
 				$player->losses
 			) . '</td>';
-		echo '<td>' .
-			( $ratio ? sprintf('%1.3f', $ratio) : '' ) .
-			'</td>';
-		echo "<tr>\n";
+		echo '<td class="numeric">';
+		if ($player->games_played) {
+			printf('%.1f', $numerator * 100 / $player->games_played );
+		}
+		echo '</td>';
+
+		echo '<td class="numeric">' . $player->average_score . '</td>';
+		echo '<td class="numeric">' . $player->average_opponent_score . '</td>';
+		echo '<td class="numeric">' . $player->average_spread . '</td>';
+		echo '<td class="numeric">' . $player->best_score . '</td>';
+		echo '<td class="numeric">' . $player->best_spread . '</td>';
+
+		echo "</tr>\n";
 }
 ?>
 	</tbody>
@@ -64,11 +81,15 @@ $(document).ready( function() {
 		type: 'numeric'
 	});
 
+
 	$('table.tablesorter').tablesorter({
 		headers: {
-			1: { sorter: 'sc_record' }
+			2: { sorter: 'sc_record' }
 		},
-		sortList: [[1,1]]
+		sortList: [[2,1]],
+		widgets: ['zebra']
 	});
+
+
 });
 </script>

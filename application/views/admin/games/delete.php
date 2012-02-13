@@ -36,7 +36,7 @@ echo "<ul class=\"form\">\n";
 
 echo '<li' . ( App::has_errors($game,'confirm') ? ' class="err"' : '' ) . '>' .
 	Form::checkbox('confirm', 'yes') .
-	Form::label('confirm', 'Confirm', array('class'=>'required inline')) .
+	Form::label('confirm', 'Confirm to delete game', array('class'=>'required inline')) .
 	App::errors_for($game,'confirm') .
 	"</li>\n";
 

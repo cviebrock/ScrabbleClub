@@ -60,7 +60,7 @@ echo '<li' . ( App::has_errors($game,'opponent_score') ? ' class="err"' : '' ) .
 
 
 echo "<li>" .
-	Form::submit('Edit Game') .
+	Form::submit('Save Changes') .
 	HTML::link_to_route('admin_games_list', 'Back to Games List', array($game->date), array('class'=>'btn')) .
 	"</li>\n";
 

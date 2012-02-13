@@ -3,8 +3,7 @@ table.tablesorter {
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	background-color: #ddd;
 	border: 1px solid #ccc;
-	padding: 0.25rem 50px 0.25rem 0.5rem;
-	font-size: 85%;
+	padding: 0.25rem 25px 0.25rem 0.5rem;
 }
 table.tablesorter thead tr .header {
 	background-image: url(/img/sortable.png);
@@ -25,7 +24,7 @@ table.tablesorter tbody tr:hover td {
 	background-color: #def;
 }
 table.tablesorter tbody tr.odd td {
-	background-color:#eef;
+	background-color:#f0f2f4;
 }
 table.tablesorter thead tr .headerSortUp {
 	background-image: url(/img/asc.png);

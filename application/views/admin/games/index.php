@@ -19,9 +19,9 @@ foreach ($games as $game) {
 		echo '<td class="numeric">' . $game->players . '</td>';
 		echo '<td class="numeric">' . $game->complete_games . '</td>';
 		echo '<td class="numeric ' . $class . '">' . $game->unmatched_games . '</td>';
-		echo '<td class="actions">' .
-			HTML::link_to_route('admin_games_list', 'view', array($game->date) ) .
-		 '</td>';
+		echo '<td><ul class="actions">' .
+			'<li>' . HTML::link_to_route('admin_games_list', 'view', array($game->date) ) . '</li>' .
+			'</td>';
 		echo "<tr>\n";
 }
 ?>

@@ -107,7 +107,13 @@ for($i=0; $i<$c; $i++) {
 echo '<li' . ( App::has_errors($gameform,'bingo_list') ? ' class="err"' : '' ) . '>' .
 	Form::label('bingo_list', 'Bingos') .
 	App::help_for($gameform,'bingo_list') .
-	Form::textarea('bingo_list', $gameform->bingo_list, array('placeholder'=>App::rwords(),'tabindex'=>$tabindex++) ) .
+	Form::textarea('bingo_list', $gameform->bingo_list, array(
+		'placeholder'    =>App::rwords(),
+		'tabindex'       =>$tabindex++,
+		'autocorrect'    =>'off',
+		'autocomplete'   =>'off',
+		'autocapitalize' =>'off',
+	)) .
 	App::errors_for($gameform,'bingo_list',false) .
 	"</li>\n";
 

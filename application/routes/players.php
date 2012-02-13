@@ -10,9 +10,15 @@ Route::get('players', array( 'name'=>'players', function()
 		COUNT(g.id) AS games_played,
 		SUM(IF(g.spread>0,1,0)) AS wins,
 		SUM(IF(g.spread=0,1,0)) AS ties,
-		SUM(IF(g.spread<0,1,0)) AS losses
+		SUM(IF(g.spread<0,1,0)) AS losses,
+		ROUND(AVG(g.player_score)) AS average_score,
+		ROUND(AVG(g.opponent_score)) AS average_opponent_score,
+		ROUND(AVG(g.spread)) AS average_spread,
+		MAX(g.player_score) AS best_score,
+		MAX(g.spread) AS best_spread
 		FROM players p LEFT JOIN games g ON (p.id=g.player_id)
 		GROUP BY p.id
+		ORDER BY games_played DESC
 	');
 
 

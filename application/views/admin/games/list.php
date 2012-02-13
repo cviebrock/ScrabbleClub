@@ -56,6 +56,7 @@ foreach ($unmatched_games as $game) {
 		echo '<td class="numeric">' . $game->spread . '</td>';
 		echo '<td><ul class="actions">' .
 			'<li>' . HTML::link_to_route('admin_game_edit', 'edit', array($game->id) ) . '</li>' .
+			'<li>' . HTML::link_to_route('admin_game_create_match', 'match', array($game->id) ) . '</li>' .
 			'<li>' . HTML::link_to_route('admin_game_delete', 'delete', array($game->id) ) . '</li>' .
 		 '</ul></td>';
 		echo "<tr>\n";

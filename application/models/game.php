@@ -69,4 +69,16 @@ class Game extends BaseModel {
 	}
 
 
+	public function swap_players()
+	{
+		$temp = $this->player_id;
+		$this->player_id = $this->opponent_id;
+		$this->opponent_id = $temp;
+
+		$temp = $this->player_score;
+		$this->player_score = $this->opponent_score;
+		$this->opponent_score = $temp;
+	}
+
+
 }

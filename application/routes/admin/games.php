@@ -267,3 +267,49 @@ Route::post('admin/games/delete/(:num)', array( 'before' => 'csrf', function($id
 		->with('success', 'Game deleted.');
 
 }));
+
+
+
+Route::get('admin/games/create_match/(:num)', array( 'name'=>'admin_game_create_match', function($id)
+{
+
+	$game = Game::find($id);
+	if ($game->matching_game) {
+		return Redirect::to_route('admin_games')
+			->with('error','That game is already matched.');
+	}
+
+	$view = View::make('default')
+		->with('title', 'Match Game')
+		->nest('content', 'admin.games.match', array(
+			'game' => $game
+		));
+
+	Asset::add('tablesorter', 'css/tablesorter.css');
+
+	return $view;
+
+}));
+
+
+Route::post('admin/games/create_match/(:num)', array( 'before' => 'csrf', function($id)
+{
+
+	$game = Game::find($id);
+
+	if ( Input::get('confirm') !== 'yes' ) {
+		return Redirect::to_route('admin_game_create_match', array($id))
+			->with('notice', 'Game not created &mdash; confirmation not checked.');
+	}
+
+
+	$game->swap_players();
+	$game->exists = false;
+	$game->id = null;
+	$game->save();
+	$game->set_matching_game();
+
+	return Redirect::to_route('admin_games_list', array($game->date))
+		->with('success', 'Matched game created.');
+
+}));

@@ -81,7 +81,6 @@ class Gameform {
 
 		if (!empty($this->bingo_list)) {
 			$temp = preg_split('/[,\n]+/', $this->bingo_list, null, PREG_SPLIT_NO_EMPTY);
-			print_r($temp);
 			foreach($temp as $b) {
 				list($word,$score) = preg_split('/[\s\-]+/', trim($b), 2, PREG_SPLIT_NO_EMPTY);
 				if ($score) {
