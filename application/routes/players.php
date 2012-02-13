@@ -1,6 +1,6 @@
 <?php
 
-Router::register('GET /players', array( 'name'=>'players', function()
+Route::get('/players', array( 'name'=>'players', function()
 {
 
 

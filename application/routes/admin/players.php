@@ -1,6 +1,6 @@
 <?php
 
-Router::register('GET /admin/players', array( 'name'=>'admin_players', function()
+Route::get('/admin/players', array( 'name'=>'admin_players', function()
 {
 
 	$view = View::make('default')
@@ -19,7 +19,7 @@ Router::register('GET /admin/players', array( 'name'=>'admin_players', function(
 }));
 
 
-Router::register('GET /admin/players/new', array( 'name'=>'admin_player_new', function()
+Route::get('/admin/players/new', array( 'name'=>'admin_player_new', function()
 {
 
 	$player = new Player;
@@ -34,7 +34,7 @@ Router::register('GET /admin/players/new', array( 'name'=>'admin_player_new', fu
 }));
 
 
-Router::register('POST /admin/players/new', array( 'before' => 'csrf', function()
+Route::post('/admin/players/new', array( 'before' => 'csrf', function()
 {
 
 	$player = new Player;
@@ -64,7 +64,7 @@ Router::register('POST /admin/players/new', array( 'before' => 'csrf', function(
 }));
 
 
-Router::register('GET /admin/players/(:num)', array( 'name'=>'admin_player_view', function($id)
+Route::get('/admin/players/(:num)', array( 'name'=>'admin_player_view', function($id)
 {
 
 	$player = Player::find($id);
@@ -77,7 +77,7 @@ Router::register('GET /admin/players/(:num)', array( 'name'=>'admin_player_view'
 }));
 
 
-Router::register('GET /admin/players/(:num)/edit', array( 'name'=>'admin_player_edit', function($id)
+Route::get('/admin/players/edit/(:num)', array( 'name'=>'admin_player_edit', function($id)
 {
 
 	$player = Player::find($id);
@@ -92,7 +92,7 @@ Router::register('GET /admin/players/(:num)/edit', array( 'name'=>'admin_player_
 }));
 
 
-Router::register('POST /admin/players/(:num)/edit', array( 'before' => 'csrf', function($id)
+Route::post('/admin/players/edit/(:num)', array( 'before' => 'csrf', function($id)
 {
 
 	$player = Player::find($id);
@@ -122,7 +122,7 @@ Router::register('POST /admin/players/(:num)/edit', array( 'before' => 'csrf', f
 }));
 
 
-Router::register('GET /admin/players/(:num)/delete', array( 'name'=>'admin_player_delete', function($id)
+Route::get('/admin/players/delete/(:num)', array( 'name'=>'admin_player_delete', function($id)
 {
 
 	$player = Player::find($id);
@@ -135,7 +135,7 @@ Router::register('GET /admin/players/(:num)/delete', array( 'name'=>'admin_playe
 }));
 
 
-Router::register('POST /admin/players/(:num)/delete', array( 'before' => 'csrf', function($id)
+Route::post('/admin/players/delete/(:num)', array( 'before' => 'csrf', function($id)
 {
 
 	$player = Player::find($id);
