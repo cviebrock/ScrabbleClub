@@ -41,7 +41,9 @@ Router::register('GET /admin/games/(\d{4}-\d{2}-\d{2})', array( 'name'=>'admin_g
 		FROM games
 		WHERE date = ?
 		ORDER BY SIGN(matching_game) DESC, pairing DESC, spread DESC
-	', array($date));
+	',
+		array($date)
+	);
 
 	$matched_games = $unmatched_games = $seen = array();
 
