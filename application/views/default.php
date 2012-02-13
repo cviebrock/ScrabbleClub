@@ -20,6 +20,5 @@
 		</div>
 	</div>
 	<?php echo Asset::scripts(); ?>
-	<?php // bl_debug(); ?>
 </body>
 </html>

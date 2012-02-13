@@ -40,6 +40,7 @@ return array(
 	),
 	'bug-lost' => array(
 		'location' => 'bug-lost',
-		'auto'     => true
+		'auto'     => getenv('LARAVEL_DEBUG')
 	)
 );
+
