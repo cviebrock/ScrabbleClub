@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/admin/games', array( 'name'=>'admin_games', function()
+Route::get('admin/games', array( 'name'=>'admin_games', function()
 {
 
 	$games = DB::query('SELECT
@@ -29,7 +29,7 @@ Route::get('/admin/games', array( 'name'=>'admin_games', function()
 }));
 
 
-Route::get('/admin/games/(\d{4}-\d{2}-\d{2})', array( 'name'=>'admin_games_list', function($date)
+Route::get('admin/games/(\d{4}-\d{2}-\d{2})', array( 'name'=>'admin_games_list', function($date)
 {
 
 	$temp = DB::query('SELECT
@@ -79,7 +79,7 @@ Route::get('/admin/games/(\d{4}-\d{2}-\d{2})', array( 'name'=>'admin_games_list'
 }));
 
 
-Route::get('/admin/games/new', array( 'name'=>'admin_games_new', function()
+Route::get('admin/games/new', array( 'name'=>'admin_games_new', function()
 {
 
 	$gameform = new Gameform;
@@ -110,7 +110,7 @@ Route::get('/admin/games/new', array( 'name'=>'admin_games_new', function()
 }));
 
 
-Route::post('/admin/games/new', array( 'before' => 'csrf', function()
+Route::post('admin/games/new', array( 'before' => 'csrf', function()
 {
 
 	$gameform = new Gameform;
@@ -157,7 +157,7 @@ Route::post('/admin/games/new', array( 'before' => 'csrf', function()
 }));
 
 
-Route::get('/admin/games/edit/(:num)', array( 'name'=>'admin_game_edit', function($id)
+Route::get('admin/games/edit/(:num)', array( 'name'=>'admin_game_edit', function($id)
 {
 
 	$game = Game::find($id);
@@ -180,7 +180,7 @@ Route::get('/admin/games/edit/(:num)', array( 'name'=>'admin_game_edit', functio
 }));
 
 
-Route::post('/admin/games/edit/(:num)', array( 'before' => 'csrf', function($id)
+Route::post('admin/games/edit/(:num)', array( 'before' => 'csrf', function($id)
 {
 
 	$game = Game::find($id);
@@ -231,7 +231,7 @@ Route::post('/admin/games/edit/(:num)', array( 'before' => 'csrf', function($id)
 }));
 
 
-Route::get('/admin/games/delete/(:num)', array( 'name'=>'admin_game_delete', function($id)
+Route::get('admin/games/delete/(:num)', array( 'name'=>'admin_game_delete', function($id)
 {
 
 	$game = Game::find($id);
@@ -250,7 +250,7 @@ Route::get('/admin/games/delete/(:num)', array( 'name'=>'admin_game_delete', fun
 }));
 
 
-Route::post('/admin/games/delete/(:num)', array( 'before' => 'csrf', function($id)
+Route::post('admin/games/delete/(:num)', array( 'before' => 'csrf', function($id)
 {
 
 	$game = Game::find($id);
