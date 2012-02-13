@@ -1,0 +1,37 @@
+table.sortable {
+
+	thead {
+		th {
+			background-color: @tableSortableHeader;
+			padding-right: 20px;
+		}
+		.header {
+			background-image: url(/img/sortable2.png);
+			background-repeat: no-repeat;
+			background-position: center right;
+			cursor: pointer;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		.headerSortUp {
+			background-image: url(/img/asc2.png);
+			background-color: @tableSortableActiveColumn;
+		}
+		.headerSortDown {
+			background-image: url(/img/desc2.png);
+			background-color: @tableSortableActiveColumn;
+		}
+
+	}
+
+	tbody tr:hover td {
+		background-color: @tableSortableHoverRow;
+	}
+
+	tbody.nosort {
+		color: @grayLight;
+	}
+
+}
