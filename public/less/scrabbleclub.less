@@ -1,0 +1,120 @@
+// sticky footer
+html, body {
+	height: 100%;
+}
+.container {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin-bottom: -160px;
+}
+footer, .push {
+	height: 160px;
+}
+footer {
+	margin: 60px 0 0 0;
+  color: @grayLight;
+  font-size: 12px;
+  text-align: right;
+}
+footer .navbar-inner {
+	height: 110px;
+	.border-radius(0);
+	padding: 10px 0;
+}
+
+
+// space for top nav to float
+body {
+	padding: 60px 0;
+}
+
+// remove Bootstrap default underline
+.page-header {
+	border: 0;
+}
+
+
+// set up style for action buttons in tables
+ul.sc_actions {
+  margin: 0;
+  list-style: none;
+	li {
+		display: inline;
+		margin-right: 5px;
+	}
+}
+.btn-small {
+	padding: 3px 7px;
+}
+
+
+// default width of 100% causes tables to not respect .spanX widths on columns
+.table {
+	width: auto;
+}
+
+
+// other table setttings
+.table tbody td {
+	vertical-align: baseline;
+}
+td.numeric {
+	text-align: right;
+}
+td.horizontal-header {
+	text-align: right;
+	font-weight: bold;
+}
+table.games td.error {
+  .formFieldState(@errorText, @errorText, @errorBackground);
+  color: @errorText;
+  font-size: 85%;
+}
+
+td.winning_game {
+	background: lighten(@green,40%) !important;
+}
+td.losing_game {
+	background: lighten(@red,50%) !important;
+}
+td.tie_game {
+	background: lighten(@yellow,30%) !important;
+}
+
+// give some breathing room to icons on buttons
+i[class^="icon-"] {
+	margin-right: 5px;
+}
+
+
+// no spinners on number inputs
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+
+// mark required fields
+input.required,
+select.required,
+textarea.required {
+	background-image: url(/img/required.png);
+	background-repeat: no-repeat;
+	background-position: 100% 0;
+}
+
+
+// override Bootstrap default
+textarea {
+	height: 5em;
+}
+
+// a bit of spacing between a table header and the table
+h3+table {
+	margin-top: 10px;
+}
+table+h3 {
+	margin-top: 40px;
+}

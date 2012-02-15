@@ -1,14 +1,25 @@
+
+// TABLES
+// --------------------------------------------------
+
+@tableSortableHeader:         @grayLighter;
+@tableSortableActiveColumn:   darken(@tableSortableHeader, 15%);
+@tableSortableHoverRow:       @infoBackground;
+
+
+
 table.sortable {
 
 	thead {
 		th {
 			background-color: @tableSortableHeader;
 			padding-right: 20px;
+			margin-right: -20px;
 		}
 		.header {
-			background-image: url(/img/sortable2.png);
+			background-image: url(/img/sortable.png);
 			background-repeat: no-repeat;
-			background-position: center right;
+			background-position: 100% 6px;
 			cursor: pointer;
 			&:hover {
 				text-decoration: underline;
@@ -16,11 +27,11 @@ table.sortable {
 		}
 
 		.headerSortUp {
-			background-image: url(/img/asc2.png);
+			background-image: url(/img/sorted-asc.png);
 			background-color: @tableSortableActiveColumn;
 		}
 		.headerSortDown {
-			background-image: url(/img/desc2.png);
+			background-image: url(/img/sorted-desc.png);
 			background-color: @tableSortableActiveColumn;
 		}
 

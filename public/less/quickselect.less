@@ -1,0 +1,44 @@
+.quickselect_results {
+	.border-radius(5px);
+	.box-shadow;
+	background: @white;
+	border: 1px solid @grayLight;
+	overflow: hidden;
+	margin-top: 7px;
+
+	ul {
+		width: 100%;
+		list-style-position: outside;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	li {
+		margin: 0;
+		padding: 5px;
+		cursor: pointer;
+		display: block;
+		overflow: hidden;
+	}
+
+	li+li {
+		border-top: 1px solid @grayLighter;
+	}
+
+	li:first-child {
+		.border-radius(5px 5px 0 0);
+	}
+	li:last-child {
+		.border-radius(0 0 5px 5px);
+	}
+
+}
+
+.quickselect_loading {
+	background: transparent url('/img/loader.gif') right center no-repeat;
+}
+
+.quickselect_selected {
+	background-color: @infoBackground;
+}

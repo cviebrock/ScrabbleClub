@@ -1,0 +1,142 @@
+/* For the details, see: http://flowplayer.org/tools/dateinput/index.html#skinning */
+
+// calendar root element
+#calroot {
+	// place on top of other elements. set a higher value if nessessary
+	z-index: @zindexModal;
+	margin-top: 1px;
+	width: 198px;
+	padding: 2px;
+	background-color: @white;
+	font-size: 13px;
+	border: 1px solid @grayLight;
+	.border-radius();
+	.box-shadow();
+}
+
+// head. contains title, prev/next month controls and possible month/year selectors
+#calhead {
+	padding: 2px 0;
+	height: 22px;
+}
+
+#caltitle {
+	font-size: 16px;
+	color: @grayDark;
+	float: left;
+	text-align: center;
+	width: 155px;
+	line-height: 20px;
+
+	select {
+		font-size: 10px;
+	}
+
+}
+
+#calnext, #calprev {
+  display: block;
+  margin-top: 3px;
+  width: 14px;
+  height: 14px;
+  vertical-align: text-top;
+  background-image: url(../img/glyphicons-halflings.png);
+  background-position: -432px -72px;
+  background-repeat: no-repeat;
+  .ie7-restore-right-whitespace();
+  float: left;
+  cursor: pointer;
+}
+
+#calnext {
+	background-position: -456px -72px;
+	float: right;
+}
+
+#calprev.caldisabled,
+#calnext.caldisabled {
+	visibility: hidden;
+}
+
+
+// names of the days
+#caldays {
+	height: 18px;
+	font-size: 10px;
+	text-transform: uppercase;
+	border-bottom: 1px solid @grayLighter;
+
+	span {
+		display: block;
+		float: left;
+		width: 28px;
+		text-align: center;
+	}
+
+}
+
+// container for weeks
+#calweeks {
+	background-color: @white;
+	margin-top: 4px;
+}
+
+// single week
+.calweek {
+	clear: left;
+	height: 22px;
+}
+
+// single day
+.calweek a {
+	display: block;
+	float: left;
+	width: 23px;
+	height: 20px;
+	text-decoration: none;
+	margin-left: 1px;
+	text-align: right;
+	padding-right: 4px;
+	line-height: 20px;
+	color: @gray;
+	.border-radius(3px);
+}
+
+// different states
+.calweek a:hover,
+.calfocus {
+	background-color: @infoBackground;
+}
+
+// sunday
+a.calsun {
+	color: @blue;
+}
+
+// offmonth day
+a.caloff {
+	color: @grayLighter;
+}
+
+a.caloff:hover {
+	background-color: @infoBackground;
+}
+
+
+// unselecteble day
+a.caldisabled {
+	background-color: @grayLighter !important;
+	color: @grayLight	!important;
+	cursor: default;
+}
+
+// current day
+#calcurrent {
+	background-color: @blue;
+	color: @white;
+}
+
+// today
+#caltoday {
+	background-color: lighten(@yellow, 30%);
+}
