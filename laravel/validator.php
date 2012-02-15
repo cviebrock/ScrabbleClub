@@ -122,6 +122,26 @@ class Validator {
 	 *
 	 * @return bool
 	 */
+	public function passes()
+	{
+		return $this->valid();
+	}
+
+	/**
+	 * Validate the target array using the specified validation rules.
+	 *
+	 * @return bool
+	 */
+	public function fails()
+	{
+		return $this->invalid();
+	}
+
+	/**
+	 * Validate the target array using the specified validation rules.
+	 *
+	 * @return bool
+	 */
 	public function invalid()
 	{
 		return ! $this->valid();
@@ -439,7 +459,10 @@ class Validator {
 		// We allow the table column to be specified just in case the column does
 		// not have the same name as the attribute. It must be within the second
 		// parameter position, right after the database table name.
-		if (isset($parameters[1])) $attribute = $parameters[1];
+		if (isset($parameters[1]))
+		{
+			$attribute = $parameters[1];
+		}
 
 		$query = $this->db()->table($parameters[0])->where($attribute, '=', $value);
 
