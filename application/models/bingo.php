@@ -23,4 +23,9 @@ class Bingo extends BaseModel {
 		'score'     => 'integer|min:55',
 	);
 
+	public function save() {
+		$this->word = strtolower($this->word);
+		return parent::save();
+	}
+
 }

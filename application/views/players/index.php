@@ -1,17 +1,19 @@
-<h1>Players</h1>
+<div class="page-header">
+	<h1>Players</h1>
+</div>
 
-<table class="tablesorter">
+<table class="table table-striped table-bordered sortable">
 	<thead>
 		<tr>
-			<th>Name</th>
-			<th>Games Played</th>
-			<th>Record</th>
-			<th>Winning %</th>
-			<th>Avg. Score</th>
-			<th>Avg. Against</th>
-			<th>Avg. Spread</th>
-			<th>High Score</th>
-			<th>High Spread</th>
+			<th class="span3">Name</th>
+			<th class="span1">Games Played</th>
+			<th class="span2">Record</th>
+			<th class="span1">Winning %</th>
+			<th class="span1">Avg. Score</th>
+			<th class="span1">Avg. Against</th>
+			<th class="span1">Avg. Spread</th>
+			<th class="span1">High Score</th>
+			<th class="span1">High Spread</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,7 +24,7 @@ $sortable = true;
 foreach ($players as $player) {
 
 		if ($sortable && $player->games_played==0) {
-			echo "</tbody>\n<tbody class=\"nogames\">\n";
+			echo "</tbody>\n<tbody class=\"nosort\">\n";
 			$sortable = false;
 		}
 
@@ -31,7 +33,9 @@ foreach ($players as $player) {
 
 		echo '<tr>';
 
-		echo '<td class="nowrap">' . $player->fullname . '</td>';
+		echo '<td class="nowrap">' .
+			App::link_to_route('player_details', $player->fullname, array($player->id) ) .
+			'</td>';
 		echo '<td class="numeric">' . $player->games_played . '</td>';
 		echo '<td class="nowrap">' . sprintf('%.1f%s%.1f',
 				$numerator,
@@ -82,12 +86,11 @@ $(document).ready( function() {
 	});
 
 
-	$('table.tablesorter').tablesorter({
+	$('table.sortable').tablesorter({
 		headers: {
 			2: { sorter: 'sc_record' }
 		},
-		sortList: [[2,1]],
-		widgets: ['zebra']
+		sortList: [[2,1], [1,1]]
 	});
 
 

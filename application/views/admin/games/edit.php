@@ -1,7 +1,51 @@
-<h1>Edit Game</h1>
+<div class="page-header">
+	<h1>Edit Game</h1>
+</div>
 
-<script type="text/javascript">
+<?php
 
+echo Form::open(null,'post', array('class'=>Form::TYPE_HORIZONTAL));
+echo Form::token();
+
+
+echo Form::field('date', 'date', 'Date',
+	array($game->date, array('class'=>'span2 required')),
+	array('error' => $game->error('date'))
+);
+
+echo Form::field('select', 'player_id', 'Player',
+	array($all_players, $game->player_id, array('class'=>'span4 required qselect')),
+	array('error' => $game->error('player_id'))
+);
+
+echo Form::field('number', 'player_score', 'Player Score',
+	array($game->player_score, array('class'=>'span2 required')),
+	array('error' => $game->error('player_score'))
+);
+
+echo Form::field('select', 'opponent_id', 'Opponent',
+	array($all_players, $game->opponent_id, array('class'=>'span4 required qselect')),
+	array('error' => $game->error('opponent_id'))
+);
+
+echo Form::field('number', 'opponent_score', 'Opponent Score',
+	array($game->opponent_score, array('class'=>'span2 required')),
+	array('error' => $game->error('opponent_score'))
+);
+
+
+
+echo Form::actions(array(
+	Form::submit('Save Changes', array('class' => 'btn-primary')),
+	App::action_link_to_route('admin_games_list', 'Back to Games List', array($game->date), 'arrow-left')
+));
+
+echo Form::close();
+
+?>
+
+
+<script>
 $(document).ready( function() {
 
 	$('.qselect').quickselect({
@@ -10,64 +54,12 @@ $(document).ready( function() {
 		autoSelectFirst: true
 	});
 
+
 	$("#date").dateinput({
 		format: 'dd-mmm-yyyy',
 		value: '<?php echo $game->date; ?>'
 	});
 
+
 });
 </script>
-
-
-<?php
-
-
-echo Form::open();
-echo Form::token();
-
-echo "<ul class=\"form\">\n";
-
-echo '<li' . ( App::has_errors($game,'date') ? ' class="err"' : '' ) . '>' .
-	Form::label('date', 'Date', array('class'=>'required')) .
-	Form::date('date', '' ) .
-	App::errors_for($game,'date') .
-	"</li>\n";
-
-
-echo '<li' . ( App::has_errors($game,'player_id') ? ' class="err"' : '' ) . '>' .
-	Form::label('player_id', 'Player', array('class'=>'required')) .
-	Form::select('player_id', $all_players, $game->player_id, array('class'=>'qselect')) .
-	App::errors_for($game,'player_id') .
-	"</li>\n";
-
-echo '<li' . ( App::has_errors($game,'player_score') ? ' class="err"' : '' ) . '>' .
-	Form::label('player_score', 'Player Score', array('class'=>'required')) .
-	Form::number('player_score', $game->player_score) .
-	App::errors_for($game,'player_score',false) .
-	"</li>\n";
-
-echo '<li' . ( App::has_errors($game,'opponent_id') ? ' class="err"' : '' ) . '>' .
-	Form::label('opponent_id', 'Opponent', array('class'=>'required')) .
-	Form::select('opponent_id', $all_players, $game->opponent_id, array('class'=>'qselect')) .
-	App::errors_for($game,'opponent_id') .
-	"</li>\n";
-
-echo '<li' . ( App::has_errors($game,'opponent_score') ? ' class="err"' : '' ) . '>' .
-	Form::label('opponent_score', 'Opponent Score', array('class'=>'required')) .
-	Form::number('opponent_score', $game->opponent_score) .
-	App::errors_for($game,'opponent_score',false) .
-	"</li>\n";
-
-
-echo "<li>" .
-	Form::submit('Save Changes') .
-	HTML::link_to_route('admin_games_list', 'Back to Games List', array($game->date), array('class'=>'btn')) .
-	"</li>\n";
-
-echo "</ul>\n";
-
-
-echo Form::close();
-
-
-?>

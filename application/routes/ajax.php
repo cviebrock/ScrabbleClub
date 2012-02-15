@@ -7,7 +7,7 @@ Route::get('ajax/players', array( 'name'=>'ajax_players', 'before' => 'ajax', fu
 	$data = array();
 
 	foreach($players as $player) {
-		$data[] = array( $player->fullname(), $player->id );
+		$data[ $player->id ] = $player->fullname();
 	}
 
 	header('application/json');

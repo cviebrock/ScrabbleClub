@@ -2,11 +2,6 @@
 
 class App {
 
-	public static function gravatar_for($email, $size = 40)
-	{
-		return '<img class="gravatar" src="http://www.gravatar.com/avatar/'.md5(strtolower(trim($email))).'?s='.$size.'" />';
-	}
-
 
 	public static function format_date($date, $format='d-M-Y') {
 		if ($date) {
@@ -133,6 +128,48 @@ class App {
 
 		return $return;
 
+	}
+
+	public static function action_link_to_route($name, $title, $parameters=array(), $icon=null, $attributes = array() ) {
+
+		$small = false;
+
+		if ($icon) {
+			$icons = explode('|',$icon);
+			$tag = '<i class="';
+			foreach($icons as $i) {
+				if ($i=='small') {
+					$small = true;
+				} else {
+					$tag .= 'icon-'.$i.' ';
+				}
+			}
+			$tag .= '"></i>';
+			$title = $tag.$title;
+		}
+
+		if (!array_key_exists('class', $attributes)) {
+			$attributes['class'] = 'btn';
+			if ($small) {
+				$attributes['class'] .= ' btn-small';
+			}
+		}
+
+		return static::link_to_route($name, $title, $parameters, $attributes );
+
+	}
+
+
+	public static function link_to_route($name, $title, $parameters = array(), $attributes = array(), $https = false)
+	{
+		return static::link(URL::to_route($name, $parameters, $https), $title, $attributes);
+	}
+
+
+	public static function link($url, $title, $attributes = array(), $https = false)
+	{
+		$url = HTML::entities(URL::to($url, $https));
+		return '<a href="'.$url.'"'.HTML::attributes($attributes).'>'.$title.'</a>';
 	}
 
 

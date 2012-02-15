@@ -9,23 +9,29 @@ class BaseModel extends Eloquent {
 
 	public $help = array();
 
-/*
-	public function errors($field=null)
+
+	public function error($field, $wrap=null)
 	{
-		if ($field) {
-			return $this->errors[$field];
+		if (array_key_exists($field, $this->errors)) {
+			$e = current($this->errors[$field]);
+			if ($wrap) {
+				return "<$wrap>" . $e . "</$wrap>";
+			}
+			return $e;
 		}
-		return $this->errors;
+		return '';
 	}
 
-	public function all_errors()
+	public function has_errors()
 	{
-		if ($this->errors==null) {
-			return array();
+		foreach($this->errors as $error) {
+			if (is_array($error)) {
+				return true;
+			}
 		}
-		return $this->errors->all();
+		return false;
 	}
-*/
+
 
 	public function is_valid()
 	{

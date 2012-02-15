@@ -13,6 +13,7 @@ class Gameform {
 
 
 	public $errors = array();
+
 	public $help = array(
 		'bingos'	=> 'Type the word and (optionally) score separated by a space; one entry per line or comma-separated.'
 	);
@@ -21,6 +22,26 @@ class Gameform {
 	public function __construct() {
 		$this->reset();
 	}
+
+	public function error($field)
+	{
+		if (array_key_exists($field, $this->errors)) {
+			return $this->errors[$field];
+		}
+		return '';
+	}
+
+
+	public function has_errors()
+	{
+		foreach($this->errors as $error) {
+			if (is_array($error) || !empty($error)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public function player()
 	{
@@ -128,6 +149,7 @@ class Gameform {
 		}
 
 		foreach($this->bingos as $bingo) {
+			unset($bingo->rules['player_id']);	/* don't validate this */
 			if (!$bingo->is_valid()) {
 				$valid = false;
 				if (!array_key_exists('bingo_list', $this->errors)) {
@@ -142,11 +164,30 @@ class Gameform {
 			}
 		}
 
-		$player = Player::find($this->player_id);
-		if (!$player->exists) {
-			$this->erorrs['player_id'] = 'Player does not exist.';
+
+		if (empty($this->player_id)) {
+			$this->errors['player_id'] = 'Required';
 			$valid = false;
+		} else {
+			$player = Player::find($this->player_id);
+			if (!$player->exists) {
+				$this->errors['player_id'] = 'Player does not exist.';
+				$valid = false;
+			}
 		}
+
+		if (empty($this->date)) {
+			$this->errors['date'] = 'Required';
+			$valid = false;
+		} else {
+			$v = new Validator(null,array());
+			if (!$v->validate_date(null,$this->date,null)) {
+				$this->errors['date'] = 'Invalid date.';
+				$valid = false;
+			}
+		}
+
+
 
 		return $valid;
 

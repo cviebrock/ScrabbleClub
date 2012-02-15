@@ -10,9 +10,8 @@ Route::get('admin/players', array( 'name'=>'admin_players', function()
 		));
 
 	Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
-	Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
-	Asset::add('tablesorter', 'css/tablesorter.css');
-	Asset::add('tablesorter-pager', 'css/tablesorter-pager.css');
+//	Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
+//	Asset::add('tablesorter-pager', 'css/tablesorter-pager.css');
 
 	return $view;
 
@@ -27,9 +26,9 @@ Route::get('admin/players/new', array( 'name'=>'admin_player_new', function()
 	return View::make('default')
 		->with('title', 'New Player')
 		->nest('content', 'admin.players.form', array(
-			'player'				=> $player,
-			'title'				=> 'New Player',
-			'submit_text'	=> 'Add Player',
+			'player'      => $player,
+			'title'       => 'New Player',
+			'submit_text' => 'Add Player',
 		));
 }));
 
@@ -51,7 +50,7 @@ Route::post('admin/players/new', array( 'before' => 'csrf', function()
 		return View::make('default')
 			->with('title', 'New Player')
 			->nest('content', 'admin.players.form', array(
-				'player'        => $player,
+				'player'      => $player,
 				'title'       => 'New Player',
 				'submit_text' => 'Add Player',
 			));
@@ -140,9 +139,9 @@ Route::post('admin/players/delete/(:num)', array( 'before' => 'csrf', function($
 
 	$player = Player::find($id);
 
-	if ( Input::get('confirm') !== 'yes' ) {
+	if ( !Input::get('confirm') ) {
 		return Redirect::to_route('admin_player_delete', array($id))
-			->with('notice', 'Player not deleted &mdash; confirmation not checked.');
+			->with('warning', 'Player not deleted &mdash; confirmation not checked.');
 	}
 
 	$player->delete();

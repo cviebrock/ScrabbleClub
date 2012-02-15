@@ -20,9 +20,8 @@ Route::get('admin/games', array( 'name'=>'admin_games', function()
 		));
 
 	Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
-	Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
-	Asset::add('tablesorter', 'css/tablesorter.css');
-	Asset::add('tablesorter-pager', 'css/tablesorter-pager.css');
+//	Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
+//	Asset::add('tablesorter-pager', 'css/tablesorter-pager.css');
 
 	return $view;
 
@@ -65,26 +64,28 @@ Route::get('admin/games/(\d{4}-\d{2}-\d{2})', array( 'name'=>'admin_games_list',
 		->with('title', 'Games for '.$fdate)
 		->nest('content', 'admin.games.list', array(
 			'fdate'           => $fdate,
+			'date'            => $date,
 			'matched_games'   => $matched_games,
 			'unmatched_games' => $unmatched_games,
 		));
 
 	Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
-	Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
-	Asset::add('tablesorter', 'css/tablesorter.css');
-	Asset::add('tablesorter-pager', 'css/tablesorter-pager.css');
+//	Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
+//	Asset::add('tablesorter-pager', 'css/tablesorter-pager.css');
 
 	return $view;
 
 }));
 
 
-Route::get('admin/games/new', array( 'name'=>'admin_games_new', function()
+Route::get('admin/games/new/(:any?)', array( 'name'=>'admin_games_new', function($date)
 {
 
 	$gameform = new Gameform;
 
-	if (Session::has('last_date')) {
+	if ($date) {
+		$gameform->date = $date;
+	} else if (Session::has('last_date')) {
 		$gameform->date = Session::get('last_date');
 	} else {
 		$t = new DateTime('tomorrow');
@@ -99,11 +100,11 @@ Route::get('admin/games/new', array( 'name'=>'admin_games_new', function()
 			'all_players'  => App::all_players(),
 		));
 
-	Asset::container('head')->add('dateinput', 'js/jquery.tools.min.js', 'jquery');
-	Asset::container('head')->add('string_score', 'js/string_score.min.js', 'jquery');
-	Asset::container('head')->add('quickselect', 'js/jquery.quickselect.js', 'jquery');
-	Asset::add('quickselect', 'css/quickselect.css');
-	Asset::add('dateinput', 'css/dateinput.css');
+	Asset::add('dateinput', 'js/jquery.tools.min.js', 'jquery');
+	Asset::add('string_score', 'js/string_score.min.js', 'jquery');
+	Asset::add('quickselect', 'js/jquery.quickselect.js', 'jquery');
+//	Asset::add('quickselect', 'css/quickselect.css');
+//	Asset::add('dateinput', 'css/dateinput.css');
 
 	return $view;
 
@@ -139,8 +140,8 @@ Route::post('admin/games/new', array( 'before' => 'csrf', function()
 		Asset::container('head')->add('dateinput', 'js/jquery.tools.min.js', 'jquery');
 		Asset::container('head')->add('string_score', 'js/string_score.min.js', 'jquery');
 		Asset::container('head')->add('quickselect', 'js/jquery.quickselect.js', 'jquery');
-		Asset::add('quickselect', 'css/quickselect.css');
-		Asset::add('dateinput', 'css/dateinput.css');
+//		Asset::add('quickselect', 'css/quickselect.css');
+//		Asset::add('dateinput', 'css/dateinput.css');
 
 		return $view;
 
@@ -208,8 +209,6 @@ Route::post('admin/games/edit/(:num)', array( 'before' => 'csrf', function($id)
 		Asset::container('head')->add('dateinput', 'js/jquery.tools.min.js', 'jquery');
 		Asset::container('head')->add('string_score', 'js/string_score.min.js', 'jquery');
 		Asset::container('head')->add('quickselect', 'js/jquery.quickselect.js', 'jquery');
-		Asset::add('quickselect', 'css/quickselect.css');
-		Asset::add('dateinput', 'css/dateinput.css');
 
 		return $view;
 
@@ -219,13 +218,13 @@ Route::post('admin/games/edit/(:num)', array( 'before' => 'csrf', function($id)
 
 	$game->save();
 	if ($game->set_matching_game()) {
-		$msg = 'Game edited and matched.';
+		return Redirect::to_route('admin_games_list', array($game->date) )
+			->with('success', 'Game edited and matched.');
 	} else {
-		$msg = 'Game edited.';
+		return Redirect::to_route('admin_game_edit', array($game->id) )
+			->with('success', 'Game edited.');
 	}
 
-	return Redirect::to_route('admin_game_edit', array($game->id) )
-		->with('success', $msg);
 
 
 }));
@@ -256,9 +255,9 @@ Route::post('admin/games/delete/(:num)', array( 'before' => 'csrf', function($id
 	$game = Game::find($id);
 	$date = $game->date;
 
-	if ( Input::get('confirm') !== 'yes' ) {
+	if ( !Input::get('confirm') ) {
 		return Redirect::to_route('admin_game_delete', array($id))
-			->with('notice', 'Game not deleted &mdash; confirmation not checked.');
+			->with('warning', 'Game not deleted &mdash; confirmation not checked.');
 	}
 
 
@@ -297,9 +296,9 @@ Route::post('admin/games/create_match/(:num)', array( 'before' => 'csrf', functi
 
 	$game = Game::find($id);
 
-	if ( Input::get('confirm') !== 'yes' ) {
+	if ( !Input::get('confirm') ) {
 		return Redirect::to_route('admin_game_create_match', array($id))
-			->with('notice', 'Game not created &mdash; confirmation not checked.');
+			->with('warning', 'Game not created &mdash; confirmation not checked.');
 	}
 
 

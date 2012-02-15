@@ -4,6 +4,18 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Club Name
+	|--------------------------------------------------------------------------
+	|
+	| This name will appear on the home page, in the naveigation bar, and
+	| prepended to the <title> tag on all pages.
+	|
+	*/
+
+	'clubname' => 'Scrabble Club',
+
+	/*
+	|--------------------------------------------------------------------------
 	| Application URL
 	|--------------------------------------------------------------------------
 	|
@@ -125,15 +137,18 @@ return array(
 		'Event'      => 'Laravel\\Event',
 		'File'       => 'Laravel\\File',
 		'Filter'     => 'Laravel\\Routing\\Filter',
-		'Form'       => 'Laravel\\Form',
+//		'Form'       => 'Laravel\\Form',
+		'Form'       => 'Twitter\\Bootstrap\\Form',
 		'Hash'       => 'Laravel\\Hash',
-		'HTML'       => 'Laravel\\HTML',
+//		'HTML'       => 'Laravel\\HTML',
+		'HTML'       => 'Twitter\\Bootstrap\\HTML',
 		'Input'      => 'Laravel\\Input',
 		'IoC'        => 'Laravel\\IoC',
 		'Lang'       => 'Laravel\\Lang',
 		'Log'        => 'Laravel\\Log',
 		'Memcached'  => 'Laravel\\Memcached',
-		'Paginator'  => 'Laravel\\Paginator',
+//		'Paginator'  => 'Laravel\\Paginator',
+		'Paginator'  => 'Twitter\\Bootstrap\\Paginator',
 		'URL'        => 'Laravel\\URL',
 		'Redirect'   => 'Laravel\\Redirect',
 		'Redis'      => 'Laravel\\Redis',

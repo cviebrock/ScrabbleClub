@@ -1,13 +1,16 @@
-<h1>Players</h1>
+<div class="page-header">
+	<h1>Players</h1>
+</div>
 
-<table class="tablesorter">
+
+<table class="table table-striped table-bordered sortable">
 	<thead>
 		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>NASPA #</th>
-			<th>NASPA Rating</th>
-			<th>Actions</th>
+			<th class="span2">First Name</th>
+			<th class="span2">Last Name</th>
+			<th class="span1">NASPA #</th>
+			<th class="span1">NASPA Rating</th>
+			<th class="span3">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,9 +21,9 @@ foreach ($players as $player) {
 		echo '<td>' . $player->lastname . '</td>';
 		echo '<td>' . ($player->naspa_id ? $player->naspa_id : '&mdash;') . '</td>';
 		echo '<td>' . ($player->naspa_rating ? $player->naspa_rating : '&mdash;') . '</td>';
-		echo '<td><ul class="actions">' .
-			'<li>' . HTML::link_to_route('admin_player_edit', 'edit', array($player->id) ) . '</li>' .
-			'<li>' . HTML::link_to_route('admin_player_delete', 'delete', array($player->id) ) . '</li>' .
+		echo '<td><ul class="sc_actions">' .
+			'<li>' . App::action_link_to_route('admin_player_edit', 'Edit', array($player->id), 'small|pencil' ) . '</li>' .
+			'<li>' . App::action_link_to_route('admin_player_delete', 'Delete', array($player->id), 'small|remove' ) . '</li>' .
 		 '</ul></td>';
 		echo "<tr>\n";
 }
@@ -28,13 +31,12 @@ foreach ($players as $player) {
 	</tbody>
 </table>
 
-<?php echo HTML::link_to_route('admin_player_new', 'Add new player', null, array('class'=>'btn')); ?>
+<?php echo App::action_link_to_route('admin_player_new', 'Add new player', null, 'plus|white', array('class'=>'btn btn-primary')); ?>
 
 <script>
 $(document).ready( function() {
-	$('table.tablesorter').tablesorter({
+	$('table.sortable').tablesorter({
 		sortList: [[1,0], [0,0]],
-//		widgets: ['zebra'],
 		headers: { 4: { sorter: false } }
 	});
 });

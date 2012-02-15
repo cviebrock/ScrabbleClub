@@ -15,7 +15,9 @@ class Game extends BaseModel {
 	);
 
 	public $messages = array(
-		'different' => 'Player can not play themselves.'
+		'required'	=> 'Required',
+		'different' => 'Player can not play themselves.',
+		'exists'		=> 'Player does not exist - add them first'
 	);
 
 	public function player()

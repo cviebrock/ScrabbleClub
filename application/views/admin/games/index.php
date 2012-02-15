@@ -1,13 +1,15 @@
-<h1>Games</h1>
+<div class="page-header">
+	<h1>Games</h1>
+</div>
 
-<table class="tablesorter">
+<table class="table table-striped table-bordered sortable">
 	<thead>
 		<tr>
-			<th>Date</th>
-			<th>Players</th>
-			<th>Complete Games</th>
-			<th>Unmatched Games</th>
-			<th>Actions</th>
+			<th class="span2">Date</th>
+			<th class="span1">Players</th>
+			<th class="span1">Complete Games</th>
+			<th class="span1">Unmatched Games</th>
+			<th class="span3">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,8 +21,8 @@ foreach ($games as $game) {
 		echo '<td class="numeric">' . $game->players . '</td>';
 		echo '<td class="numeric">' . $game->complete_games . '</td>';
 		echo '<td class="numeric ' . $class . '">' . $game->unmatched_games . '</td>';
-		echo '<td><ul class="actions">' .
-			'<li>' . HTML::link_to_route('admin_games_list', 'view', array($game->date) ) . '</li>' .
+		echo '<td><ul class="sc_actions">' .
+			'<li>' . App::action_link_to_route('admin_games_list', 'View', array($game->date), 'small|search' ) . '</li>' .
 			'</td>';
 		echo "<tr>\n";
 }
@@ -28,13 +30,43 @@ foreach ($games as $game) {
 	</tbody>
 </table>
 
-<?php echo HTML::link_to_route('admin_games_new', 'Add new games', null, array('class'=>'btn')); ?>
+<?php echo App::action_link_to_route('admin_games_new', 'Add new games', null, 'plus|white', array('class'=>'btn btn-primary')); ?>
 
 <script>
 $(document).ready( function() {
-	$('table.tablesorter').tablesorter({
+
+	Array.prototype.has=function(v) {
+		for (i=0;i<this.length;i++) {
+			if (this[i]==v) return i;
+		}
+		return undefined;
+	}
+
+	var months = [ <?php
+	$m = 1;
+	while ($m<=12) {
+		$d = new DateTime(sprintf('%04d-%02d-%02d', 2000, $m, 1));
+		if ($m++>1) echo ",";
+		echo "'" . strtolower($d->format('M')) . "'";
+	}
+?> ];
+
+
+	$.tablesorter.addParser({
+		id: 'sc_date',
+		is: function(s) { return false; },
+		format: function(s) {
+			return new Date(s).getTime();
+		},
+		type: 'numeric'
+	});
+
+	$('table.sortable').tablesorter({
 		sortList: [[0,1]],
-		headers: { 4: { sorter: false } }
+		headers: {
+			0: { sorter: 'sc_date' },
+			4: { sorter: false }
+		}
 	});
 });
 </script>

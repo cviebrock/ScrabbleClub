@@ -1,74 +1,62 @@
-<h1><?php echo $title; ?></h1>
-<script>
-$(document).ready( function() {
-	$('#naspa_lookup').click( function(e) {
-		e.preventDefault();
-		alert('Feature coming soon');
-/*
-		$.ajax({
-				url: 'http://scrabbleplayers.org/cgi-bin/members.pl',
-				method: 'post',
-				data: {
-					'naspa_profile_search_key_given': $('#firstname').val(),
-					'naspa_profile_search_key_surname': $('#lastname').val()
-				},
-				success: function(data) {
-					alert(data);
-				}
-			});
-*/
-	});
-});
-</script>
+<div class="page-header">
+	<h1><?php echo $title; ?></h1>
+</div>
+
+<?php if ($player->has_errors()): ?>
+<div class="alert alert-error">
+	<strong>Oops!</strong> Please correct the errors below.
+</div>
+<?php endif; ?>
 
 <?php
 
-echo Form::open();
+echo Form::open(null,'post', array('class'=>Form::TYPE_HORIZONTAL));
 echo Form::token();
 
-echo "<ul class=\"form\">\n";
+echo Form::field('text', 'firstname', 'First Name',
+	array($player->firstname, array('class'=>'span3 required')),
+	array('error' => $player->error('firstname'))
+);
 
-echo '<li' . ( App::has_errors($player,'firstname') ? ' class="err"' : '' ) . '>' .
-	Form::label('firstname', 'First Name', array('class'=>'required')) .
-	Form::text('firstname', $player->firstname) .
-	App::errors_for($player,'firstname') .
-	"</li>\n";
+echo Form::field('text', 'lastname', 'Last Name',
+	array($player->lastname, array('class'=>'span3 required')),
+	array('error' => $player->error('lastname'))
+);
 
-echo '<li' . ( App::has_errors($player,'lastname') ? ' class="err"' : '' ) . '>' .
-	Form::label('lastname', 'Last Name', array('class'=>'required')) .
-	Form::text('lastname', $player->lastname ) .
-	App::errors_for($player,'lastname') .
-	"</li>\n";
+echo Form::field('email', 'email', 'Email Address',
+	array($player->email, array('class'=>'span3')),
+	array('error' => $player->error('email'))
+);
 
-echo '<li' . ( App::has_errors($player,'email') ? ' class="err"' : '' ) . '>' .
-	Form::label('email', 'Email Address') .
-	Form::email('email', $player->email) .
-	App::errors_for($player,'email') .
-	"</li>\n";
+echo Form::field('text', 'naspa_id', 'NASPA ID',
+	array($player->naspa_id, array('class'=>'span2')),
+	array(
+		'post_field' => ' <a class="btn btn-small" id="naspa_lookup">Lookup</a>',
+		'error' => $player->error('naspa_id')
+	)
+);
 
-
-echo '<li' . ( App::has_errors($player,'naspa_id') ? ' class="err"' : '' ) . '>' .
-	Form::label('naspa_id', 'NASPA Member Number') .
-	Form::text('naspa_id', $player->naspa_id) .
-	App::errors_for($player,'naspa_id');
-echo '<button id="naspa_lookup">Lookup NASPA info</button>';
-echo "</li>\n";
-
-echo '<li' . ( App::has_errors($player,'naspa_rating') ? ' class="err"' : '' ) . '>' .
-	Form::label('naspa_rating', 'NASPA Rating') .
-	Form::number('naspa_rating', $player->naspa_rating ? $player->naspa_rating : '' ) .
-	App::errors_for($player,'naspa_rating') .
-	"</li>\n";
+echo Form::field('number', 'naspa_rating', 'NASPA Rating',
+	array($player->naspa_rating, array('class'=>'span1')),
+	array('error' => $player->error('naspa_rating'))
+);
 
 
-echo "<li>" .
-	Form::submit($submit_text) .
-	HTML::link_to_route('admin_players', 'Back to Players List', null, array('class'=>'btn')) .
-	"</li>\n";
-
-echo "</ul>\n";
+echo Form::actions(array(
+	Form::submit($submit_text, array('class' => 'btn-primary')),
+	App::action_link_to_route('admin_players', 'Back to Players List', null, 'arrow-left')
+));
 
 echo Form::close();
 
 
 ?>
+
+<script>
+$(document).ready( function() {
+	$('#naspa_lookup').click( function(e) {
+		e.preventDefault();
+		alert('Feature coming soon');
+	});
+});
+</script>

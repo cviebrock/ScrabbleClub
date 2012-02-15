@@ -1,48 +1,23 @@
-<h1>Games for <?php echo $fdate; ?></h1>
+<div class="page-header">
+	<h1>Games for <?php echo $fdate; ?></h1>
+</div>
 
-<h2>Matched Games</h2>
 
-<table id="matched" class="tablesorter">
-	<thead>
-		<tr>
-			<th>Winner</th>
-			<th>Winner Score</th>
-			<th>Loser</th>
-			<th>Loser Score</th>
-			<th>Spread</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php
-foreach ($matched_games as $game) {
-		echo '<tr>';
-		echo '<td>' . $game->player->fullname() . '</td>';
-		echo '<td class="numeric">' . $game->player_score . '</td>';
-		echo '<td>' . $game->opponent->fullname() . '</td>';
-		echo '<td class="numeric">' . $game->opponent_score . '</td>';
-		echo '<td class="numeric">' . $game->spread . '</td>';
-		echo '<td><ul class="actions">' .
-#			HTML::link_to_route('view_games', 'view', array($game->date) ) .
-		 '</ul></td>';
-		echo "<tr>\n";
-}
-?>
-	</tbody>
-</table>
 
+
+<?php if (count($unmatched_games)): ?>
 
 <h2>Unmatched Games</h2>
 
-<table id="unmatched" class="tablesorter">
+<table id="unmatched" class="table table-striped table-bordered sortable">
 	<thead>
 		<tr>
-			<th>Player</th>
-			<th>Player Score</th>
-			<th>Opponent</th>
-			<th>Oppenent Score</th>
-			<th>Spread</th>
-			<th>Actions</th>
+			<th class="span3">Winner</th>
+			<th class="span1">Winner Score</th>
+			<th class="span3">Loser</th>
+			<th class="span1">Loser Score</th>
+			<th class="span1">Spread</th>
+			<th class="span3">Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -54,10 +29,10 @@ foreach ($unmatched_games as $game) {
 		echo '<td>' . $game->opponent->fullname() . '</td>';
 		echo '<td class="numeric">' . $game->opponent_score . '</td>';
 		echo '<td class="numeric">' . $game->spread . '</td>';
-		echo '<td><ul class="actions">' .
-			'<li>' . HTML::link_to_route('admin_game_edit', 'edit', array($game->id) ) . '</li>' .
-			'<li>' . HTML::link_to_route('admin_game_create_match', 'match', array($game->id) ) . '</li>' .
-			'<li>' . HTML::link_to_route('admin_game_delete', 'delete', array($game->id) ) . '</li>' .
+		echo '<td><ul class="sc_actions">' .
+			'<li>' . App::action_link_to_route('admin_game_edit', 'edit', array($game->id), 'small|pencil' ) . '</li>' .
+			'<li>' . App::action_link_to_route('admin_game_create_match', 'match', array($game->id), 'small|magnet' ) . '</li>' .
+			'<li>' . App::action_link_to_route('admin_game_delete', 'delete', array($game->id), 'small|remove' ) . '</li>' .
 		 '</ul></td>';
 		echo "<tr>\n";
 }
@@ -65,10 +40,46 @@ foreach ($unmatched_games as $game) {
 	</tbody>
 </table>
 
-<?php echo HTML::link_to_route('admin_games_new', 'Add new games', null, array('class'=>'btn')); ?>
-<?php echo HTML::link_to_route('admin_games', 'Back to games', null, array('class'=>'btn')); ?>
+<?php endif; ?>
+
+<?php if (count($matched_games)): ?>
+
+<h2>Matched Games</h2>
+
+<table id="matched" class="table table-striped table-bordered sortable">
+	<thead>
+		<tr>
+			<th class="span3">Winner</th>
+			<th class="span1">Winner Score</th>
+			<th class="span3">Loser</th>
+			<th class="span1">Loser Score</th>
+			<th class="span1">Spread</th>
+			<th class="span3">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php
+foreach ($matched_games as $game) {
+		echo '<tr>';
+		echo '<td>' . $game->player->fullname() . '</td>';
+		echo '<td class="numeric">' . $game->player_score . '</td>';
+		echo '<td>' . $game->opponent->fullname() . '</td>';
+		echo '<td class="numeric">' . $game->opponent_score . '</td>';
+		echo '<td class="numeric">' . $game->spread . '</td>';
+		echo '<td><ul class="sc_actions">' .
+#			HTML::link_to_route('view_games', 'view', array($game->date) ) .
+		 '</ul></td>';
+		echo "<tr>\n";
+}
+?>
+	</tbody>
+</table>
+
+<?php endif; ?>
 
 
+<?php echo App::action_link_to_route('admin_games_new', 'Add new games', array($date), 'plus|white', array('class'=>'btn btn-primary')); ?>
+<?php echo App::action_link_to_route('admin_games', 'Back to games', null, 'arrow-left', array('class'=>'btn')); ?>
 
 
 <script>
@@ -78,7 +89,6 @@ $(document).ready( function() {
 		headers: { 5: { sorter: false } }
 	});
 	$('#unmatched').tablesorter({
-//		sortList: [[0,0], [2,0]],
 		headers: { 5: { sorter: false } }
 	});
 });

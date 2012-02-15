@@ -1,4 +1,6 @@
-<h1>Create Matching Game</h1>
+<div class="page-header">
+	<h1>Create Matching Game</h1>
+</div>
 
 <p>
 	This will create the matching game to the game below (i.e. the game
@@ -9,15 +11,15 @@
 
 <h2>Game Entered</h2>
 
-<table class="games tablesorter">
+<table class="table table-striped table-bordered sortable">
 	<thead>
 		<tr>
-			<th>Date</th>
-			<th>Player</th>
-			<th>Score</th>
-			<th>Opponent</th>
-			<th>Opp. Score</th>
-			</tr>
+			<th class="span2">Date</th>
+			<th class="span2">Player</th>
+			<th class="span1">Player Score</th>
+			<th class="span2">Opponent</th>
+			<th class="span1">Opp. Score</th>
+		</tr>
 	</thead>
 	<tbody>
 		<tr>
@@ -32,15 +34,15 @@
 
 <h2>Matching Game to be Created</h2>
 
-<table class="games tablesorter">
+<table class="table table-striped table-bordered sortable">
 	<thead>
 		<tr>
-			<th>Date</th>
-			<th>Player</th>
-			<th>Score</th>
-			<th>Opponent</th>
-			<th>Opp. Score</th>
-			</tr>
+			<th class="span2">Date</th>
+			<th class="span2">Player</th>
+			<th class="span1">Player Score</th>
+			<th class="span2">Opponent</th>
+			<th class="span1">Opp. Score</th>
+		</tr>
 	</thead>
 	<tbody>
 		<tr>
@@ -56,26 +58,18 @@
 <?php
 
 
-echo Form::open();
+echo Form::open(null,'post', array('class'=>Form::TYPE_HORIZONTAL));
 echo Form::token();
 
-echo "<ul class=\"form\">\n";
+echo Form::field('labelled_checkbox', 'confirm', 'Are you sure?',
+	array('Yes, create matching game', 1, false)
+);
 
-echo '<li' . ( App::has_errors($game,'confirm') ? ' class="err"' : '' ) . '>' .
-	Form::checkbox('confirm', 'yes') .
-	Form::label('confirm', 'Confirm to add match', array('class'=>'required inline')) .
-	App::errors_for($game,'confirm') .
-	"</li>\n";
-
-echo '<li>' .
-	Form::submit('Create Match') .
-	HTML::link_to_route('admin_games_list', 'Back to Games List', array($game->date), array('class'=>'btn')) .
-	"</li>\n";
-
-echo "</ul>\n";
-
+echo Form::actions(array(
+	Form::submit('Create Match', array('class' => 'btn-primary')),
+	App::action_link_to_route('admin_games_list', 'Back to Games List', array($game->date), 'arrow-left')
+));
 
 echo Form::close();
-
 
 ?>

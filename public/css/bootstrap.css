@@ -3351,22 +3351,23 @@ a.thumbnail:hover {
 table.sortable thead th {
   background-color: #eeeeee;
   padding-right: 20px;
+  margin-right: -20px;
 }
 table.sortable thead .header {
-  background-image: url(/img/sortable2.png);
+  background-image: url(/img/sortable.png);
   background-repeat: no-repeat;
-  background-position: center right;
+  background-position: 100% 6px;
   cursor: pointer;
 }
 table.sortable thead .header:hover {
   text-decoration: underline;
 }
 table.sortable thead .headerSortUp {
-  background-image: url(/img/asc2.png);
+  background-image: url(/img/sorted-asc.png);
   background-color: #c8c8c8;
 }
 table.sortable thead .headerSortDown {
-  background-image: url(/img/desc2.png);
+  background-image: url(/img/sorted-desc.png);
   background-color: #c8c8c8;
 }
 table.sortable tbody tr:hover td {
@@ -3374,6 +3375,271 @@ table.sortable tbody tr:hover td {
 }
 table.sortable tbody.nosort {
   color: #999999;
+}
+.quickselect_results {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  border: 1px solid #999999;
+  overflow: hidden;
+  margin-top: 7px;
+}
+.quickselect_results ul {
+  width: 100%;
+  list-style-position: outside;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.quickselect_results li {
+  margin: 0;
+  padding: 5px;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+}
+.quickselect_results li + li {
+  border-top: 1px solid #eeeeee;
+}
+.quickselect_results li:first-child {
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+.quickselect_results li:last-child {
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+}
+.quickselect_loading {
+  background: transparent url('/img/loader.gif') right center no-repeat;
+}
+.quickselect_selected {
+  background-color: #d9edf7;
+}
+/* For the details, see: http://flowplayer.org/tools/dateinput/index.html#skinning */
+#calroot {
+  z-index: 1050;
+  margin-top: 1px;
+  width: 198px;
+  padding: 2px;
+  background-color: #ffffff;
+  font-size: 13px;
+  border: 1px solid #999999;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+#calhead {
+  padding: 2px 0;
+  height: 22px;
+}
+#caltitle {
+  font-size: 16px;
+  color: #333333;
+  float: left;
+  text-align: center;
+  width: 155px;
+  line-height: 20px;
+}
+#caltitle select {
+  font-size: 10px;
+}
+#calnext, #calprev {
+  display: block;
+  margin-top: 3px;
+  width: 14px;
+  height: 14px;
+  vertical-align: text-top;
+  background-image: url(../img/glyphicons-halflings.png);
+  background-position: -432px -72px;
+  background-repeat: no-repeat;
+  *margin-right: .3em;
+  float: left;
+  cursor: pointer;
+}
+#calnext:last-child, #calprev:last-child {
+  *margin-left: 0;
+}
+#calnext {
+  background-position: -456px -72px;
+  float: right;
+}
+#calprev.caldisabled, #calnext.caldisabled {
+  visibility: hidden;
+}
+#caldays {
+  height: 18px;
+  font-size: 10px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #eeeeee;
+}
+#caldays span {
+  display: block;
+  float: left;
+  width: 28px;
+  text-align: center;
+}
+#calweeks {
+  background-color: #ffffff;
+  margin-top: 4px;
+}
+.calweek {
+  clear: left;
+  height: 22px;
+}
+.calweek a {
+  display: block;
+  float: left;
+  width: 23px;
+  height: 20px;
+  text-decoration: none;
+  margin-left: 1px;
+  text-align: right;
+  padding-right: 4px;
+  line-height: 20px;
+  color: #555555;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.calweek a:hover, .calfocus {
+  background-color: #d9edf7;
+}
+a.calsun {
+  color: #049cdb;
+}
+a.caloff {
+  color: #eeeeee;
+}
+a.caloff:hover {
+  background-color: #d9edf7;
+}
+a.caldisabled {
+  background-color: #eeeeee !important;
+  color: #999999 !important;
+  cursor: default;
+}
+#calcurrent {
+  background-color: #049cdb;
+  color: #ffffff;
+}
+#caltoday {
+  background-color: #ffe9a6;
+}
+html, body {
+  height: 100%;
+}
+.container {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -160px;
+}
+footer, .push {
+  height: 160px;
+}
+footer {
+  margin: 60px 0 0 0;
+  color: #999999;
+  font-size: 12px;
+  text-align: right;
+}
+footer .navbar-inner {
+  height: 110px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  padding: 10px 0;
+}
+body {
+  padding: 60px 0;
+}
+.page-header {
+  border: 0;
+}
+ul.sc_actions {
+  margin: 0;
+  list-style: none;
+}
+ul.sc_actions li {
+  display: inline;
+  margin-right: 5px;
+}
+.btn-small {
+  padding: 3px 7px;
+}
+.table {
+  width: auto;
+}
+.table tbody td {
+  vertical-align: baseline;
+}
+td.numeric {
+  text-align: right;
+}
+td.horizontal-header {
+  text-align: right;
+  font-weight: bold;
+}
+table.games td.error {
+  color: #b94a48;
+  font-size: 85%;
+}
+table.games td.error > label, table.games td.error .help-block, table.games td.error .help-inline {
+  color: #b94a48;
+}
+table.games td.error input, table.games td.error select, table.games td.error textarea {
+  color: #b94a48;
+  border-color: #b94a48;
+}
+table.games td.error input:focus, table.games td.error select:focus, table.games td.error textarea:focus {
+  border-color: #953b39;
+  -webkit-box-shadow: 0 0 6px #d59392;
+  -moz-box-shadow: 0 0 6px #d59392;
+  box-shadow: 0 0 6px #d59392;
+}
+table.games td.error .input-prepend .add-on, table.games td.error .input-append .add-on {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #b94a48;
+}
+td.winning_game {
+  background: #cdeacd !important;
+}
+td.losing_game {
+  background: #f4c8c5 !important;
+}
+td.tie_game {
+  background: #ffe9a6 !important;
+}
+i[class^="icon-"] {
+  margin-right: 5px;
+}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input.required, select.required, textarea.required {
+  background-image: url(/img/required.png);
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+}
+textarea {
+  height: 5em;
+}
+h3 + table {
+  margin-top: 10px;
+}
+table + h3 {
+  margin-top: 40px;
 }
 .pull-right {
   float: right;

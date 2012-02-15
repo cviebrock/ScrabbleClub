@@ -1,28 +1,22 @@
-<h1>Delete Player</h1>
+<div class="page-header">
+	<h1>Delete Player</h1>
+</div>
 
-<p>
-	Do you really want to delete <?php echo $player->fullname(); ?>?
-</p>
 
 <?php
 
-echo Form::open();
+echo Form::open(null,'post', array('class'=>Form::TYPE_HORIZONTAL));
 echo Form::token();
 
-echo "<ul class=\"form\">\n";
+echo Form::field('labelled_checkbox', 'confirm', 'Are you sure?',
+	array('Yes, delete '.$player->fullname(), 1, false)
+);
 
-echo '<li' . ( App::has_errors($player,'confirm') ? ' class="err"' : '' ) . '>' .
-	Form::checkbox('confirm', 'yes') .
-	Form::label('confirm', 'Confirm to delete player', array('class'=>'required inline')) .
-	App::errors_for($player,'confirm') .
-	"</li>\n";
+echo Form::actions(array(
+	Form::submit('Delete Player', array('class' => 'btn-primary btn-warning')),
+	App::action_link_to_route('admin_players', 'Back to Players List', null, 'arrow-left')
+));
 
-echo "<li>" .
-	Form::submit('Delete Player') .
-	HTML::link_to_route('admin_players', 'Back to players list', null, array('class'=>'btn')) .
-	"</li>\n";
-
-echo "</ul>\n";
 
 echo Form::close();
 
