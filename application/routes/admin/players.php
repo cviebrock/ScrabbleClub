@@ -1,6 +1,6 @@
 <?php
 
-Route::get('admin/players', array( 'name'=>'admin_players', function()
+Route::get('admin/players', array( 'as'=>'admin_players', function()
 {
 
 	$view = View::make('default')
@@ -18,7 +18,7 @@ Route::get('admin/players', array( 'name'=>'admin_players', function()
 }));
 
 
-Route::get('admin/players/new', array( 'name'=>'admin_player_new', function()
+Route::get('admin/players/new', array( 'as'=>'admin_player_new', function()
 {
 
 	$player = new Player;
@@ -63,7 +63,7 @@ Route::post('admin/players/new', array( 'before' => 'csrf', function()
 }));
 
 
-Route::get('admin/players/(:num)', array( 'name'=>'admin_player_view', function($id)
+Route::get('admin/players/(:num)', array( 'as'=>'admin_player_view', function($id)
 {
 
 	$player = Player::find($id);
@@ -76,7 +76,7 @@ Route::get('admin/players/(:num)', array( 'name'=>'admin_player_view', function(
 }));
 
 
-Route::get('admin/players/edit/(:num)', array( 'name'=>'admin_player_edit', function($id)
+Route::get('admin/players/edit/(:num)', array( 'as'=>'admin_player_edit', function($id)
 {
 
 	$player = Player::find($id);
@@ -121,7 +121,7 @@ Route::post('admin/players/edit/(:num)', array( 'before' => 'csrf', function($id
 }));
 
 
-Route::get('admin/players/delete/(:num)', array( 'name'=>'admin_player_delete', function($id)
+Route::get('admin/players/delete/(:num)', array( 'as'=>'admin_player_delete', function($id)
 {
 
 	$player = Player::find($id);

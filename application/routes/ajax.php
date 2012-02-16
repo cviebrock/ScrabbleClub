@@ -1,6 +1,6 @@
 <?php
 
-Route::get('ajax/players', array( 'name'=>'ajax_players', 'before' => 'ajax', function()
+Route::get('ajax/players', array( 'as'=>'ajax_players', 'before' => 'ajax', function()
 {
 
 	$players = Player::all();

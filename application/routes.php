@@ -154,7 +154,7 @@ View::composer('default', function($view)
 
 });
 
-Route::get('/', array('name'=>'home', function()
+Route::get('/', array('as'=>'home', function()
 {
 
 	return View::make('default')

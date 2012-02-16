@@ -1,6 +1,6 @@
 <?php
 
-Route::get('players', array( 'name'=>'players', function()
+Route::get('players', array( 'as'=>'players', function()
 {
 
 
@@ -37,7 +37,7 @@ Route::get('players', array( 'name'=>'players', function()
 }));
 
 
-Route::get('players/(:num)', array( 'name'=>'player_details', function($id)
+Route::get('players/(:num)', array( 'as'=>'player_details', function($id)
 {
 
 	$player = Player::find($id);

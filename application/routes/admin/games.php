@@ -1,6 +1,6 @@
 <?php
 
-Route::get('admin/games', array( 'name'=>'admin_games', function()
+Route::get('admin/games', array( 'as'=>'admin_games', function()
 {
 
 	$games = DB::query('SELECT
@@ -28,7 +28,7 @@ Route::get('admin/games', array( 'name'=>'admin_games', function()
 }));
 
 
-Route::get('admin/games/(\d{4}-\d{2}-\d{2})', array( 'name'=>'admin_games_list', function($date)
+Route::get('admin/games/(\d{4}-\d{2}-\d{2})', array( 'as'=>'admin_games_list', function($date)
 {
 
 	$temp = DB::query('SELECT
@@ -78,7 +78,7 @@ Route::get('admin/games/(\d{4}-\d{2}-\d{2})', array( 'name'=>'admin_games_list',
 }));
 
 
-Route::get('admin/games/new/(:any?)', array( 'name'=>'admin_games_new', function($date)
+Route::get('admin/games/new/(:any?)', array( 'as'=>'admin_games_new', function($date)
 {
 
 	$gameform = new Gameform;
@@ -158,7 +158,7 @@ Route::post('admin/games/new', array( 'before' => 'csrf', function()
 }));
 
 
-Route::get('admin/games/edit/(:num)', array( 'name'=>'admin_game_edit', function($id)
+Route::get('admin/games/edit/(:num)', array( 'as'=>'admin_game_edit', function($id)
 {
 
 	$game = Game::find($id);
@@ -230,7 +230,7 @@ Route::post('admin/games/edit/(:num)', array( 'before' => 'csrf', function($id)
 }));
 
 
-Route::get('admin/games/delete/(:num)', array( 'name'=>'admin_game_delete', function($id)
+Route::get('admin/games/delete/(:num)', array( 'as'=>'admin_game_delete', function($id)
 {
 
 	$game = Game::find($id);
@@ -269,7 +269,7 @@ Route::post('admin/games/delete/(:num)', array( 'before' => 'csrf', function($id
 
 
 
-Route::get('admin/games/create_match/(:num)', array( 'name'=>'admin_game_create_match', function($id)
+Route::get('admin/games/create_match/(:num)', array( 'as'=>'admin_game_create_match', function($id)
 {
 
 	$game = Game::find($id);
