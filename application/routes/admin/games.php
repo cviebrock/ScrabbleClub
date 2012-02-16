@@ -78,7 +78,7 @@ Route::get('admin/games/(\d{4}-\d{2}-\d{2})', array( 'as'=>'admin_games_list', f
 }));
 
 
-Route::get('admin/games/new/(:any?)', array( 'as'=>'admin_games_new', function($date)
+Route::get('admin/games/new/(:any?)', array( 'as'=>'admin_games_new', function($date=null)
 {
 
 	$gameform = new Gameform;
