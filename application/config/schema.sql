@@ -44,7 +44,6 @@ DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL DEFAULT '0000-00-00',
-  `order` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `player_id` int(10) unsigned NOT NULL,
   `opponent_id` int(10) unsigned NOT NULL,
   `player_score` smallint(6) unsigned NOT NULL DEFAULT '0',
