@@ -80,6 +80,8 @@ class Game extends BaseModel {
 		$temp = $this->player_score;
 		$this->player_score = $this->opponent_score;
 		$this->opponent_score = $temp;
+
+		$this->spread = -$this->spread;
 	}
 
 
