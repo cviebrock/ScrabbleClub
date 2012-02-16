@@ -28,6 +28,7 @@ CREATE TABLE `bingos` (
   `player_id` int(10) unsigned NOT NULL,
   `word` varchar(15) NOT NULL DEFAULT '',
   `score` smallint(5) unsigned DEFAULT NULL,
+  `is_good` BIT(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `player_id` (`player_id`),
   KEY `date` (`date`)
