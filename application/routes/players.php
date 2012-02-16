@@ -56,6 +56,12 @@ Route::get('players/(:num)', array( 'as'=>'player_details', function($id)
 
 	$club_details = $temp[0];
 
+	$bingos = array(
+		'count'  => Bingo::where('player_id','=',$id)->count(),
+		'good'   => Bingo::where('player_id','=',$id)->where('is_good','=',1)->count(),
+		'phoney' => Bingo::where('player_id','=',$id)->where('is_good','=',0)->count(),
+		'best'   => Bingo::where('player_id','=',$id)->order_by('score','desc')->first()
+	);
 
 	$best_wins = Game::where('player_id','=',$id)
 		->order_by('spread','desc')
@@ -89,6 +95,7 @@ Route::get('players/(:num)', array( 'as'=>'player_details', function($id)
 			'club_details' => $club_details,
 			'best_scores'  => $best_scores,
 			'best_spreads' => $best_spreads,
+			'bingos'				=> $bingos,
 		));
 
 
