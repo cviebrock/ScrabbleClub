@@ -22,10 +22,11 @@ return array(
 	*/
 
 	'inflection' => array(
-		'game'		=> 'games',
-		'player'	=> 'players',
-		'rating'	=> 'ratings',
-		'bingo'		=> 'bingos',
+		'bingo'     => 'bingos',
+		'game'      => 'games',
+		'player'    => 'players',
+		'rating'    => 'ratings',
+		'validword' => 'validwords',
 	),
 
 	/*
