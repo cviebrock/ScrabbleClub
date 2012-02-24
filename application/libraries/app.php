@@ -48,12 +48,14 @@ class App {
 	}
 
 
-	public static function all_players()
+	public static function all_players($excl=null)
 	{
 		$players = Player::all();
 		$data = array(0=>'');
 		foreach($players as $player) {
-			$data[ $player->id ] = $player->fullname();
+			if ($player->id != $excl ) {
+				$data[ $player->id ] = $player->fullname();
+			}
 		}
 		return $data;
 	}
@@ -144,6 +146,7 @@ class App {
 					$tag .= 'icon-'.$i.' ';
 				}
 			}
+			if (empty($title)) $tag .= 'empty ';
 			$tag .= '"></i>';
 			$title = $tag.$title;
 		}
