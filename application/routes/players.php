@@ -21,11 +21,25 @@ Route::get('players', array( 'as'=>'players', function()
 		ORDER BY games_played DESC
 	');
 
+	$temp = DB::query('SELECT
+		player_id,
+		COUNT(word) AS num_played,
+		SUM(1-valid)/COUNT(word) AS phoniness
+		FROM bingos
+		GROUP BY player_id
+	');
+
+	$bingos = array();
+	foreach($temp as $data) {
+		$bingos[ $data->player_id ] = $data;
+	}
+
 
 	$view = View::make('default')
 		->with('title', 'Players')
 		->nest('content', 'players.index', array(
 			'players' => $players,
+			'bingos' => $bingos,
 		));
 
 	Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
@@ -58,22 +72,27 @@ Route::get('players/(:num)', array( 'as'=>'player_details', function($id)
 
 	$bingos = array(
 		'count'  => Bingo::where('player_id','=',$id)->count(),
-		'good'   => Bingo::where('player_id','=',$id)->where('is_good','=',1)->count(),
-		'phoney' => Bingo::where('player_id','=',$id)->where('is_good','=',0)->count(),
-		'best'   => Bingo::where('player_id','=',$id)->order_by('score','desc')->first()
+		'good'   => Bingo::where('player_id','=',$id)->where('valid','=',1)->count(),
+		'phoney' => Bingo::where('player_id','=',$id)->where('valid','=',0)->count(),
+		'best'   => Bingo::where('player_id','=',$id)->where('score','>',0)->order_by('score','desc')->first(),
+		'worst'  => Bingo::where('player_id','=',$id)->where('score','>',0)->order_by('score','asc')->first(),
+		'rarest' => Bingo::join('validwords', 'bingos.word', '=', 'validwords.word')
+									->where('player_id','=',$id)
+									->order_by('playability','asc')
+									->order_by('score','desc')
+									->first(),
 	);
 
-	$best_wins = Game::where('player_id','=',$id)
+
+	$best_spread = Game::where('player_id','=',$id)
 		->order_by('spread','desc')
 		->order_by('date','desc')
 		->first();
 
-	$worst_losses = Game::where('player_id','=',$id)
+	$worst_spread = Game::where('player_id','=',$id)
 		->order_by('spread','asc')
 		->order_by('date','desc')
 		->first();
-
-	$best_spreads = array( $best_wins, $worst_losses );
 
 	$high_score = Game::where('player_id','=',$id)
 		->order_by('player_score','desc')
@@ -85,17 +104,50 @@ Route::get('players/(:num)', array( 'as'=>'player_details', function($id)
 		->order_by('date','desc')
 		->first();
 
-	$best_scores = array( $high_score, $low_score );
 
 
 	$view = View::make('default')
 		->with('title', $player->fullname())
 		->nest('content', 'players.details', array(
 			'player'       => $player,
+			'all_players'  => App::all_players($id),
 			'club_details' => $club_details,
-			'best_scores'  => $best_scores,
-			'best_spreads' => $best_spreads,
-			'bingos'				=> $bingos,
+			'best_spread'  => $best_spread,
+			'worst_spread' => $worst_spread,
+			'high_score'   => $high_score,
+			'low_score'    => $low_score,
+			'bingos'       => $bingos,
+		));
+
+
+	Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
+	Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
+	Asset::add('string_score', 'js/string_score.min.js', 'jquery');
+	Asset::add('quickselect', 'js/jquery.quickselect.js', 'jquery');
+
+	return $view;
+
+
+}));
+
+
+Route::get('players/(:num)/bingos', array( 'as'=>'player_bingos', function($id)
+{
+
+	$player = Player::find($id);
+
+	$bingos = DB::query('SELECT
+		b.*,
+		v.playability AS playability
+		FROM bingos b LEFT JOIN validwords v USING (word)
+		WHERE b.player_id = ?
+	', array($id));
+
+	$view = View::make('default')
+		->with('title', $player->fullname())
+		->nest('content', 'players.bingos', array(
+			'player' => $player,
+			'bingos' => $bingos,
 		));
 
 

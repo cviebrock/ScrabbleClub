@@ -1,5 +1,5 @@
-<table id="<?php echo id; ?>" class="table table-striped table-bordered sortable">
-	<thead>
+<table id="<?php echo $id; ?>" class="table table-striped table-bordered sortable">
+	<thead <?php echo ($small_head ? 'class="small"' : ''); ?>>
 		<tr>
 			<th class="span2">Date</th>
 			<th class="span3">Player</th>

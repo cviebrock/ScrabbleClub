@@ -35,32 +35,6 @@ foreach ($games as $game) {
 <script>
 $(document).ready( function() {
 
-	Array.prototype.has=function(v) {
-		for (i=0;i<this.length;i++) {
-			if (this[i]==v) return i;
-		}
-		return undefined;
-	}
-
-	var months = [ <?php
-	$m = 1;
-	while ($m<=12) {
-		$d = new DateTime(sprintf('%04d-%02d-%02d', 2000, $m, 1));
-		if ($m++>1) echo ",";
-		echo "'" . strtolower($d->format('M')) . "'";
-	}
-?> ];
-
-
-	$.tablesorter.addParser({
-		id: 'sc_date',
-		is: function(s) { return false; },
-		format: function(s) {
-			return new Date(s).getTime();
-		},
-		type: 'numeric'
-	});
-
 	$('table.sortable').tablesorter({
 		sortList: [[0,1]],
 		headers: {
@@ -68,5 +42,6 @@ $(document).ready( function() {
 			4: { sorter: false }
 		}
 	});
+
 });
 </script>
