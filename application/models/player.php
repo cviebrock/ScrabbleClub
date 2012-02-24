@@ -39,6 +39,11 @@ class Player extends BaseModel {
 		return $this->has_many('Game');
 	}
 
+	public function bingos()
+	{
+		return $this->has_many('Bingo');
+	}
+
 	public function currentRating()
 	{
 		return $this->ratings()->order_by('date','desc')->first();
