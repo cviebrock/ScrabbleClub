@@ -3534,6 +3534,9 @@ a.caldisabled {
 #caltoday {
   background-color: #ffe9a6;
 }
+small {
+  font-size: 80%;
+}
 html, body {
   height: 100%;
 }
@@ -3582,8 +3585,15 @@ ul.sc_actions li {
 .table tbody td {
   vertical-align: baseline;
 }
+thead.small th {
+  font-size: 80%;
+  padding: 4px 8px;
+}
 td.numeric {
   text-align: right;
+}
+td.center {
+  text-align: center;
 }
 td.horizontal-header {
   text-align: right;
@@ -3614,7 +3624,7 @@ table.games td.error .input-prepend .add-on, table.games td.error .input-append 
 td.winning_game {
   background: #cdeacd !important;
 }
-td.losing_game {
+tr.phoney td, td.losing_game {
   background: #f4c8c5 !important;
 }
 td.tie_game {
@@ -3622,6 +3632,12 @@ td.tie_game {
 }
 i[class^="icon-"] {
   margin-right: 5px;
+}
+i.empty {
+  margin-right: 0 !important;
+}
+i[class^="icon-"].hide-text {
+  text-indent: -10000px;
 }
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -3635,11 +3651,23 @@ input.required, select.required, textarea.required {
 textarea {
   height: 5em;
 }
-h3 + table {
+h2 + table {
   margin-top: 10px;
 }
-table + h3 {
+table + h2 {
   margin-top: 40px;
+}
+#one_on_one input {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  margin-bottom: 5px;
+}
+#ooo_loader {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: transparent url('/img/loader.gif') no-repeat 0 0;
 }
 .pull-right {
   float: right;
