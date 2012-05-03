@@ -3,6 +3,10 @@
 Route::get('players', array( 'as'=>'players', function()
 {
 
+	$lastgame = Game::order_by('date', 'desc')
+		->take(1)
+		->first();
+
 
 	$players = DB::query('SELECT
 		p.id,
@@ -21,6 +25,7 @@ Route::get('players', array( 'as'=>'players', function()
 		ORDER BY games_played DESC
 	');
 
+
 	$temp = DB::query('SELECT
 		player_id,
 		COUNT(word) AS num_played,
@@ -38,8 +43,9 @@ Route::get('players', array( 'as'=>'players', function()
 	$view = View::make('default')
 		->with('title', 'Players')
 		->nest('content', 'players.index', array(
-			'players' => $players,
-			'bingos' => $bingos,
+			'lastgame' => $lastgame,
+			'players'  => $players,
+			'bingos'   => $bingos,
 		));
 
 	Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');

@@ -1,9 +1,10 @@
 <div class="page-header">
-	<h1>Players</h1>
+	<h1>Player Statistics</h1>
+	<span class="subhead">As of <?php echo App::format_date($lastgame->date); ?></span>
 </div>
 
 <table class="table table-striped table-bordered sortable">
-	<thead>
+	<thead class="small">
 		<tr>
 			<th class="span3">Name</th>
 			<th class="span1">Games Played</th>
@@ -12,7 +13,9 @@
 			<th class="span1">Avg. Against</th>
 			<th class="span1">Avg. Spread</th>
 			<th class="span1">High Score</th>
+<!--
 			<th class="span1">High Spread</th>
+-->
 			<th class="span1">Bingos /Game</th>
 			<th class="span1">Bingo Phoniness</th>
 		</tr>
@@ -35,7 +38,6 @@ foreach ($players as $player) {
 			$sortable = false;
 		}
 
-
 		$numerator = $player->wins + ($player->ties / 2 );
 
 		echo '<tr>';
@@ -44,16 +46,16 @@ foreach ($players as $player) {
 			App::link_to_route('player_details', $player->fullname, array($player->id) ) .
 			'</td>';
 		echo '<td class="numeric">' . $player->games_played . '</td>';
-		echo '<td class="nowrap">' . sprintf('%.1f%s%.1f',
+		echo '<td class="nowrap">' . sprintf("%.1f %s %.1f",
 				$numerator,
-				' &ndash; ',
+				'&ndash;',
 				$player->losses
 			) . '</td>';
 		echo '<td class="numeric">' . $player->average_score . '</td>';
 		echo '<td class="numeric">' . $player->average_opponent_score . '</td>';
 		echo '<td class="numeric">' . $player->average_spread . '</td>';
 		echo '<td class="numeric">' . $player->best_score . '</td>';
-		echo '<td class="numeric">' . $player->best_spread . '</td>';
+#		echo '<td class="numeric">' . $player->best_spread . '</td>';
 
 		echo '<td class="numeric">' . ($bingo ? sprintf('%.1f', $bingo->num_played / $player->games_played) : '&mdash;') . '</td>';
 		echo '<td class="numeric">' . ($bingo ? sprintf('%.1f%%',100*$bingo->phoniness) : '&mdash;') . '</td>';
