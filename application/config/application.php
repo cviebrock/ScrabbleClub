@@ -12,7 +12,7 @@ return array(
 	|
 	*/
 
-	'clubname' => 'Scrabble Club',
+	'clubname' => 'Winnipeg Scrabble Club',
 
 	/*
 	|--------------------------------------------------------------------------
