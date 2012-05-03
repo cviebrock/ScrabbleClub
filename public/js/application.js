@@ -25,9 +25,9 @@ $.tablesorter.addParser({
 	id: 'sc_record',
 	is: function(s) { return false; },
 	format: function(s) {
-		console.log(s);
 		var p = s.split(' ');
 		if (p.length==3) {
+			console.log(s);
 			var n = parseFloat(p[0]);
 			var d = parseFloat(p[2]);
 			if (n+d == 0)  return -1;
