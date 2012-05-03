@@ -79,6 +79,7 @@ foreach ($matched_games as $game) {
 
 
 <?php echo App::action_link_to_route('admin_games_new', 'Add new games', array($date), 'plus|white', array('class'=>'btn btn-primary')); ?>
+
 <?php echo App::action_link_to_route('admin_games', 'Back to games', null, 'arrow-left', array('class'=>'btn')); ?>
 
 
