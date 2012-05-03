@@ -1,0 +1,130 @@
+@media print {
+
+	@page {
+		size: letter;
+		margin: 0.5in 0.75in;
+	}
+
+
+
+
+	// fix padding and layouts
+	html,
+	body {
+		height: auto;
+	}
+
+	body {
+		padding: 0;
+		font-size: 10pt;
+	}
+
+
+	// whiten backgrounds, blacken text
+	body,
+	header,
+	footer,
+	.navbar-inner {
+		background: @white;
+		color: @black;
+		.box-shadow(none);
+	}
+
+	// unfloat top bar and make non-fluid
+	.navbar-fixed-top {
+		position: relative;
+	}
+
+	.container-fluid {
+		.container-fixed();
+		&::before,
+		&::after {
+			display: none;
+		}
+	}
+
+	.container {
+		min-height: 0;
+		height: auto;
+		margin-bottom: 0;
+	}
+
+	.push {
+		height: 0 !important;
+	}
+
+	// hide navbar navigation, darken title
+	.navbar {
+		margin: 0;
+		.brand {
+			font-size: 100%;
+			text-transform: uppercase;
+			text-align: right;
+			color: @grayLight;
+			float: none;
+			padding: 0;
+			margin-bottom: 1em;
+		}
+		.nav-collapse {
+			display: none;
+		}
+	}
+
+
+	// fix footer
+	footer {
+		margin-top: 0;
+		height: auto;
+		font-size: 80%;
+		.navbar-inner {
+			text-transform: uppercase;
+			color: @grayLight;
+			height: auto;
+		}
+	}
+
+
+	// page header
+	.page-header {
+		margin: 0;
+	}
+
+
+	// widen tables
+	.table {
+		width: 100%;
+	}
+
+	// hide unsortable table parts
+	tbody.nosort {
+		display: none;
+	}
+
+	// no highlights for sorted headers
+	// and hide arrow for unsorted colums
+	table.sortable {
+		thead {
+			th {
+				background-color: @grayLighter !important;
+			}
+			.header {
+				background-image: none !important;
+			}
+		}
+
+		tbody {
+			tr:hover td {
+				background-color: inherit !important;
+			}
+		}
+
+	}
+
+	// darken all links
+	a {
+		color: @black !important;
+		text-decoration: none !important;
+	}
+
+
+}
