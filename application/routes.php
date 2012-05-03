@@ -163,6 +163,7 @@ Route::get('/', array('as'=>'home', function()
 /* other files, kept in routes directory */
 
 require( path('app') .'routes/ajax.php');
+require( path('app') .'routes/club.php');
 require( path('app') .'routes/players.php');
 require( path('app') .'routes/admin/games.php');
 require( path('app') .'routes/admin/players.php');

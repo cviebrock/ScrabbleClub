@@ -93,9 +93,14 @@
 	}
 
 
+
+
 	// widen tables
-	.table {
+	.table-bordered {
 		width: 100%;
+	}
+
+	.table {
 		border-color: @black;
 	}
 
@@ -104,6 +109,7 @@
 		th {
 			border-color: @black !important;
 			padding: 5px 8px;
+			background: @white !important;
 		}
 	}
 
@@ -124,13 +130,6 @@
 				background-image: none !important;
 			}
 		}
-
-		tbody {
-			tr:hover td {
-				background-color: inherit !important;
-			}
-		}
-
 	}
 
 	// fix all links

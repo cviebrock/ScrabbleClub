@@ -9,7 +9,8 @@
       <?php echo HTML::link_to_route('home', Config::get('application.clubname'), null, array('class'=>'brand')); ?>
       <div class="nav-collapse">
         <ul class="nav">
-					<li><?php echo HTML::link_to_route('players', 'Players'); ?></li>
+          <li><?php echo HTML::link_to_route('club', 'Club Stats'); ?></li>
+          <li><?php echo HTML::link_to_route('players', 'Players'); ?></li>
 					<li><?php echo HTML::link_to_route('admin_players', 'Admin Players'); ?></li>
 					<li><?php echo HTML::link_to_route('admin_games', 'Admin Games'); ?></li>
         </ul>
