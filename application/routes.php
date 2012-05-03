@@ -128,8 +128,6 @@ View::composer('default', function($view)
 	Asset::container('head')->add('html5shim','http://html5shim.googlecode.com/svn/trunk/html5.js');
 	Asset::container('head')->add('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
 	Asset::container('head')->add('bootstrap', 'css/bootstrap.css');
-#	Asset::container('head')->add('reset', 'css/reset.css');
-#	Asset::container('head')->add('style', 'css/style.css');
 
 
 #	Asset::add('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
