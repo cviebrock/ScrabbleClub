@@ -1,24 +1,28 @@
-@badgeColor: darken(@green, 10%);
+@badgeColor: darken(@orange, 10%);
+@badgeBorderColor: darken(@orange, 15%);
 
 .tinybadges {
 	position: absolute;
 	font-size: 10px;
-	text-align: left;
-	top: 0;
-	left: 0;
+	font-weight: bold;
+	text-align: center;
+	top: -1px;
+	left: -14px;
 	line-height: 10px;
 	color: @white;
-	padding: 1px 2px;
-	font-style: italic;
-	width: 8px;
+	padding: 1px 0;
+	width: 40px;
 	height: 10px;
-	.border-radius(0 0 10px 0);
+	border-top: 1px solid @black;
+	border-bottom: 1px solid @black;
+	.rotate(-45deg);
+	.box-shadow();
 
-	&.p1 { background-color: @badgeColor; }
-	&.p2 { background-color: lighten(@badgeColor, 10%); }
-	&.p3 { background-color: lighten(@badgeColor, 20%); }
-	&.p4 { background-color: lighten(@badgeColor, 30%); }
-	&.p5 { background-color: lighten(@badgeColor, 40%); }
+	&.p1 { background-color: @badgeColor; border-color: @badgeBorderColor; }
+	&.p2 { background-color: lighten(@badgeColor, 10%); border-color: lighten(@badgeBorderColor, 10%); }
+	&.p3 { background-color: lighten(@badgeColor, 20%); border-color: lighten(@badgeBorderColor, 20%); }
+	&.p4 { background-color: lighten(@badgeColor, 30%); border-color: lighten(@badgeBorderColor, 30%); }
+	&.p5 { background-color: lighten(@badgeColor, 40%); border-color: lighten(@badgeBorderColor, 40%); }
 
 
 }

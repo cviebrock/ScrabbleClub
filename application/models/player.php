@@ -46,9 +46,19 @@ class Player extends BaseModel {
 
 	public function currentRating()
 	{
-		return $this->ratings()->order_by('date','desc')->first();
+		if ($rating = $this->ratings()->order_by('date','desc')->first()) {
+			return $rating->rating;
+		}
+		return 1200;
 	}
 
+	public function ratingBeforeDate($date)
+	{
+		if ($rating = $this->ratings()->where('date','<',$date)->first()) {
+			return $rating->rating;
+		}
+		return 1200;
+	}
 
 	public function fullname()
 	{
