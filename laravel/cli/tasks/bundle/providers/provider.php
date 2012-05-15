@@ -39,9 +39,11 @@ abstract class Provider {
 		// Once we have the Zip archive, we can open it and extract it
 		// into the working directory. By convention, we expect the
 		// archive to contain one root directory with the bundle.
-		$zip->extractTo($work);
+		mkdir($work.'zip');
 
-		$latest = File::latest($work)->getRealPath();
+		$zip->extractTo($work.'zip');
+
+		$latest = File::latest($work.'zip')->getRealPath();
 
 		@chmod($latest, 0777);
 
@@ -50,6 +52,9 @@ abstract class Provider {
 		// so the bundle will be usable by the develoepr.
 		File::mvdir($latest, $path);
 
+		File::rmdir($work.'zip');
+
+		$zip->close();
 		@unlink($target);
 	}
 

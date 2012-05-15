@@ -44,11 +44,14 @@ class Schema {
 	 * Drop a database table from the schema.
 	 *
 	 * @param  string  $table
+	 * @param  string  $connection
 	 * @return void
 	 */
-	public static function drop($table)
+	public static function drop($table, $connection = null)
 	{
 		$table = new Schema\Table($table);
+
+		$table->on($connection);
 
 		// To indicate that the table needs to be dropped, we will run the
 		// "drop" command on the table instance and pass the instance to
@@ -89,7 +92,7 @@ class Schema {
 				// needs multiple queries to complete.
 				foreach ((array) $statements as $statement)
 				{
-					$connection->statement($statement);
+					$connection->query($statement);
 				}
 			}
 		}
@@ -120,9 +123,16 @@ class Schema {
 		{
 			foreach (array('primary', 'unique', 'fulltext', 'index') as $key)
 			{
-				if (isset($column->attributes[$key]))
+				if (isset($column->$key))
 				{
-					$table->$key($column->name, $column->$key);
+					if ($column->$key === true)
+					{
+						$table->$key($column->name);
+					}
+					else
+					{
+						$table->$key($column->name, $column->$key);
+					}
 				}
 			}
 		}
@@ -137,6 +147,11 @@ class Schema {
 	public static function grammar(Connection $connection)
 	{
 		$driver = $connection->driver();
+
+		if (isset(\Laravel\Database::$registrar[$driver]))
+		{
+			return \Laravel\Database::$registrar[$driver]['schema']();
+		}
 
 		switch ($driver)
 		{

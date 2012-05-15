@@ -1,4 +1,4 @@
-<?php namespace Laravel; use Closure;
+<?php namespace Laravel;
 
 class Lang {
 
@@ -33,6 +33,13 @@ class Lang {
 	protected static $lines = array();
 
 	/**
+	 * The language loader event name.
+	 *
+	 * @var string
+	 */
+	const loader = 'laravel.language.loader';
+
+	/**
 	 * Create a new Lang instance.
 	 *
 	 * @param  string  $key
@@ -44,7 +51,7 @@ class Lang {
 	{
 		$this->key = $key;
 		$this->language = $language;
-		$this->replacements = $replacements;
+		$this->replacements = (array) $replacements;
 	}
 
 	/**
@@ -82,7 +89,7 @@ class Lang {
 	 */
 	public static function has($key, $language = null)
 	{
-		return ! is_null(static::line($key, array(), $language)->get());
+		return static::line($key, array(), $language)->get() !== $key;
 	}
 
 	/**
@@ -105,13 +112,18 @@ class Lang {
 	 */
 	public function get($language = null, $default = null)
 	{
+		// If no default value is specified by the developer, we'll just return the
+		// key of the language line. This should indicate which language line we
+		// were attempting to render and is better than giving nothing back.
+		if (is_null($default)) $default = $this->key;
+
 		if (is_null($language)) $language = $this->language;
 
 		list($bundle, $file, $line) = $this->parse($this->key);
 
-		// If the file doesn't exist, we'll just return the default value that was
+		// If the file does not exist, we'll just return the default value that was
 		// given to the method. The default value is also returned even when the
-		// file exists and the file does not actually contain any lines.
+		// file exists and that file does not actually contain any lines.
 		if ( ! static::load($bundle, $language, $file))
 		{
 			return value($default);
@@ -179,22 +191,52 @@ class Lang {
 			return true;
 		}
 
-		$lines = array();
-
-		// Language files can belongs to the application or to any bundle
-		// that is installed for the application. So, we'll need to use
-		// the bundle's path when checking for the file.
-		//
-		// This is similar to the loading method for configuration files,
-		// but we do not need to cascade across directories since most
-		// likely language files are static across environments.
-		$path = Bundle::path($bundle)."language/{$language}/{$file}".EXT;
-
-		if (file_exists($path)) $lines = require $path;
+		// We use a "loader" event to delegate the loading of the language
+		// array, which allows the develop to organize the language line
+		// arrays for their application however they wish.
+		$lines = Event::first(static::loader, func_get_args());
 
 		static::$lines[$bundle][$language][$file] = $lines;
 
 		return count($lines) > 0;
+	}
+
+	/**
+	 * Load a language array from a language file.
+	 *
+	 * @param  string  $bundle
+	 * @param  string  $language
+	 * @param  string  $file
+	 * @return array
+	 */
+	public static function file($bundle, $language, $file)
+	{
+		$lines = array();
+
+		// Language files can belongs to the application or to any bundle
+		// that is installed for the application. So, we'll need to use
+		// the bundle's path when looking for the file.
+		$path = static::path($bundle, $language, $file);
+
+		if (file_exists($path))
+		{
+			$lines = require $path;
+		}
+
+		return $lines;
+	}
+
+	/**
+	 * Get the path to a bundle's language file.
+	 *
+	 * @param  string  $bundle
+	 * @param  string  $language
+	 * @param  string  $file
+	 * @return string
+	 */
+	protected static function path($bundle, $language, $file)
+	{
+		return Bundle::path($bundle)."language/{$language}/{$file}".EXT;
 	}
 
 	/**

@@ -26,14 +26,28 @@ class Router {
 	 *
 	 * @var array
 	 */
-	public static $routes = array();
+	public static $routes = array(
+		'GET'    => array(),
+		'POST'   => array(),
+		'PUT'    => array(),
+		'DELETE' => array(),
+		'PATCH'  => array(),
+		'HEAD'   => array(),
+	);
 
 	/**
 	 * All of the "fallback" routes that have been registered.
 	 *
 	 * @var array
 	 */
-	public static $fallback = array();
+	public static $fallback = array(
+		'GET'    => array(),
+		'POST'   => array(),
+		'PUT'    => array(),
+		'DELETE' => array(),
+		'PATCH'  => array(),
+		'HEAD'   => array(),
+	);
 
 	/**
 	 * The current attributes being shared by routes.
@@ -81,7 +95,7 @@ class Router {
 	 *
 	 * @var array
 	 */
-	public static $methods = array('GET', 'POST', 'PUT', 'DELETE');
+	public static $methods = array('GET', 'POST', 'PUT', 'DELETE', 'HEAD');
 
 	/**
 	 * Register a HTTPS route with the router.
@@ -105,7 +119,7 @@ class Router {
 	 *
 	 * <code>
 	 *		// Register a group of URIs for an action
-	 *		Router::share(array('GET', '/'), array('POST', '/'), 'home@index');
+	 *		Router::share(array(array('GET', '/'), array('POST', '/')), 'home@index');
 	 * </code>
 	 *
 	 * @param  array  $routes
@@ -137,7 +151,7 @@ class Router {
 		call_user_func($callback);
 
 		// Once the routes have been registered, we want to set the group to
-		// null so the attributes will not be assigned to any of the routes
+		// null so the attributes will not be given to any of the routes
 		// that are added after the group is declared.
 		static::$group = null;
 	}
@@ -147,7 +161,7 @@ class Router {
 	 *
 	 * <code>
 	 *		// Register a route with the router
-	 *		Router::register('GET' ,'/', function() {return 'Home!';});
+	 *		Router::register('GET', '/', function() {return 'Home!';});
 	 *
 	 *		// Register a route that handles multiple URIs with the router
 	 *		Router::register(array('GET', '/', 'GET /home'), function() {return 'Home!';});
@@ -160,7 +174,22 @@ class Router {
 	 */
 	public static function register($method, $route, $action)
 	{
+		if (ctype_digit($route)) $route = "({$route})";
+
 		if (is_string($route)) $route = explode(', ', $route);
+
+		// If the developer is registering multiple request methods to handle
+		// the URI, we'll spin through each method and register the route
+		// for each of them along with each URI and action.
+		if (is_array($method))
+		{
+			foreach ($method as $http)
+			{
+				static::register($http, $route, $action);
+			}
+
+			return;
+		}
 
 		foreach ((array) $route as $uri)
 		{
@@ -515,7 +544,7 @@ class Router {
 			$fallback = array_get(static::$fallback, $method, array());
 
 			// When building the array of routes, we'll merge in all of the fallback
-			// routes for each request methdo individually. This allows us to avoid
+			// routes for each request method individually. This allows us to avoid
 			// collisions when merging the arrays together.
 			$routes[$method] = array_merge($routes[$method], $fallback);
 		}

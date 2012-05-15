@@ -8,6 +8,7 @@ use Laravel\Bundle;
 use Laravel\Request;
 use Laravel\Redirect;
 use Laravel\Response;
+use FilesystemIterator as fIterator;
 
 abstract class Controller {
 
@@ -40,6 +41,80 @@ abstract class Controller {
 	protected $filters = array();
 
 	/**
+	 * The event name for the Laravel controller factory.
+	 *
+	 * @var string
+	 */
+	const factory = 'laravel.controller.factory';
+
+	/**
+	 * Create a new Controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		// If the controller has specified a layout to be used when rendering
+		// views, we will instantiate the layout instance and set it to the
+		// layout property, replacing the string layout name.
+		if ( ! is_null($this->layout))
+		{
+			$this->layout = $this->layout();
+		}
+	}
+
+	/**
+	 * Detect all of the controllers for a given bundle.
+	 *
+	 * @param  string  $bundle
+	 * @param  string  $directory
+	 * @return array
+	 */
+	public static function detect($bundle = DEFAULT_BUNDLE, $directory = null)
+	{
+		if (is_null($directory))
+		{
+			$directory = Bundle::path($bundle).'controllers';
+		}
+
+		// First we'll get the root path to the directory housing all of
+		// the bundle's controllers. This will be used later to figure
+		// out the identifiers needed for the found controllers.
+		$root = Bundle::path($bundle).'controllers'.DS;
+
+		$controllers = array();
+
+		$items = new fIterator($directory, fIterator::SKIP_DOTS);
+
+		foreach ($items as $item)
+		{
+			// If the item is a directory, we will recurse back into the function
+			// to detect all of the nested controllers and we will keep adding
+			// them into the array of controllers for the bundle.
+			if ($item->isDir())
+			{
+				$nested = static::detect($bundle, $item->getRealPath());
+
+				$controllers = array_merge($controllers, $nested);
+			}
+
+			// If the item is a file, we'll assume it is a controller and we
+			// will build the identifier string for the controller that we
+			// can pass into the route's controller method.
+			else
+			{
+				$controller = str_replace(array($root, EXT), '', $item->getRealPath());
+
+				$controller = str_replace(DS, '.', $controller);
+
+				$controllers[] = Bundle::identifier($bundle, $controller);
+			}
+		}
+
+		return $controllers;
+	}
+
+	/**
 	 * Call an action method on a controller.
 	 *
 	 * <code>
@@ -65,9 +140,19 @@ abstract class Controller {
 		// improve speed since the bundle is not loaded on every request.
 		Bundle::start($bundle);
 
-		list($controller, $method) = explode('@', $destination);
+		list($name, $method) = explode('@', $destination);
 
-		$controller = static::resolve($bundle, $controller);
+		$controller = static::resolve($bundle, $name);
+
+		// For convenience we will set the current controller and action on the
+		// Request's route instance so they can be easily accessed from the
+		// application. This is sometimes useful for dynamic situations.
+		if ( ! is_null($route = Request::route()))
+		{
+			$route->controller = $name;
+
+			$route->controller_action = $method;
+		}
 
 		// If the controller could not be resolved, we're out of options and
 		// will return the 404 error response. If we found the controller,
@@ -127,22 +212,19 @@ abstract class Controller {
 			return IoC::resolve($resolver);
 		}
 
+		$controller = static::format($bundle, $controller);
+
 		// If we couldn't resolve the controller out of the IoC container we'll
 		// format the controller name into its proper class name and load it
 		// by convention out of the bundle's controller directory.
-		$controller = static::format($bundle, $controller);
-
-		$controller = new $controller;
-
-		// If the controller has specified a layout to be used when rendering
-		// views, we will instantiate the layout instance and set it to the
-		// layout property, replacing the string layout name.
-		if ( ! is_null($controller->layout))
+		if (Event::listeners(static::factory))
 		{
-			$controller->layout = $controller->layout();
+			return Event::first(static::factory, $controller);
 		}
-
-		return $controller;
+		else
+		{
+			return new $controller;
+		}
 	}
 
 	/**
@@ -191,7 +273,7 @@ abstract class Controller {
 
 		// Again, as was the case with route closures, if the controller "before"
 		// filters return a response, it will be considered the response to the
-		// request and the controller method will not be used .
+		// request and the controller method will not be used.
 		$response = Filter::run($filters, array(), true);
 
 		if (is_null($response))
@@ -240,7 +322,7 @@ abstract class Controller {
 
 		$response = call_user_func_array(array($this, $action), $parameters);
 
-		// If the controller has specified a layout view. The response
+		// If the controller has specified a layout view the response
 		// returned by the controller method will be bound to that
 		// view and the layout will be considered the response.
 		if (is_null($response) and ! is_null($this->layout))

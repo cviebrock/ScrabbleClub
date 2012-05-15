@@ -1,5 +1,6 @@
 <?php namespace Laravel; defined('DS') or die('No direct script access.');
 
+use Laravel\Routing\Router;
 use FilesystemIterator as fIterator;
 
 class Bundle {
@@ -53,7 +54,7 @@ class Bundle {
 			$config = array('location' => $bundle);
 		}
 
-		// IF no location is set, we will set the location to match the name of
+		// If no location is set, we will set the location to match the name of
 		// the bundle. This is for bundles who are installed to the root of
 		// the bundle directory so a location was not set.
 		if ( ! isset($config['location']))
@@ -62,6 +63,14 @@ class Bundle {
 		}
 
 		static::$bundles[$bundle] = array_merge($defaults, $config);
+
+		// It is possible for the developer to specify auto-loader mappings
+		// directly on the bundle registration. This provides a convenient
+		// way to register mappings withuot a bootstrap.
+		if (isset($config['autoloads']))
+		{
+			static::autoloads($bundle, $config);
+		}
 	}
 
 	/**
@@ -81,10 +90,14 @@ class Bundle {
 			throw new \Exception("Bundle [$bundle] has not been installed.");
 		}
 
-		// Each bundle may have a "start" script which is responsible for preparing
-		// the bundle for use by the application. The start script may register any
-		// classes the bundle uses with the auto-loader, etc.
-		if (file_exists($path = static::path($bundle).'start'.EXT))
+		// Each bundle may have a start script which is responsible for preparing
+		// the bundle for use by the application. The start script may register
+		// any classes the bundle uses with the auto-loader class, etc.
+		if ( ! is_null($starter = static::option($bundle, 'starter')))
+		{
+			$starter();
+		}
+		elseif (file_exists($path = static::path($bundle).'start'.EXT))
 		{
 			require $path;
 		}
@@ -94,7 +107,7 @@ class Bundle {
 		// start script for reverse routing efficiency purposes.
 		static::routes($bundle);
 
-		Event::fire("started: {$bundle}");
+		Event::fire("laravel.started: {$bundle}");
 
 		static::$started[] = strtolower($bundle);
 	}
@@ -114,13 +127,42 @@ class Bundle {
 		// By setting the bundle property on the router the router knows what
 		// value to replace the (:bundle) place-holder with when the bundle
 		// routes are added, keeping the routes flexible.
-		Routing\Router::$bundle = static::option($bundle, 'handles');
+		Router::$bundle = static::option($bundle, 'handles');
 
 		if ( ! static::routed($bundle) and file_exists($path))
 		{
 			static::$routed[] = $bundle;
 
 			require $path;
+		}
+	}
+
+	/**
+	 * Register the auto-loading configuration for a bundle.
+	 *
+	 * @param  string  $bundle
+	 * @param  array   $config
+	 * @return void
+	 */
+	protected static function autoloads($bundle, $config)
+	{
+		$path = rtrim(Bundle::path($bundle), DS);
+
+		foreach ($config['autoloads'] as $type => $mappings)
+		{
+			// When registering each type of mapping we'll replace the (:bundle)
+			// place-holder with the path to the bundle's root directory, so
+			// the developer may dryly register the mappings.
+			$mappings = array_map(function($mapping) use ($path)
+			{
+				return str_replace('(:bundle)', $path, $mapping);
+
+			}, $mappings);
+
+			// Once the mappings are formatted, we will call the Autoloader
+			// function matching the mapping type and pass in the array of
+			// mappings so they can be registered and used.
+			Autoloader::$type($mappings);
 		}
 	}
 
@@ -138,7 +180,7 @@ class Bundle {
 	/**
 	 * Determine which bundle handles the given URI.
 	 *
-	 * If no bundle is assigned to handle the URI, the default bundle is returned.
+	 * The default bundle is returned if no other bundle is assigned.
 	 *
 	 * @param  string  $uri
 	 * @return string
@@ -167,19 +209,6 @@ class Bundle {
 	public static function exists($bundle)
 	{
 		return $bundle == DEFAULT_BUNDLE or in_array(strtolower($bundle), static::names());
-	}
-
-	/**
-	 * Get the full path location of a given bundle.
-	*
-	* @param  string  $bundle
-	* @return string
-	 */
-	public static function location($bundle)
-	{
-		$location = array_get(static::$bundles, $bundle.'.location');
-
-		return path('bundle').str_finish($location, DS);
 	}
 
 	/**
@@ -242,7 +271,24 @@ class Bundle {
 	 */
 	public static function path($bundle)
 	{
-		return ($bundle == DEFAULT_BUNDLE) ? path('app') : static::location($bundle);
+		if (is_null($bundle) or $bundle === DEFAULT_BUNDLE)
+		{
+			return path('app');
+		}
+		elseif ($location = array_get(static::$bundles, $bundle.'.location'))
+		{
+			// If the bundle location starts with "path: ", we will assume that a raw
+			// path has been specified and will simply return it. Otherwise, we'll
+			// prepend the bundle directory path onto the location and return.
+			if (starts_with($location, 'path: '))
+			{
+				return str_finish(substr($location, 6), DS);
+			}
+			else
+			{
+				return str_finish(path('bundle').$location, DS);
+			}
+		}
 	}
 
 	/**
@@ -253,7 +299,9 @@ class Bundle {
 	 */
 	public static function assets($bundle)
 	{
-		return ($bundle != DEFAULT_BUNDLE) ? URL::base()."/bundles/{$bundle}/" : URL::base().'/';
+		if (is_null($bundle)) return static::assets(DEFAULT_BUNDLE);
+
+		return ($bundle != DEFAULT_BUNDLE) ? "/bundles/{$bundle}/" : '/';
 	}
 
 	/**
@@ -340,8 +388,8 @@ class Bundle {
 	public static function parse($identifier)
 	{
 		// The parsed elements are cached so we don't have to reparse them on each
-		// subsequent request for the parsed element. So, if we've already parsed
-		// the given element, we'll just return the cached copy.
+		// subsequent request for the parsed element. So if we've already parsed
+		// the given element, we'll just return the cached copy as the value.
 		if (isset(static::$elements[$identifier]))
 		{
 			return static::$elements[$identifier];
@@ -353,7 +401,7 @@ class Bundle {
 		}
 		// If no bundle is in the identifier, we will insert the default bundle
 		// since classes like Config and Lang organize their items by bundle.
-		// The "application" folder essentially behaves as a bundle.
+		// The application folder essentially behaves as a default bundle.
 		else
 		{
 			$element = array(DEFAULT_BUNDLE, strtolower($identifier));
@@ -378,13 +426,19 @@ class Bundle {
 	 *
 	 * @param  string  $bundle
 	 * @param  string  $option
+	 * @param  mixed   $default
 	 * @return mixed
 	 */
-	public static function option($bundle, $option)
+	public static function option($bundle, $option, $default = null)
 	{
 		$bundle = static::get($bundle);
 
-		if ( ! is_null($bundle)) return array_get($bundle, $option);
+		if (is_null($bundle))
+		{
+			return value($default);
+		}
+
+		return array_get($bundle, $option, $default);
 	}
 
 	/**

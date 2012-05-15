@@ -20,12 +20,25 @@ return array(
 	|--------------------------------------------------------------------------
 	|
 	| The URL used to access your application without a trailing slash. The URL
-	| does nto have to be set. If it isn't we'll try our best to guess the URL
+	| does not have to be set. If it isn't we'll try our best to guess the URL
 	| of your application.
 	|
 	*/
 
 	'url' => 'http://wsc.local',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Asset URL
+	|--------------------------------------------------------------------------
+	|
+	| The base URL used for your application's asset files. This is useful if
+	| you are serving your assets through a different server or a CDN. If it
+	| is not set, we'll default to the application URL above.
+	|
+	*/
+
+	'asset_url' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,6 +66,20 @@ return array(
 	*/
 
 	'key' => 'XaGTsvbwHplZQuCZZf5IyhzdaLZ31whN',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Profiler Toolbar
+	|--------------------------------------------------------------------------
+	|
+	| Laravel includes a beautiful profiler toolbar that gives you a heads
+	| up display of the queries and logs performed by your application.
+	| This is wonderful for development, but, of course, you should
+	| disable the toolbar for production applications..
+	|
+	*/
+
+	'profiler' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -127,6 +154,7 @@ return array(
 		'Auth'       => 'Laravel\\Auth',
 		'Asset'      => 'Laravel\\Asset',
 		'Autoloader' => 'Laravel\\Autoloader',
+		'Blade'      => 'Laravel\\Blade',
 		'Bundle'     => 'Laravel\\Bundle',
 		'Cache'      => 'Laravel\\Cache',
 		'Config'     => 'Laravel\\Config',
@@ -134,6 +162,7 @@ return array(
 		'Cookie'     => 'Laravel\\Cookie',
 		'Crypter'    => 'Laravel\\Crypter',
 		'DB'         => 'Laravel\\Database',
+		'Eloquent'   => 'Laravel\\Database\\Eloquent\\Model',
 		'Event'      => 'Laravel\\Event',
 		'File'       => 'Laravel\\File',
 		'Filter'     => 'Laravel\\Routing\\Filter',
@@ -147,8 +176,8 @@ return array(
 		'Lang'       => 'Laravel\\Lang',
 		'Log'        => 'Laravel\\Log',
 		'Memcached'  => 'Laravel\\Memcached',
-//		'Paginator'  => 'Laravel\\Paginator',
-		'Paginator'  => 'Twitter\\Bootstrap\\Paginator',
+		'Paginator'  => 'Laravel\\Paginator',
+		'Profiler'   => 'Laravel\\Profiling\\Profiler',
 		'URL'        => 'Laravel\\URL',
 		'Redirect'   => 'Laravel\\Redirect',
 		'Redis'      => 'Laravel\\Redis',

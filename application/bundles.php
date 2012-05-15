@@ -34,13 +34,5 @@
 */
 
 return array(
-	'eloquent' => array(
-		'location' => 'eloquent',
-		'auto'     => true
-	),
-	'bug-lost' => array(
-		'location' => 'bug-lost',
-		'auto'     => false && getenv('LARAVEL_DEBUG')
-	)
+	'docs' => array('handles' => 'docs'),
 );
-
