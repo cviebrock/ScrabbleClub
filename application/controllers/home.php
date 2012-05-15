@@ -30,9 +30,10 @@ class Home_Controller extends Base_Controller {
 	|
 	*/
 
-	public function action_index()
+	public function get_index()
 	{
-		return View::make('home.index');
+		$this->layout->with('title', 'Home')
+			->nest('content', 'home.index');
 	}
 
 }

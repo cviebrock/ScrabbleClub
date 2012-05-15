@@ -39,7 +39,7 @@ echo Form::field('labelled_checkbox', 'confirm', 'Are you sure?',
 
 echo Form::actions(array(
 	Form::submit('Delete Game', array('class' => 'btn-primary btn-warning')),
-	App::action_link_to_route('admin_games_list', 'Back to Games List', null, 'arrow-left')
+	App::action_link_to_route('admin.games@index', 'Back to Games List', array(), 'arrow-left')
 ));
 
 

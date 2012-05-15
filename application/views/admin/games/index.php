@@ -22,7 +22,7 @@ foreach ($games as $game) {
 		echo '<td class="numeric">' . $game->complete_games . '</td>';
 		echo '<td class="numeric ' . $class . '">' . $game->unmatched_games . '</td>';
 		echo '<td><ul class="sc_actions">' .
-			'<li>' . App::action_link_to_route('admin_games_list', 'View', array($game->date), 'small|search' ) . '</li>' .
+			'<li>' . App::action_link_to_route('admin.games@bydate', 'View', array($game->date), 'small|search' ) . '</li>' .
 			'</td>';
 		echo "<tr>\n";
 }
@@ -30,7 +30,7 @@ foreach ($games as $game) {
 	</tbody>
 </table>
 
-<?php echo App::action_link_to_route('admin_games_new', 'Add new games', null, 'plus|white', array('class'=>'btn btn-primary')); ?>
+<?php echo App::action_link_to_route('admin.games@new', 'Add new games', array(), 'plus|white', array('class'=>'btn btn-primary')); ?>
 
 <script>
 $(document).ready( function() {

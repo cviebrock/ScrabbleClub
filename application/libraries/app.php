@@ -113,14 +113,14 @@ class App {
 			}
 		}
 
-		return static::link_to_route($name, $title, $parameters, $attributes );
+		return static::link_to_action($name, $title, $parameters, $attributes );
 
 	}
 
 
-	public static function link_to_route($name, $title, $parameters = array(), $attributes = array(), $https = false)
+	public static function link_to_action($name, $title, $parameters = array(), $attributes = array(), $https = false)
 	{
-		return static::link(URL::to_route($name, $parameters, $https), $title, $attributes);
+		return static::link(URL::to_action($name, $parameters, $https), $title, $attributes);
 	}
 
 

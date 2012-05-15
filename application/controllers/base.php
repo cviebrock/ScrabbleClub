@@ -2,6 +2,14 @@
 
 class Base_Controller extends Controller {
 
+	// make controllers REST-ful by default
+	public $restful = true;
+
+
+	// One view to rule them all ...
+	public $layout = 'base';
+
+
 	/**
 	 * Catch-all method for requests that can't be matched.
 	 *

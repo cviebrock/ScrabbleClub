@@ -37,7 +37,7 @@ echo Form::field('number', 'opponent_score', 'Opponent Score',
 
 echo Form::actions(array(
 	Form::submit('Save Changes', array('class' => 'btn-primary')),
-	App::action_link_to_route('admin_games_list', 'Back to Games List', array($game->date), 'arrow-left')
+	App::action_link_to_route('admin.games@bydate', 'Back to Games List', array($game->date), 'arrow-left')
 ));
 
 echo Form::close();

@@ -201,12 +201,17 @@ class Gameform {
 		$success = true;
 
 		foreach($this->games as $game) {
-			$success &= $game->save();
-			$game->set_matching_game();
+			if ($game->save()) {
+				$game->match_game();
+			} else {
+				$success = false;
+			}
 		}
 
 		foreach($this->bingos as $bingo) {
-			$success &= $bingo->save();
+			if (!$bingo->save()) {
+				$success = false;
+			}
 		}
 
 		return $success;

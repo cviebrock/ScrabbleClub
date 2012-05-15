@@ -106,7 +106,7 @@ echo Form::actions(array(
 		'class'    => 'btn-primary',
 		'tabindex' => $tabindex++
 	)),
-	App::action_link_to_route('admin_games', 'Back to Games List', null, 'arrow-left')
+	App::action_link_to_route('admin.games', 'Back to Games List', array(), 'arrow-left')
 ));
 
 

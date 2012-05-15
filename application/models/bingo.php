@@ -16,6 +16,8 @@ ENGINE = MyISAM
 
 class Bingo extends BaseModel {
 
+	public static $timestamps = false;
+
 	public $rules = array(
 		'player_id' => 'exists:players,id',
 		'date'      => 'required|date',

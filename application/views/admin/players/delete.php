@@ -14,7 +14,7 @@ echo Form::field('labelled_checkbox', 'confirm', 'Are you sure?',
 
 echo Form::actions(array(
 	Form::submit('Delete Player', array('class' => 'btn-primary btn-warning')),
-	App::action_link_to_route('admin_players', 'Back to Players List', null, 'arrow-left')
+	App::action_link_to_route('admin.players', 'Back to Players List', array(), 'arrow-left')
 ));
 
 

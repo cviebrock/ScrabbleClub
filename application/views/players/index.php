@@ -46,7 +46,7 @@ foreach ($players as $player) {
 		echo '<tr>';
 
 		echo '<td class="nowrap">' .
-			App::link_to_route('player_details', $player->fullname, array($player->id) ) .
+			App::link_to_action('players@details', $player->fullname, array($player->id) ) .
 			'</td>';
 		echo '<td class="numeric">' . $player->games_played . '</td>';
 		echo '<td class="nowrap">' . sprintf("%.1f-%.1f",

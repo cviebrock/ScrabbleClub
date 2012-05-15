@@ -61,15 +61,15 @@
 	</tbody>
 </table>
 
-
 <h2>Bingos</h2>
+
 
 <table class="table table-condensed">
 	<tbody>
 		<tr>
 			<th class="span3 horizontal-header">Bingos Played</th>
 			<td class="span4"><?php echo $bingos['count']; ?>
-				<?php echo HTML::link_to_route('player_bingos',
+				<?php echo HTML::link_to_action('players@bingos',
 						'<i class="icon-list icon-small" title="show all bingos"></i>',
 						array($player->id),
 						array('class'=>'pull-right')
@@ -92,15 +92,21 @@
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Best Bingo</th>
-			<td class="span4"><?php echo $bingos['best']->word_and_score(); ?></td>
+			<td class="span4"><?php echo $bingos['best'] ? $bingos['best']->word_and_score() : '&mdash;'; ?></td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Worst Bingo</th>
-			<td class="span4"><?php echo $bingos['worst']->word_and_score(); ?></td>
+			<td class="span4"><?php echo $bingos['worst'] ? $bingos['worst']->word_and_score() : '&mdash;'; ?></td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Rarest Bingo</th>
-			<td class="span4"><?php echo $bingos['rarest']->word_and_score(); ?> <small class="muted">Playability: <?php echo $bingos['rarest']->playability; ?></small></td>
+			<td class="span4">
+			<?php if ($bingos['rarest']): ?>
+			<?php echo $bingos['rarest']->word_and_score(); ?> <small class="muted">Playability: <?php echo $bingos['rarest']->playability; ?></small>
+			<?php else: ?>
+			&mdash;
+			<?php endif; ?>
+		</td>
 		</tr>
 	</tbody>
 </table>

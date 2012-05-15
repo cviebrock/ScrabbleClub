@@ -217,7 +217,7 @@ Route::post('admin/games/edit/(:num)', array( 'before' => 'csrf', function($id)
 	Session::put('last_date', $game->date);
 
 	$game->save();
-	if ($game->set_matching_game()) {
+	if ($game->match_game()) {
 		return Redirect::to_route('admin_games_list', array($game->date) )
 			->with('success', 'Game edited and matched.');
 	} else {
@@ -306,7 +306,7 @@ Route::post('admin/games/create_match/(:num)', array( 'before' => 'csrf', functi
 	$game->exists = false;
 	$game->id = null;
 	$game->save();
-	$game->set_matching_game();
+	$game->match_game();
 
 	return Redirect::to_route('admin_games_list', array($game->date))
 		->with('success', 'Matched game created.');

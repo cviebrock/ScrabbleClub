@@ -57,8 +57,8 @@ Route::get('club', array( 'as'=>'club', function()
 		->take(5)
 		->get();
 
-	$combined = Game::where('player_id','>','opponent_id')
-		->order_by(DB::raw('player_score+opponent_score'),'desc')
+	$combined = Game::where('player_id', '>', 'opponent_id')
+		->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
 		->order_by('date','desc')
 		->take(5)
 		->get();

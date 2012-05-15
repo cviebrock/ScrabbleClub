@@ -44,7 +44,7 @@ echo Form::field('number', 'naspa_rating', 'NASPA Rating',
 
 echo Form::actions(array(
 	Form::submit($submit_text, array('class' => 'btn-primary')),
-	App::action_link_to_route('admin_players', 'Back to Players List', null, 'arrow-left')
+	App::action_link_to_route('admin.players', 'Back to Players List', array(), 'arrow-left')
 ));
 
 echo Form::close();

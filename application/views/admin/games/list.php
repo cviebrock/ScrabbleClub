@@ -30,9 +30,9 @@ foreach ($unmatched_games as $game) {
 		echo '<td class="numeric">' . $game->opponent_score . '</td>';
 		echo '<td class="numeric">' . $game->spread . '</td>';
 		echo '<td><ul class="sc_actions">' .
-			'<li>' . App::action_link_to_route('admin_game_edit', 'edit', array($game->id), 'small|pencil' ) . '</li>' .
-			'<li>' . App::action_link_to_route('admin_game_create_match', 'match', array($game->id), 'small|magnet' ) . '</li>' .
-			'<li>' . App::action_link_to_route('admin_game_delete', 'delete', array($game->id), 'small|remove' ) . '</li>' .
+			'<li>' . App::action_link_to_route('admin.games@edit', 'edit', array($game->id), 'small|pencil' ) . '</li>' .
+			'<li>' . App::action_link_to_route('admin.games@create_match', 'match', array($game->id), 'small|magnet' ) . '</li>' .
+			'<li>' . App::action_link_to_route('admin.games@delete', 'delete', array($game->id), 'small|remove' ) . '</li>' .
 		 '</ul></td>';
 		echo "<tr>\n";
 }
@@ -78,9 +78,9 @@ foreach ($matched_games as $game) {
 <?php endif; ?>
 
 
-<?php echo App::action_link_to_route('admin_games_new', 'Add new games', array($date), 'plus|white', array('class'=>'btn btn-primary')); ?>
+<?php echo App::action_link_to_route('admin.games@new', 'Add new games', array($date), 'plus|white', array('class'=>'btn btn-primary')); ?>
 
-<?php echo App::action_link_to_route('admin_games', 'Back to games', null, 'arrow-left', array('class'=>'btn')); ?>
+<?php echo App::action_link_to_route('admin.games', 'Back to games', array(), 'arrow-left', array('class'=>'btn')); ?>
 
 
 <script>

@@ -25,7 +25,7 @@
 	</tbody>
 </table>
 
-<?php echo App::action_link_to_route('player_details', 'Back to player details', array($player->id), 'arrow-left', array('class'=>'btn')); ?>
+<?php echo App::action_link_to_route('players@details', 'Back to player details', array($player->id), 'arrow-left', array('class'=>'btn')); ?>
 
 
 <script>
