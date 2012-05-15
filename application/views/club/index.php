@@ -58,3 +58,14 @@
 		->with('small_head', true)
 		->render();
 ?>
+
+
+<h2>Highest Combined Scores</h2>
+<?php
+	echo View::make('partials.game_listing')
+		->with('games', $combined)
+		->with('id', 'high_score')
+		->with('mark_winners', true)
+		->with('small_head', true)
+		->render();
+?>

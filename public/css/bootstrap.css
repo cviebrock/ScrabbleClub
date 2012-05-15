@@ -650,6 +650,7 @@ thead.small th{font-size:80%;padding:4px 8px;}
 td.numeric{text-align:right;}
 td.center{text-align:center;}
 td.horizontal-header{text-align:right;font-weight:bold;}
+td.nowrap{white-space:nowrap;}
 table.games td.error{color:#b94a48;font-size:85%;}table.games td.error>label,table.games td.error .help-block,table.games td.error .help-inline{color:#b94a48;}
 table.games td.error input,table.games td.error select,table.games td.error textarea{color:#b94a48;border-color:#b94a48;}table.games td.error input:focus,table.games td.error select:focus,table.games td.error textarea:focus{border-color:#953b39;-webkit-box-shadow:0 0 6px #d59392;-moz-box-shadow:0 0 6px #d59392;box-shadow:0 0 6px #d59392;}
 table.games td.error .input-prepend .add-on,table.games td.error .input-append .add-on{color:#b94a48;background-color:#f2dede;border-color:#b94a48;}

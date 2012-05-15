@@ -8,7 +8,8 @@
 		<tr>
 			<th class="span3">Name</th>
 			<th class="span1">Games Played</th>
-			<th class="span2">Record</th>
+			<th class="span1">Record</th>
+			<th class="span1">Win %</th>
 			<th class="span1">Avg. Score</th>
 			<th class="span1">Avg. Against</th>
 			<th class="span1">Avg. Spread</th>
@@ -39,6 +40,8 @@ foreach ($players as $player) {
 		}
 
 		$numerator = $player->wins + ($player->ties / 2 );
+		$ratio = ($player->games_played ? $numerator*100/$player->games_played : 0);
+
 
 		echo '<tr>';
 
@@ -46,11 +49,11 @@ foreach ($players as $player) {
 			App::link_to_route('player_details', $player->fullname, array($player->id) ) .
 			'</td>';
 		echo '<td class="numeric">' . $player->games_played . '</td>';
-		echo '<td class="nowrap">' . sprintf("%.1f %s %.1f",
+		echo '<td class="nowrap">' . sprintf("%.1f-%.1f",
 				$numerator,
-				'&ndash;',
 				$player->losses
 			) . '</td>';
+		echo '<td class="numeric">' . sprintf('%.1f%%', $ratio) . '</td>';
 		echo '<td class="numeric">' . $player->average_score . '</td>';
 		echo '<td class="numeric">' . $player->average_opponent_score . '</td>';
 		echo '<td class="numeric">' . $player->average_spread . '</td>';
@@ -74,7 +77,7 @@ $(document).ready( function() {
 		headers: {
 			2: { sorter: 'sc_record' }
 		},
-		sortList: [[2,1], [1,1]]
+		sortList: [[3,1], [1,1]]
 	});
 
 });
