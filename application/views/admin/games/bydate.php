@@ -12,10 +12,10 @@
 <table id="unmatched" class="table table-striped table-bordered sortable">
 	<thead>
 		<tr>
-			<th class="span3">Winner</th>
-			<th class="span1">Winner Score</th>
-			<th class="span3">Loser</th>
-			<th class="span1">Loser Score</th>
+			<th class="span3">Player</th>
+			<th class="span1">Player Score</th>
+			<th class="span3">Opponent</th>
+			<th class="span1">Opp. Score</th>
 			<th class="span1">Spread</th>
 			<th class="span3">Actions</th>
 		</tr>

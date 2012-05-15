@@ -101,14 +101,18 @@ class Gameform {
 		$this->reset_bingos();
 
 		if (!empty($this->bingo_list)) {
-			$temp = preg_split('/[,\n]+/', $this->bingo_list, null, PREG_SPLIT_NO_EMPTY);
-			foreach($temp as $b) {
-				list($word,$score) = preg_split('/[\s\-]+/', trim($b), 2, PREG_SPLIT_NO_EMPTY);
-				if ($score) {
-					$score = intval($score, 10);
-				} else {
+			$lines = preg_split('/[,\n]+/', $this->bingo_list, null, PREG_SPLIT_NO_EMPTY);
+			foreach($lines as $line) {
+				$temp = preg_split('/[\s\-]+/', trim($line), 2, PREG_SPLIT_NO_EMPTY);
+				$word = trim(array_shift($temp));
+				if (empty($temp)) {
 					$score = null;
+				} else {
+					$score = intval(array_shift($temp), 10);
 				}
+
+Log::info("$line -->  $word ($score)");
+
 				$bingo = new Bingo;
 				$bingo->fill(array(
 					'date'   		=> $this->date,
@@ -198,10 +202,16 @@ class Gameform {
 	public function save()
 	{
 
+		Log::info('entering gameform::save');
+
 		$success = true;
 
 		foreach($this->games as $game) {
+
+			Log::info('saving game:'.print_r($game->attributes,true));
+
 			if ($game->save()) {
+				Log::info('game saved, matching game');
 				$game->match_game();
 			} else {
 				$success = false;

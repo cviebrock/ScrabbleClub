@@ -24,7 +24,16 @@
 	<tbody>
 <?php
 
-$sortable = true;
+$sortable = $rank = true;
+
+$rankings = array(
+	'ratio'         => array(),
+	'average_score' => array(),
+	'best_score'    => array(),
+	'bingos'        => array(),
+	'phoniness'     => array(),
+);
+
 
 foreach ($players as $player) {
 
@@ -37,13 +46,21 @@ foreach ($players as $player) {
 		if ($sortable && $player->games_played==0) {
 			echo "</tbody>\n<tbody class=\"nosort\">\n";
 			$sortable = false;
+			$rank = false;
 		}
 
 		$numerator = $player->wins + ($player->ties / 2 );
 		$ratio = ($player->games_played ? $numerator*100/$player->games_played : 0);
 
+		if ($rank) {
+			$rankings['ratio'][$player->id] = $ratio;
+			$rankings['average_score'][$player->id] = $player->average_score;
+			$rankings['best_score'][$player->id] = $player->best_score;
+			$rankings['bingos'][$player->id] = $bingo ? $bingo->num_played / $player->games_played : 0;
+			$rankings['phoniness'][$player->id] = $bingo ? $bingo->phoniness : 0;
+		}
 
-		echo '<tr>';
+		echo '<tr id="row_' . $player->id . '">';
 
 		echo '<td class="nowrap">' .
 			App::link_to_action('players@details', $player->fullname, array($player->id) ) .
@@ -53,15 +70,15 @@ foreach ($players as $player) {
 				$numerator,
 				$player->losses
 			) . '</td>';
-		echo '<td class="numeric">' . sprintf('%.1f%%', $ratio) . '</td>';
-		echo '<td class="numeric">' . $player->average_score . '</td>';
+		echo '<td class="numeric r_ratio">' . sprintf('%.1f%%', $ratio) . '</td>';
+		echo '<td class="numeric r_average_score">' . $player->average_score . '</td>';
 		echo '<td class="numeric">' . $player->average_opponent_score . '</td>';
 		echo '<td class="numeric">' . $player->average_spread . '</td>';
-		echo '<td class="numeric">' . $player->best_score . '</td>';
-#		echo '<td class="numeric">' . $player->best_spread . '</td>';
+		echo '<td class="numeric r_best_score">' . $player->best_score . '</td>';
+		// echo '<td class="numeric">' . $player->best_spread . '</td>';
 
-		echo '<td class="numeric">' . ($bingo ? sprintf('%.1f', $bingo->num_played / $player->games_played) : '&mdash;') . '</td>';
-		echo '<td class="numeric">' . ($bingo ? sprintf('%.1f%%',100*$bingo->phoniness) : '&mdash;') . '</td>';
+		echo '<td class="numeric r_bingos">' . ($bingo ? sprintf('%.1f', $bingo->num_played / $player->games_played) : '&mdash;') . '</td>';
+		echo '<td class="numeric r_phoniness">' . ($bingo ? sprintf('%.1f%%',100*$bingo->phoniness) : '&mdash;') . '</td>';
 
 
 		echo "</tr>\n";
@@ -71,7 +88,8 @@ foreach ($players as $player) {
 </table>
 
 <script>
-$(document).ready( function() {
+
+$(function() {
 
 	$('table.sortable').tablesorter({
 		headers: {
@@ -79,6 +97,24 @@ $(document).ready( function() {
 		},
 		sortList: [[3,1], [1,1]]
 	});
+
+<?php
+
+foreach($rankings as $what=>$values) {
+	arsort($values);
+	$top_five = array_slice($values, 0, 5, true);
+
+	$c = 1;
+	foreach($top_five as $pid=>$value) {
+		echo "$('#row_{$pid} td.r_{$what}').append('<span class=\"tinybadges p{$c}\">{$c}</span>');\n";
+		$c++;
+	}
+
+}
+
+
+?>
+
 
 });
 </script>

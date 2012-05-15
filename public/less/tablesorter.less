@@ -37,8 +37,13 @@ table.sortable {
 
 	}
 
-	tbody tr:hover td {
-		background-color: @tableSortableHoverRow;
+	tbody {
+		td {
+			position: relative;
+		}
+		tr:hover td {
+			background-color: @tableSortableHoverRow;
+		}
 	}
 
 	tbody.nosort {

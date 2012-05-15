@@ -15,7 +15,7 @@ class Club_Controller extends Base_Controller {
 
 		$temp = DB::query('SELECT
 			COUNT(g.id)/2 AS total_games,
-			COUNT(DISTINCT g.date)/2 AS total_dates,
+			COUNT(DISTINCT g.date) AS total_dates,
 			AVG(g.player_score) AS average_score
 			FROM games g
 		');
@@ -60,11 +60,14 @@ class Club_Controller extends Base_Controller {
 			->take(5)
 			->get();
 
-		$combined = Game::where('player_id', '>', 'opponent_id')
+		$combined = Game::where('player_id', '>', DB::raw('opponent_id'))
 			->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
 			->order_by('date','desc')
 			->take(5)
 			->get();
+
+		Asset::container('head')->add('jsapi', 'https://www.google.com/jsapi');
+
 
 		$this->layout->with('title', 'Club Statistics')
 			->nest('content', 'club.index', array(
@@ -76,7 +79,6 @@ class Club_Controller extends Base_Controller {
 				'blowouts'      => $blowouts,
 				'combined'      => $combined,
 			));
-
 
 		// Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		// Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');

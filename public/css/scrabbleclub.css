@@ -74,7 +74,7 @@ h4,h5,h6{line-height:1.33333em;}
 h4{font-size:100%;}h4 small{font-size:80%;}
 h5{font-size:80%;}
 h6{font-size:75%;color:#999999;text-transform:uppercase;}
-.page-header{padding-bottom:1.33333em;margin:1.33333em 0;border-bottom:1px solid #eeeeee;}
+.page-header{margin:1.33333em 0;border-bottom:1px solid #eeeeee;}
 .page-header h1{line-height:1;}
 ul,ol{padding:0;margin:0 0 0.666665em 25px;}
 ul ul,ul ol,ol ol,ol ul{margin-bottom:0;}
@@ -607,6 +607,7 @@ table.sortable thead th{background-color:#eeeeee;padding-right:20px;margin-right
 table.sortable thead .header{background-image:url(/img/sortable.png);background-repeat:no-repeat;background-position:100% 6px;cursor:pointer;}table.sortable thead .header:hover{text-decoration:underline;}
 table.sortable thead .headerSortUp{background-image:url(/img/sorted-asc.png);background-color:#c8c8c8;}
 table.sortable thead .headerSortDown{background-image:url(/img/sorted-desc.png);background-color:#c8c8c8;}
+table.sortable tbody td{position:relative;}
 table.sortable tbody tr:hover td{background-color:#d9edf7;}
 table.sortable tbody.nosort{color:#999999;}
 .quickselect_results{-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);background:#ffffff;border:1px solid #999999;overflow:hidden;margin-top:7px;}.quickselect_results ul{width:100%;list-style-position:outside;list-style:none;padding:0;margin:0;}
@@ -669,6 +670,12 @@ table+h2{margin-top:40px;}
 #ooo_loader{display:inline-block;width:16px;height:16px;background:transparent url('/img/loader.gif') no-repeat 0 0;}
 .form-actions .btn{vertical-align:middle;}
 .form-actions .btn+.btn{margin-left:10px;}
+.sparkline{display:inline-block;vertical-align:bottom;margin-left:10px;}.sparkline table,.sparkline tbody,.sparkline tr,.sparkline td{border:none;padding:0;}
+.tinybadges{position:absolute;font-size:10px;text-align:left;top:0;left:0;line-height:10px;color:#ffffff;padding:1px 2px;font-style:italic;width:8px;height:10px;-webkit-border-radius:0 0 10px 0;-moz-border-radius:0 0 10px 0;border-radius:0 0 10px 0;}.tinybadges.p1{background-color:#378137;}
+.tinybadges.p2{background-color:#46a546;}
+.tinybadges.p3{background-color:#62bc62;}
+.tinybadges.p4{background-color:#86cb86;}
+.tinybadges.p5{background-color:#a9dba9;}
 .pull-right{float:right;}
 .pull-left{float:left;}
 .hide{display:none;}

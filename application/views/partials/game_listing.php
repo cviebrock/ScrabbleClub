@@ -6,7 +6,7 @@
 			<th class="span1">Score</th>
 			<th class="span3">Opponent</th>
 			<th class="span1">O.Score</th>
-			<th class="span1">Spread</th>
+			<th class="span1"><?php echo isset($combined) ? 'Combined' : 'Spread'; ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -38,7 +38,7 @@ foreach ($games as $game):
 			<td class="numeric<?php echo $p_class; ?>"><?php echo $game->player_score; ?></td>
 			<td class="<?php echo $o_class; ?>"><?php echo $game->opponent->fullname(); ?></td>
 			<td class="numeric<?php echo $o_class; ?>"><?php echo $game->opponent_score; ?></td>
-			<td class="numeric"><?php echo $game->spread; ?></td>
+			<td class="numeric"><?php echo isset($combined) ? $game->player_score + $game->opponent_score : $game->spread; ?></td>
 		</tr>
 <?php
 endforeach;

@@ -1,0 +1,24 @@
+@badgeColor: darken(@green, 10%);
+
+.tinybadges {
+	position: absolute;
+	font-size: 10px;
+	text-align: left;
+	top: 0;
+	left: 0;
+	line-height: 10px;
+	color: @white;
+	padding: 1px 2px;
+	font-style: italic;
+	width: 8px;
+	height: 10px;
+	.border-radius(0 0 10px 0);
+
+	&.p1 { background-color: @badgeColor; }
+	&.p2 { background-color: lighten(@badgeColor, 10%); }
+	&.p3 { background-color: lighten(@badgeColor, 20%); }
+	&.p4 { background-color: lighten(@badgeColor, 30%); }
+	&.p5 { background-color: lighten(@badgeColor, 40%); }
+
+
+}

@@ -73,7 +73,7 @@ class Admin_Games_Controller extends Base_Controller {
 		// Asset::add('tablesorter-pager', 'css/tablesorter-pager.css');
 
 		$this->layout->with('title', 'Games for '.$fdate)
-			->nest('content', 'admin.games.list', array(
+			->nest('content', 'admin.games.bydate', array(
 				'fdate'           => $fdate,
 				'date'            => $date,
 				'matched_games'   => $matched_games,
@@ -85,9 +85,6 @@ class Admin_Games_Controller extends Base_Controller {
 
 	public function get_new($date=null)
 	{
-
-		Log::write('info','request');
-
 
 		$gameform = new Gameform;
 
@@ -118,6 +115,8 @@ class Admin_Games_Controller extends Base_Controller {
 	public function post_new()
 	{
 
+		Log::info('post_new');
+
 		$gameform = new Gameform;
 
 		$gameform->player_id = Input::get('player_id');
@@ -132,11 +131,15 @@ class Admin_Games_Controller extends Base_Controller {
 		$gameform->player_score = Input::get('player_score');
 		$gameform->opponent_score = Input::get('opponent_score');
 
+
 		if ($gameform->is_valid()) {
+
+			Log::info('gameform is valid: '.print_r($gameform->games,true));
 
 			Session::put('last_date', $gameform->date);
 
 			$gameform->save();
+			Log::info('gameform saved.');
 			return Redirect::to_action('admin.games@new')
 				->with('success', 'Games for "' . $gameform->player()->fullname() . '" on ' .
 					App::format_date($gameform->date) . ' added.');

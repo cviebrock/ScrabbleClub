@@ -39,6 +39,7 @@ class Game extends BaseModel {
 
 	public function save()
 	{
+		Log::info('entering game::save');
 		$this->spread = $this->player_score - $this->opponent_score;
 		return parent::save();
 	}
@@ -47,7 +48,9 @@ class Game extends BaseModel {
 	public function match_game()
 	{
 
-		$game = Game::where('date', '=', $this->date)
+		Log::info('entering game::match_game');
+
+		$other = Game::where('date', '=', $this->date)
 			->where('player_id', '=', $this->opponent_id)
 			->where('opponent_id', '=', $this->player_id)
 			->where('player_score', '=', $this->opponent_score)
@@ -55,14 +58,17 @@ class Game extends BaseModel {
 			->where('matching_game', '=', 0)
 			->first();
 
-		if ($game instanceof Game) {
-			$game->matching_game = $this->id;
-			$this->matching_game = $game->id;
-			$game->save();
+		if ($other instanceof Game) {
+			Log::info('found match:'.print_r($other,true));
+			$other->matching_game = $this->id;
+			$this->matching_game = $other->id;
+			$other->save();
 			$this->save();
+			Log::info('matches saved, returning from game::match_game');
 			return true;
 		}
 
+		Log::info('no match, returning from game::match_game');
 		return false;
 
 	}

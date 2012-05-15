@@ -12,7 +12,9 @@
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Players per Date</th>
-			<td class="span4"><?php echo round($overall['players_per_date']); ?></td>
+			<td class="span4"><?php echo round($overall['players_per_date']); ?>
+				<div id="graph_attendance" class="sparkline" style="height: 30px; width: 250px;"></div>
+			</td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Total Games Played</th>
@@ -25,8 +27,6 @@
 	</tbody>
 </table>
 
-
-
 <h2>Highest Scores</h2>
 <?php
 	echo View::make('partials.game_listing')
@@ -38,7 +38,7 @@
 ?>
 
 
-<h2>Closest Games</h2>
+<h2>Squeakers</h2>
 <?php
 	echo View::make('partials.game_listing')
 		->with('games', $closest_games)
@@ -67,5 +67,34 @@
 		->with('id', 'high_score')
 		->with('mark_winners', true)
 		->with('small_head', true)
+		->with('combined', true)
 		->render();
 ?>
+
+
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["imagesparkline"]});
+	google.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+			['Attendance'],
+<?php
+foreach ($attendance as $a) {
+	echo "\t\t\t[{$a->players}],\n";
+}
+?>
+		]);
+
+		var options = {
+			showAxisLines: false,
+			showValueLabels: false,
+			min: [0],
+			fill: false
+		};
+
+		var chart = new google.visualization.ImageSparkLine(document.getElementById('graph_attendance'));
+		chart.draw(data, options);
+
+	}
+</script>
