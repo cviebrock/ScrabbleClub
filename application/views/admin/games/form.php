@@ -57,7 +57,7 @@ for($i=0; $i<$c; $i++) {
 	echo "<tr>\n";
 
 	echo '<td' . ($game->error('player_score') ? ' class="error"' : '') . '>';
-	echo Form::number('player_score['.$i.']', $game->player_score, array('class'=>'span1', tabindex=>$tabindex++));
+	echo Form::number('player_score['.$i.']', $game->player_score, array('class'=>'span1', 'tabindex'=>$tabindex++));
 	echo $game->error('player_score', 'div');
 	echo "</td>\n";
 

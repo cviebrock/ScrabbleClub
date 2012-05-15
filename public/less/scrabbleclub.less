@@ -12,10 +12,10 @@ html, body {
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	margin-bottom: -160px;
+	margin-bottom: -60px;
 }
 footer, .push {
-	height: 160px;
+	height: 60px;
 }
 footer {
 	margin: 60px 0 0 0;
@@ -24,7 +24,7 @@ footer {
   text-align: right;
 }
 footer .navbar-inner {
-	height: 110px;
+	height: 40px;
 	.border-radius(0);
 	padding: 10px 0;
 }
@@ -166,4 +166,16 @@ table+h2 {
 	width: 16px;
 	height: 16px;
 	background: transparent url('/img/loader.gif') no-repeat 0 0;
+}
+
+
+// form action buttons tweaks
+
+.form-actions {
+	.btn {
+		vertical-align: middle;
+	}
+	.btn + .btn {
+		margin-left: 10px;
+	}
 }
