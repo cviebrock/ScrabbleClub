@@ -53,6 +53,6 @@ js-application:
 	${UGLIFY} ${UGLIFY_FLAGS} ${JS_DIR}/application.js > ${JS_DIR}/scrabbleclub.min.js
 
 commit:
-	git add ${CSS_DIR}
-	git commit -e -m "Generated new static assets" ${CSS_DIR}
+	git add ${CSS_DIR} ${JS_DIR}
+	git commit -e -m "Generated new static assets" ${CSS_DIR} ${JS_DIR}
 
