@@ -44,7 +44,7 @@ class Player extends BaseModel {
 		return $this->has_many('Bingo');
 	}
 
-	public function currentRating()
+	public function current_rating()
 	{
 		if ($rating = $this->ratings()->order_by('date','desc')->first()) {
 			return $rating->rating;
@@ -52,9 +52,9 @@ class Player extends BaseModel {
 		return 1200;
 	}
 
-	public function ratingBeforeDate($date)
+	public function rating_before_date($date)
 	{
-		if ($rating = $this->ratings()->where('date','<',$date)->first()) {
+		if ($rating = $this->ratings()->where('date','<',$date)->order_by('date','desc')->first()) {
 			return $rating->rating;
 		}
 		return 1200;
@@ -83,6 +83,31 @@ class Player extends BaseModel {
 	public function games_lost() {
 		return $this->complete_games()->where('spread','<',0);
 	}
+
+	public function kfactor($date) {
+		$games = $this->complete_games()
+			->where('date','<',$date)
+			->count();
+		$rating = $this->rating_before_date($date);
+		// http://www.poslarchive.com/math/software/tsh/lib/perl/Ratings/Elo.pm
+		if ($games < 50) {
+			$k = 15;
+			if ($rating < 1800) {
+				$k = 30;
+			} else if ($rating < 2000) {
+				$k = 24;
+			}
+		} else {
+			$k = 10;
+			if ($rating < 1800) {
+				$k = 20;
+			} else if ($rating < 2000) {
+				$k = 16;
+			}
+		}
+    return $k;
+	}
+
 
 	public function ratio()
 	{

@@ -24,13 +24,30 @@ class Admin_Games_Controller extends Base_Controller {
 				ORDER BY date DESC
 		');
 
+		$temp = DB::query('SELECT
+			date,
+			SUM(games_played) AS games_played,
+			COUNT(DISTINCT player_id) AS players
+			FROM ratings
+			GROUP BY date
+			ORDER BY date DESC
+		');
+
+		$ratings = array();
+		foreach($temp as $v) {
+			$ratings[ $v->date ] = $v;
+		}
+
+
+
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		// Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 		// Asset::add('tablesorter-pager', 'css/tablesorter-pager.css');
 
 		$this->layout->with('title', 'Games')
 			->nest('content', 'admin.games.index', array(
-				'games' => $games,
+				'games'   => $games,
+				'ratings' => $ratings,
 			));
 
 	}
@@ -305,6 +322,100 @@ class Admin_Games_Controller extends Base_Controller {
 
 		return Redirect::to_action('admin.games@bydate', array($game->date))
 			->with('success', 'Matched game created.');
+
+	}
+
+
+	public function get_update_ratings($date)
+	{
+
+		// find all games for that date
+
+		$games = Game::where('date', '=', $date)
+			->get();
+
+
+		// pre-fetch all the players for that night
+		// and their ratings and kfactors
+		$player_ids = array_unique( array_pluck($games, 'player_id') );
+		$players = array();
+
+		$temp = Player::where_in('id',$player_ids)->get();
+		foreach($temp as $p) {
+			$players[ $p->id ] = $p;
+			$players[ $p->id ]->rating = $p->rating_before_date($date);
+			$players[ $p->id ]->kfactor = $p->kfactor($date);
+		}
+
+
+		// loop through them, building the ratings array
+
+		$ratings = array();
+
+		foreach($games as $game) {
+
+			$pid = $game->player_id;
+
+			$player = $players[ $pid ];
+			$opp = $players[ $game->opponent_id ];
+
+			if (!array_key_exists($pid, $ratings)) {
+
+				$ratings[$pid] = new Rating(array(
+					'date'         => $date,
+					'player_id'    => $pid,
+					'starting_rating' => $player->rating,
+					'kfactor'			=> $player->kfactor,
+					'games_played' => 0,
+					'games_won'    => 0,
+					'plus_minus'	=> 0,
+					'total_opp_ratings' => 0,
+				));
+
+			}
+
+			$ratings[$pid]->games_played++;
+			if ($game->spread>0) {
+				$ratings[$pid]->games_won++;
+				$ratings[$pid]->plus_minus++;
+			} else if ($game->spread==0) {
+				$ratings[$pid]->games_won += 0.5;
+			} else {
+				$ratings[$pid]->plus_minus--;
+			}
+
+			$ratings[$pid]->total_opp_ratings += $opp->rating;
+
+		}
+
+
+		// loop through the ratings, calculate stuff
+		// and save
+
+		foreach($ratings as $rating) {
+			$rating->calculate_elo();
+			$rating->save();
+		}
+
+
+		return Redirect::to_action('admin.games@ratings', array($date))
+			->with('success', 'Ratings updated.');
+
+
+	}
+
+	public function get_ratings($date)
+	{
+
+		$ratings = Rating::where('date','=',$date)->get();
+
+		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
+
+		$this->layout->with('title', 'Ratings')
+			->nest('content', 'admin.games.ratings', array(
+				'date' => $date,
+				'ratings' => $ratings,
+			));
 
 	}
 

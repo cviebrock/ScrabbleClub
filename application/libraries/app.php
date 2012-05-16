@@ -60,6 +60,7 @@ class App {
 		return $data;
 	}
 
+
 	public static function rwords($num=3, $with_score=true) {
 
 		$words = DB::query('SELECT
@@ -86,6 +87,7 @@ class App {
 		return $return;
 
 	}
+
 
 	public static function action_link_to_route($name, $title, $parameters=array(), $icon=null, $attributes = array() ) {
 
@@ -130,5 +132,17 @@ class App {
 		return '<a href="'.$url.'"'.HTML::attributes($attributes).'>'.$title.'</a>';
 	}
 
+
+	/**
+	 * Convert an un-indexed array of models into one indexed on the id.
+	 */
+	public static function index_array( $models )
+	{
+		$array = array();
+		foreach ($models as $model) {
+			$array[ $model->id ] = $model;
+		}
+		return $array;
+	}
 
 }

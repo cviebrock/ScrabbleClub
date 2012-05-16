@@ -58,6 +58,11 @@
 			<th class="span3 horizontal-header">Average Spread</th>
 			<td class="span4"><?php echo $club_details->average_spread; ?></td>
 		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Current Club Rating</th>
+			<td class="span4"><?php echo $player->currentRating(); ?></td>
+		</tr>
+
 	</tbody>
 </table>
 

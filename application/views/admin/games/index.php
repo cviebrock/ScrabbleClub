@@ -23,6 +23,7 @@ foreach ($games as $game) {
 		echo '<td class="numeric ' . $class . '">' . $game->unmatched_games . '</td>';
 		echo '<td><ul class="sc_actions">' .
 			'<li>' . App::action_link_to_route('admin.games@bydate', 'View', array($game->date), 'small|search' ) . '</li>' .
+			'<li>' . App::action_link_to_route('admin.games@update_ratings', 'Update Ratings', array($game->date), 'small|signal' ) . '</li>' .
 			'</td>';
 		echo "<tr>\n";
 }
