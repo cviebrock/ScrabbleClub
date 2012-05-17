@@ -60,14 +60,13 @@ class Club_Controller extends Base_Controller {
 			->take(5)
 			->get();
 
-		$combined = Game::where('player_id', '>', DB::raw('opponent_id'))
+		$combined = Game::where('spread','>=',0)
 			->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
 			->order_by('date','desc')
 			->take(5)
 			->get();
 
-		Asset::container('head')->add('jsapi', 'https://www.google.com/jsapi');
-
+		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
 
 		$this->layout->with('title', 'Club Statistics')
 			->nest('content', 'club.index', array(

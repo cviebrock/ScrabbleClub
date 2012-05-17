@@ -21,7 +21,7 @@ class Admin_Games_Controller extends Base_Controller {
 				SUM(IF(matching_game=0,1,0)) AS unmatched_games
 				FROM games
 				GROUP BY date
-				ORDER BY date DESC
+				ORDER BY date
 		');
 
 		$temp = DB::query('SELECT
@@ -30,7 +30,7 @@ class Admin_Games_Controller extends Base_Controller {
 			COUNT(DISTINCT player_id) AS players
 			FROM ratings
 			GROUP BY date
-			ORDER BY date DESC
+			ORDER BY date
 		');
 
 		$ratings = array();
@@ -329,6 +329,28 @@ class Admin_Games_Controller extends Base_Controller {
 	public function get_update_ratings($date)
 	{
 
+		$this->layout->with('title', 'Ratings')
+			->nest('content', 'admin.games.update_ratings', array(
+				'date' => $date
+			));
+
+
+	}
+
+	public function post_update_ratings($date)
+	{
+
+		if ( !Input::get('confirm') ) {
+			return Redirect::to_action('admin.games@update_ratings', array($date))
+				->with('warning', 'Ratings not updated &mdash; confirmation not checked.');
+		}
+
+		// first remove all ratings on or after this date
+
+		Rating::where('date','>=',$date)->delete();
+
+
+
 		// find all games for that date
 
 		$games = Game::where('date', '=', $date)
@@ -387,7 +409,6 @@ class Admin_Games_Controller extends Base_Controller {
 			$ratings[$pid]->total_opp_ratings += $opp->rating;
 
 		}
-
 
 		// loop through the ratings, calculate stuff
 		// and save

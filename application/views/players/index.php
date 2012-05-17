@@ -7,6 +7,7 @@
 	<thead class="small">
 		<tr>
 			<th class="span3">Name</th>
+			<th class="span1">Club Rating</th>
 			<th class="span1">Games Played</th>
 			<th class="span1">Record</th>
 			<th class="span1">Win %</th>
@@ -27,6 +28,7 @@
 $sortable = $rank = true;
 
 $rankings = array(
+	'rating'        => array(),
 	'ratio'         => array(),
 	'average_score' => array(),
 	'best_score'    => array(),
@@ -51,8 +53,10 @@ foreach ($players as $player) {
 
 		$numerator = $player->wins + ($player->ties / 2 );
 		$ratio = ($player->games_played ? $numerator*100/$player->games_played : 0);
+		$rating = Player::find($player->id)->current_rating();
 
 		if ($rank) {
+			$rankings['rating'][$player->id] = $rating;
 			$rankings['ratio'][$player->id] = $ratio;
 			$rankings['average_score'][$player->id] = $player->average_score;
 			$rankings['best_score'][$player->id] = $player->best_score;
@@ -65,6 +69,7 @@ foreach ($players as $player) {
 		echo '<td class="nowrap">' .
 			App::link_to_action('players@details', $player->fullname, array($player->id) ) .
 			'</td>';
+		echo '<td class="numeric r_rating">' . $rating . '</td>';
 		echo '<td class="numeric">' . $player->games_played . '</td>';
 		echo '<td class="nowrap">' . sprintf("%.1f-%.1f",
 				$numerator,
@@ -95,7 +100,7 @@ $(function() {
 		headers: {
 			2: { sorter: 'sc_record' }
 		},
-		sortList: [[3,1], [1,1]]
+		sortList: [[4,1], [2,1]]
 	});
 
 <?php

@@ -73,28 +73,86 @@
 
 
 <script type="text/javascript">
-	google.load("visualization", "1", {packages:["imagesparkline"]});
-	google.setOnLoadCallback(drawChart);
+$(function() {
 
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([
-			['Attendance'],
+	var chart = new Highcharts.Chart({
+		chart: {
+			renderTo: 'graph_attendance',
+			defaultSeriesType: 'areaspline',
+			margin: [0,0,1,0]
+		},
+		credits: {
+			enabled: false
+		},
+		plotOptions: {
+			series: {
+				lineWidth: 2,
+				shadow: false,
+				states: {
+					hover: {
+						lineWidth: 2
+					}
+				},
+				fillOpacity: 0.5,
+				marker: {
+					radius: 1,
+					states: {
+						hover: {
+							radius: 2
+						}
+					}
+				}
+			}
+		},
+		title: {
+			text: null
+		},
+		xAxis: {
 <?php
-foreach ($attendance as $a) {
-	echo "\t\t\t[{$a->players}],\n";
-}
+$first = reset($attendance);
+$date = new DateTime($first->date);
+$year = $date->format('Y');
 ?>
-		]);
-
-		var options = {
-			showAxisLines: false,
-			showValueLabels: false,
-			min: [0],
-			fill: false
-		};
-
-		var chart = new google.visualization.ImageSparkLine(document.getElementById('graph_attendance'));
-		chart.draw(data, options);
-
+			min: Date.UTC(<?php echo $year; ?>,0,1),
+			max: Date.UTC(<?php echo $year+1; ?>,0,1),
+			minRange: 1000*60*60*24*365  // one year
+		},
+		yAxis: {
+			maxPadding: 0.2,
+			minPadding: 0,
+			endOnTick: false,
+			min: 0
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			formatter: function() {
+				return Highcharts.dateFormat('%e-%b-%Y', this.x) +': '+ this.y;
+			},
+			borderWidth: 1,
+			style: {
+				fontSize: '10px',
+				padding: '2px',
+			}
+		},
+		series: [{
+			name: 'Attendance',
+			data: [
+<?php
+	foreach ($attendance as $a) {
+		$date = new DateTime($a->date);
+		printf("\t\t\t\t[ Date.UTC(%4d, %-2d, %-2d), %d ],\n",
+			$date->format('Y'),
+			$date->format('m')-1,
+			$date->format('d'),
+			$a->players
+		);
 	}
+?>
+			]
+		}]
+	});
+});
+
 </script>

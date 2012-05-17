@@ -12,6 +12,7 @@
 			<th class="span1">Avg. Opp. Rating</th>
 			<th class="span1">Expected Wins</th>
 			<th class="span1">Wins</th>
+			<th class="span1">K</th>
 			<th class="span1">Perf. Rating</th>
 			<th class="span1">Change</th>
 			<th class="span1">Final Rating</th>
@@ -20,6 +21,9 @@
 	<tbody>
 <?php
 foreach ($ratings as $rating) {
+
+		$delta = $rating->ending_rating - $rating->starting_rating;
+
 		echo '<tr>';
 		echo '<td>' . $rating->player->fullname() . '</td>';
 		echo '<td class="numeric">' . $rating->starting_rating . '</td>';
@@ -27,8 +31,9 @@ foreach ($ratings as $rating) {
 		echo '<td class="numeric">' . round($rating->total_opp_ratings / $rating->games_played) . '</td>';
 		echo '<td class="numeric">' . $rating->expected_wins . '</td>';
 		echo '<td class="numeric">' . $rating->games_won . '</td>';
+		echo '<td class="numeric">' . $rating->kfactor . '</td>';
 		echo '<td class="numeric">' . $rating->performance_rating . '</td>';
-		echo '<td class="numeric">' . ($rating->ending_rating - $rating->starting_rating) . '</td>';
+		echo '<td class="numeric">' . sprintf('%+d', $delta) . '</td>';
 		echo '<td class="numeric">' . $rating->ending_rating . '</td>';
 		echo "<tr>\n";
 }
@@ -36,11 +41,15 @@ foreach ($ratings as $rating) {
 	</tbody>
 </table>
 
+<?php echo App::action_link_to_route('admin.games@index', 'Back to Games List', array(), 'arrow-left'); ?>
+
+
+
 <script>
 $(document).ready( function() {
 
 	$('table.sortable').tablesorter({
-		sortList: [[7,1]],
+		sortList: [[8,1]],
 	});
 
 });

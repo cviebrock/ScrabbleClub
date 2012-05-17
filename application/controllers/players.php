@@ -60,6 +60,7 @@ class Players_Controller extends Base_Controller {
 
 		$temp = DB::query('SELECT
 			COUNT(g.id) AS games_played,
+			COUNT(DISTINCT g.date) AS dates_played,
 			SUM(IF(g.spread>0,1,0)) AS wins,
 			SUM(IF(g.spread=0,1,0)) AS ties,
 			SUM(IF(g.spread<0,1,0)) AS losses,
@@ -111,10 +112,13 @@ class Players_Controller extends Base_Controller {
 		Asset::add('string_score', 'js/string_score.min.js', 'jquery');
 		Asset::add('quickselect', 'js/jquery.quickselect.js', 'jquery');
 
+		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
+
 
 		$this->layout->with('title', $player->fullname())
 			->nest('content', 'players.details', array(
 				'player'       => $player,
+				'ratings'      => $player->ratings,
 				'all_players'  => App::all_players($id),
 				'club_details' => $club_details,
 				'best_spread'  => $best_spread,
@@ -144,7 +148,7 @@ class Players_Controller extends Base_Controller {
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
-		$this->layout->with('title', $player->fullname())
+		$this->layout->with('title', $player->fullname().TITLE_DELIM.'Bingos')
 			->nest('content', 'players.bingos', array(
 				'player' => $player,
 				'bingos' => $bingos,
@@ -153,5 +157,38 @@ class Players_Controller extends Base_Controller {
 
 	}
 
+
+	public function get_games($id)
+	{
+
+		$player = Player::find($id);
+
+		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
+		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
+
+		$this->layout->with('title', $player->fullname().TITLE_DELIM.'Games')
+			->nest('content', 'players.games', array(
+				'player' => $player,
+				'games'  => $player->games,
+			));
+
+	}
+
+
+	public function get_ratings($id)
+	{
+
+		$player = Player::find($id);
+
+		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
+		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
+
+		$this->layout->with('title', $player->fullname().TITLE_DELIM.'Ratings')
+			->nest('content', 'players.ratings', array(
+				'player'  => $player,
+				'ratings' => $player->ratings,
+			));
+
+	}
 
 }

@@ -14,6 +14,9 @@
 	</thead>
 	<tbody>
 <?php
+
+$shown_update = false;
+
 foreach ($games as $game) {
 		$class = $game->unmatched_games ? 'unmatched' : '';
 		echo '<tr>';
@@ -21,10 +24,21 @@ foreach ($games as $game) {
 		echo '<td class="numeric">' . $game->players . '</td>';
 		echo '<td class="numeric">' . $game->complete_games . '</td>';
 		echo '<td class="numeric ' . $class . '">' . $game->unmatched_games . '</td>';
-		echo '<td><ul class="sc_actions">' .
-			'<li>' . App::action_link_to_route('admin.games@bydate', 'View', array($game->date), 'small|search' ) . '</li>' .
-			'<li>' . App::action_link_to_route('admin.games@update_ratings', 'Update Ratings', array($game->date), 'small|signal' ) . '</li>' .
-			'</td>';
+		echo '<td><ul class="sc_actions">';
+		echo '<li>' . App::action_link_to_route('admin.games@bydate', 'View', array($game->date), 'small|search' ) . '</li>';
+		if (!$game->unmatched_games) {
+			if (array_key_exists($game->date, $ratings) &&
+				$ratings[$game->date]->players == $game->players &&
+				$ratings[$game->date]->games_played == 2*$game->complete_games
+			) {
+				echo '<li>' . App::action_link_to_route('admin.games@ratings', 'View Ratings', array($game->date), 'small|signal' ) . '</li>';
+			} else if (!$shown_update) {
+				echo '<li>' . App::action_link_to_route('admin.games@update_ratings', 'Update Ratings', array($game->date), 'small|signal' ) . '</li>';
+				$shown_update = true;
+			}
+		}
+
+		echo '</ul></td>';
 		echo "<tr>\n";
 }
 ?>
@@ -46,3 +60,4 @@ $(document).ready( function() {
 
 });
 </script>
+

@@ -23,8 +23,27 @@
 <table class="table table-condensed">
 	<tbody>
 		<tr>
+			<th class="span3 horizontal-header">Current Club Rating</th>
+			<td class="span4"><?php echo $player->current_rating(); ?>
+			<?php echo HTML::link_to_action('players@ratings',
+				'<i class="icon-list icon-small" title="show all ratings calculations"></i>',
+				array($player->id),
+				array('class'=>'pull-right')
+			); ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Dates Played</th>
+			<td class="span4"><?php echo $club_details->dates_played; ?></td>
+		</tr>
+		<tr>
 			<th class="span3 horizontal-header">Games Played</th>
-			<td class="span4"><?php echo $club_details->games_played; ?></td>
+			<td class="span4"><?php echo $club_details->games_played; ?>
+			<?php echo HTML::link_to_action('players@games',
+				'<i class="icon-list icon-small" title="show all games"></i>',
+				array($player->id),
+				array('class'=>'pull-right')
+			); ?>
+			</td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Record</th>
@@ -58,13 +77,13 @@
 			<th class="span3 horizontal-header">Average Spread</th>
 			<td class="span4"><?php echo $club_details->average_spread; ?></td>
 		</tr>
-		<tr>
-			<th class="span3 horizontal-header">Current Club Rating</th>
-			<td class="span4"><?php echo $player->currentRating(); ?></td>
-		</tr>
-
 	</tbody>
 </table>
+
+<h2>Club Rating</h2>
+
+<div id="graph_rating" style="width: 940px; height: 200px;"></div>
+
 
 <h2>Bingos</h2>
 
@@ -124,7 +143,10 @@
 	<tbody>
 		<tr>
 			<th class="span3 horizontal-header">Number</th>
-			<td class="span4"><?php echo $player->naspa_id; ?></td>
+			<td class="span4"><?php echo $player->naspa_id; ?>
+				<a href="http://www.cross-tables.com/players.php?query=<?php echo HTML::entities($player->fullname()); ?>"
+					class="pull-right" target="_blank"><i class="icon-share-alt icon-small" title="search on cross-tables.com"></i></a>
+			</td>
 		</tr>
 		<tr>
 			<th class="horizontal-header">Rating</th>
@@ -190,7 +212,7 @@
 </div>
 
 <script>
-$(document).ready( function() {
+$(function() {
 
 	var ooo_url = '<?php echo URL::to_route('ajax_one_on_one',array($player->id)); ?>/';
 	$('#ooo_loader').hide();
@@ -227,7 +249,74 @@ $(document).ready( function() {
 		}
 	});
 
+});
+</script>
 
+<script type="text/javascript">
+$(function() {
 
+	var chart = new Highcharts.Chart({
+		chart: {
+			renderTo: 'graph_rating',
+			type: 'areaspline'
+		},
+		credits: {
+			enabled: false
+		},
+		plotOptions: {
+			series: {
+				fillOpacity: 0.5
+			}
+		},
+		title: {
+			text: null
+		},
+		xAxis: {
+			type: 'datetime',
+			dateTimeLabelFormats: {
+				month: '%b<br>%Y',
+			},
+<?php
+$first = reset($ratings);
+$date = new DateTime($first->date);
+$year = $date->format('Y');
+?>
+			min: Date.UTC(<?php echo $year; ?>,0,1),
+			max: Date.UTC(<?php echo $year+1; ?>,0,0),
+			minRange: 1000*60*60*24*7  // one week
+		},
+		yAxis: {
+			title: {
+				text: null
+			},
+			formatter: function() {
+				return this.value;
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			formatter: function() {
+				return Highcharts.dateFormat('%e-%b-%Y', this.x) +': '+ this.y;
+			}
+		},
+		series: [{
+			name: 'Club Rating',
+			data: [
+<?php
+	foreach($ratings as $rating) {
+		$date = new DateTime($rating->date);
+		printf("\t\t\t\t[ Date.UTC(%4d, %-2d, %-2d), %d ],\n",
+			$date->format('Y'),
+			$date->format('m')-1,
+			$date->format('d'),
+			$rating->ending_rating
+		);
+	}
+?>
+			]
+		}]
+	});
 });
 </script>

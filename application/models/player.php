@@ -31,7 +31,7 @@ class Player extends BaseModel {
 
 	public function ratings()
 	{
-	 return $this->has_many('Rating');
+	 return $this->has_many('Rating')->order_by('date','asc');
 	}
 
 	public function games()
@@ -46,18 +46,29 @@ class Player extends BaseModel {
 
 	public function current_rating()
 	{
-		if ($rating = $this->ratings()->order_by('date','desc')->first()) {
-			return $rating->rating;
+		$ratings = $this->ratings;
+		if (count($ratings)) {
+			$r = array_pop($ratings);
+			return $r->ending_rating;
 		}
 		return 1200;
 	}
 
 	public function rating_before_date($date)
 	{
-		if ($rating = $this->ratings()->where('date','<',$date)->order_by('date','desc')->first()) {
-			return $rating->rating;
+		$ratings = $this->ratings;
+		$r = 1200;
+
+		if (count($ratings)) {
+			foreach($ratings as $rating) {
+				if ($rating->date < $date) {
+					$r = $rating->ending_rating;
+				} else {
+					break;
+				}
+			}
 		}
-		return 1200;
+		return $r;
 	}
 
 	public function fullname()
