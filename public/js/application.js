@@ -26,9 +26,7 @@ $.tablesorter.addParser({
 	is: function(s) { return false; },
 	format: function(s) {
 		var p = s.split('-');
-		console.log(p);
 		if (p.length==2) {
-			console.log(s);
 			var n = parseFloat(p[0]);
 			var d = parseFloat(p[1]);
 			if (n+d == 0)  return -1;
