@@ -45,6 +45,15 @@
 		->render();
 ?>
 
+<h2>Highest Losses</h2>
+<?php
+	echo View::make('partials.game_listing')
+		->with('games', $high_losses)
+		->with('id', 'high_losses')
+		->with('mark_winners', true)
+		->with('small_head', true)
+		->render();
+?>
 
 <h2>Biggest Spreads</h2>
 <?php

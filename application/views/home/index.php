@@ -17,7 +17,7 @@
 
 		<h3>Last Week&rsquo;s Statistics</h3>
 
-		<h4><?php echo App::format_date($date, 'M d, Y'); ?></h4>
+		<h4><?php echo App::format_date($date, 'M j, Y'); ?></h4>
 
 		<table class="table table-condensed">
 			<tbody>
@@ -43,8 +43,25 @@
 			<?php foreach($sidebar['bingos'] as $bingo): ?>
 				<tr>
 					<td><?php echo $bingo->player->fullname(); ?></td>
-					<td><?php echo $bingo->word; ?></td>
+					<td>
+						<i class="icon-<?php echo $bingo->valid ? 'ok' : 'remove'; ?> icon-fade"></i>
+						<?php echo $bingo->word; ?>
+					</td>
 					<td class="numeric"><?php echo $bingo->score; ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+
+
+		<h4>High Scores</h4>
+
+		<table class="table table-condensed">
+			<tbody>
+			<?php foreach($sidebar['high_scores'] as $game): ?>
+				<tr>
+					<td><?php echo $game->player->fullname(); ?></td>
+					<td class="numeric"><?php echo $game->player_score; ?></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>

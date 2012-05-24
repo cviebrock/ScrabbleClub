@@ -166,6 +166,16 @@
 		->render();
 ?>
 
+<h2>High Loss</h2>
+<?php
+	echo View::make('partials.game_listing')
+		->with('games', $high_loss)
+		->with('id', 'high_loss')
+		->with('mark_winners', true)
+		->with('small_head', true)
+		->render();
+?>
+
 <h2>Low Score</h2>
 <?php
 	echo View::make('partials.game_listing')
@@ -177,7 +187,7 @@
 ?>
 
 
-<h2>Best Win (biggest positive spread)</h2>
+<h2>Best Win <span class="subhead">biggest positive spread</span></h2>
 <?php
 	echo View::make('partials.game_listing')
 		->with('games', $best_spread)
@@ -188,7 +198,7 @@
 ?>
 
 
-<h2>Worst Loss (biggest negative spread)</h2>
+<h2>Worst Loss <span class="subhead">biggest negative spread</span></h2>
 <?php
 	echo View::make('partials.game_listing')
 		->with('games', $worst_spread)
