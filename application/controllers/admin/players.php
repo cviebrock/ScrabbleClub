@@ -36,6 +36,7 @@ class Admin_Players_Controller extends Base_Controller {
 				'player'      => $player,
 				'title'       => 'New Player',
 				'submit_text' => 'Add Player',
+				'mode' => 'new'
 			));
 	}
 
@@ -52,6 +53,28 @@ class Admin_Players_Controller extends Base_Controller {
 			'naspa_id'     => Input::get('naspa_id'),
 			'naspa_rating' => Input::get('naspa_rating'),
 		));
+
+
+		if ($input = Input::get('password', false)) {
+
+			$pass = Validator::make($input, array(
+				'password'     => 'min:6',
+				'confirmation' => 'same:password',
+			), array(
+				'required'          => 'Required.',
+				'confirmation_same' => 'Passwords much match.',
+			));
+
+			if ($pass->passes()) {
+				$player->password = Hash::make($input['password']);
+			} else {
+				$player->errors->password = $pass->errors->first();
+			}
+
+		}
+
+print_r($player);
+die;
 
 		if ($player->is_valid()) {
 			$player->save();
@@ -89,9 +112,10 @@ class Admin_Players_Controller extends Base_Controller {
 
 		$this->layout->with('title', 'Edit Player')
 			->nest('content', 'admin.players.form', array(
-				'player'				=> $player,
-				'title'				=> 'Edit Player',
-				'submit_text'	=> 'Edit Player',
+				'player'      => $player,
+				'title'       => 'Edit Player',
+				'submit_text' => 'Edit Player',
+				'mode'        => 'edit'
 			));
 	}
 
@@ -110,7 +134,35 @@ class Admin_Players_Controller extends Base_Controller {
 		));
 
 
-		if (!$player->is_valid()) {
+		if ($input = array_filter(Input::get('password',array())) ) {
+
+			if (array_key_exists('enable', $input) || array_key_exists('password', $input)) {
+
+				$input['email'] = $player->email;
+
+				$pass = Validator::make($input, array(
+					'email'        => 'required',
+					'password'     => 'min:6|same:confirmation',
+				), array(
+					'email_required' => 'Email is required for administrators',
+					'password_same'  => 'Passwords much match.',
+				));
+
+				if ($pass->passes()) {
+					$player->password = Hash::make($input['password']);
+				} else {
+					$player->errors = $pass->errors->messages;
+				}
+
+			}
+
+		} else {
+
+			$player->password = '';
+
+		}
+
+		if (empty($player->errors) && $player->is_valid()) {
 
 			$player->save();
 			return Redirect::to_action('admin.players@edit', array($id))
@@ -120,9 +172,10 @@ class Admin_Players_Controller extends Base_Controller {
 
 		$this->layout->with('title', 'Edit Player')
 			->nest('content', 'admin.players.form', array(
-				'player'        => $player,
+				'player'      => $player,
 				'title'       => 'Edit Player',
 				'submit_text' => 'Edit Player',
+				'mode'        => 'edit'
 			));
 
 	}
