@@ -60,6 +60,11 @@ class Home_Controller extends Base_Controller {
 				->take(5)
 				->get();
 
+			$sidebar['high_scores'] = Game::where('date','=',$date)
+				->order_by('player_score','desc')
+				->take(5)
+				->get();
+
 			$sidebar['ratings'] = Rating::select(array(
 					'*',
 					DB::raw('CAST(ending_rating AS signed) - CAST(starting_rating AS signed) AS delta')
