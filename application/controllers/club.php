@@ -46,31 +46,25 @@ class Club_Controller extends Base_Controller {
 		$high_scores = Game::order_by('player_score','desc')
 			->order_by('opponent_score','desc')
 			->order_by('date','desc')
-			->take(5)
-			->get();
-
-		$closest_games = Game::where('spread','>',0)
-			->order_by('spread','asc')
-			->order_by('date','desc')
-			->take(5)
+			->take(10)
 			->get();
 
 		$blowouts = Game::order_by('spread','desc')
 			->order_by('date','desc')
-			->take(5)
+			->take(10)
 			->get();
 
 		$combined = Game::where('spread','>=',0)
 			->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
 			->order_by('date','desc')
-			->take(5)
+			->take(10)
 			->get();
 
 		$bingos = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
 			->order_by('score','desc')
 			->order_by('date','desc')
-			->take(5)
-			->get();
+			->take(10)
+			->get(array('bingos.*','validwords.playability'));
 
 		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
 
@@ -80,7 +74,6 @@ class Club_Controller extends Base_Controller {
 				'overall'       => $overall,
 				'attendance'    => $attendance,
 				'high_scores'   => $high_scores,
-				'closest_games' => $closest_games,
 				'blowouts'      => $blowouts,
 				'combined'      => $combined,
 				'bingos'				=> $bingos,
@@ -91,8 +84,64 @@ class Club_Controller extends Base_Controller {
 		// Asset::add('string_score', 'js/string_score.min.js', 'jquery');
 		// Asset::add('quickselect', 'js/jquery.quickselect.js', 'jquery');
 
+	}
+
+
+	public function get_summary($date)
+	{
+
+		$temp = DB::query('SELECT
+			COUNT(g.id)/2 AS total_games,
+			COUNT(DISTINCT g.player_id) AS total_players,
+			AVG(g.player_score) AS average_score
+			FROM games g
+			WHERE g.date=?',
+			$date
+		);
+
+		$overall = (array)$temp[0];
+
+		if ($overall['total_players']==0) {
+			$this->layout->with('title', 'Game Night Summary for '.$date)
+				->nest('content', 'club.summary_nogame', array(
+					'date'      => $date,
+				));
+			return;
+		}
+
+		$bingos = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
+			->where('date','=',$date)
+			->order_by('score','desc')
+			->take(5)
+			->get(array('bingos.*','validwords.playability'));
+
+		$ratings = Rating::where('date','=',$date)
+			->get();
+
+		$games = Game::select(array(
+				'*',
+				DB::raw('IF(spread=0,IF(player_id>opponent_id,1,0),sign(spread)) AS filter')
+			))
+			->where('date','=',$date)
+			->having('filter','=', 1)
+			->order_by('spread','desc')
+			->get();
+
+
+		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
+
+		$this->layout->with('title', 'Game Night Summary'.TITLE_DELIM.$date)
+			->nest('content', 'club.summary', array(
+				'date'    => $date,
+				'overall' => $overall,
+				'bingos'  => $bingos,
+				'ratings' => $ratings,
+				'games'   => $games,
+			));
+
 
 
 	}
+
 
 }
