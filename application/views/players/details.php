@@ -8,9 +8,8 @@
 <?php
 
 	$numerator = $club_details->wins + ($club_details->ties / 2 );
-	$record = sprintf('%.1f%s%.1f',
+	$record = sprintf('%.1f-%.1f',
 		$numerator,
-		' &ndash; ',
 		$club_details->losses
 	);
 	$percentage = ( $club_details->games_played ?
@@ -20,7 +19,7 @@
 
 ?>
 
-<table class="table table-condensed">
+<table class="table table-condensed table-auto">
 	<tbody>
 		<tr>
 			<th class="span3 horizontal-header">Current Club Rating</th>
@@ -88,7 +87,7 @@
 <h2>Bingos</h2>
 
 
-<table class="table table-condensed">
+<table class="table table-condensed table-auto">
 	<tbody>
 		<tr>
 			<th class="span3 horizontal-header">Bingos Played</th>
@@ -139,7 +138,7 @@
 
 <h2>NASPA Details</h2>
 
-<table class="table table-condensed">
+<table class="table table-condensed table-auto">
 	<tbody>
 		<tr>
 			<th class="span3 horizontal-header">Number</th>
