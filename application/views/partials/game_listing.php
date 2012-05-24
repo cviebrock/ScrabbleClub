@@ -1,10 +1,15 @@
+<?php
+$hide_date = isset($hide_date);
+$pspan = $hide_date ? 'span4' : 'span3';
+?>
+
 <table id="<?php echo $id; ?>" class="table table-striped table-bordered sortable">
 	<thead <?php echo ($small_head ? 'class="small"' : ''); ?>>
 		<tr>
-			<th class="span2">Date</th>
-			<th class="span3">Player</th>
+			<?php if (!$hide_date): ?><th class="span2">Date</th><?php endif; ?>
+			<th class="<?php echo $pspan; ?>">Player</th>
 			<th class="span1">Score</th>
-			<th class="span3">Opponent</th>
+			<th class="<?php echo $pspan; ?>">Opponent</th>
 			<th class="span1">O.Score</th>
 			<th class="span1"><?php echo isset($combined) ? 'Combined' : 'Spread'; ?></th>
 		</tr>
@@ -18,8 +23,8 @@ if (!is_array($games)) {
 
 foreach ($games as $game):
 
+	$p_class = $o_class = '';
 	if ($mark_winners) {
-		$p_class = $o_class = '';
 		if ($game->spread > 0) {
 			$p_class = ' winning_game';
 			$o_class = ' losing_game';
@@ -33,7 +38,7 @@ foreach ($games as $game):
 
 ?>
 		<tr>
-			<td><?php echo App::format_date($game->date); ?></td>
+			<?php if (!$hide_date): ?><td><?php echo App::format_date($game->date); ?></td><?php endif; ?>
 			<td class="<?php echo $p_class; ?>"><?php echo $game->player->fullname(); ?></td>
 			<td class="numeric<?php echo $p_class; ?>"><?php echo $game->player_score; ?></td>
 			<td class="<?php echo $o_class; ?>"><?php echo $game->opponent->fullname(); ?></td>
