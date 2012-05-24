@@ -53,6 +53,7 @@ Route::controller('players');
 
 Route::controller('admin.games');
 Route::controller('admin.players');
+Route::controller('admin.housekeeping');
 
 
 

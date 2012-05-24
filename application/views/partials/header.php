@@ -17,6 +17,7 @@
 						<ul class="dropdown-menu">
 							<li><?php echo HTML::link_to_action('admin.players', 'Players'); ?></li>
 							<li><?php echo HTML::link_to_action('admin.games', 'Games'); ?></li>
+							<li><?php echo HTML::link_to_action('admin.housekeeping', 'Housekeeping'); ?></li>
 						</ul>
 					</li>
 					<?php endif; ?>
