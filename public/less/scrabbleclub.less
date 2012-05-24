@@ -19,17 +19,24 @@ footer, .push {
 }
 footer {
 	margin: 60px 0 0 0;
-  color: @grayLight;
-  font-size: 11px;
-  line-height: 14px;
+  color: @gray;
+  font-size: 9px;
+  line-height: 13px;
   .pull-right {
 	  text-align: right;
 	}
-}
-footer .navbar-inner {
-	height: 40px;
-	.border-radius(0);
-	padding: 10px 0;
+	.navbar-inner {
+		height: 40px;
+		.border-radius(0);
+		padding: 10px 0;
+	}
+	.copyright {
+		color: @grayLight;
+		font-size: 12px;
+		line-height: 15px;
+	}
+
+
 }
 
 
@@ -225,4 +232,8 @@ p.help-text {
 
 hr {
 	display: none;
+}
+
+.icon-fade {
+	.opacity(50);
 }
