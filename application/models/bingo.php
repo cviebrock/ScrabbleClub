@@ -36,8 +36,13 @@ class Bingo extends BaseModel {
 		return parent::save();
 	}
 
+	public function get_word()
+	{
+		return strtoupper($this->attributes['word']);
+	}
+
 	public function word_and_score() {
-		$r = strtoupper($this->word);
+		$r = $this->word;
 		if ($this->score) {
 			$r .= ' (' . $this->score . ')';
 		}
