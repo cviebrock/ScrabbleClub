@@ -102,6 +102,12 @@ class Players_Controller extends Base_Controller {
 			->order_by('date','desc')
 			->first();
 
+		$high_loss = Game::where('player_id','=',$id)
+			->where('spread','<',0)
+			->order_by('player_score','desc')
+			->order_by('date','desc')
+			->first();
+
 		$low_score = Game::where('player_id','=',$id)
 			->order_by('player_score','asc')
 			->order_by('date','desc')
@@ -124,6 +130,7 @@ class Players_Controller extends Base_Controller {
 				'best_spread'  => $best_spread,
 				'worst_spread' => $worst_spread,
 				'high_score'   => $high_score,
+				'high_loss'    => $high_loss,
 				'low_score'    => $low_score,
 				'bingos'       => $bingos,
 			));
@@ -137,12 +144,9 @@ class Players_Controller extends Base_Controller {
 
 		$player = Player::find($id);
 
-		$bingos = DB::query('SELECT
-			b.*,
-			v.playability AS playability
-			FROM bingos b LEFT JOIN validwords v USING (word)
-			WHERE b.player_id = ?
-		', array($id));
+		$bingos = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
+			->where('player_id','=',$id)
+			->get(array('bingos.*','validwords.playability'));
 
 
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');

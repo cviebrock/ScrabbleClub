@@ -46,24 +46,30 @@ class Club_Controller extends Base_Controller {
 		$high_scores = Game::order_by('player_score','desc')
 			->order_by('opponent_score','desc')
 			->order_by('date','desc')
-			->take(10)
+			->take(5)
+			->get();
+
+		$high_losses = Game::where('spread','>',0)
+			->order_by('opponent_score','desc')
+			->order_by('date','desc')
+			->take(5)
 			->get();
 
 		$blowouts = Game::order_by('spread','desc')
 			->order_by('date','desc')
-			->take(10)
+			->take(5)
 			->get();
 
 		$combined = Game::where('spread','>=',0)
 			->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
 			->order_by('date','desc')
-			->take(10)
+			->take(5)
 			->get();
 
 		$bingos = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
 			->order_by('score','desc')
 			->order_by('date','desc')
-			->take(10)
+			->take(5)
 			->get(array('bingos.*','validwords.playability'));
 
 		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
@@ -74,6 +80,7 @@ class Club_Controller extends Base_Controller {
 				'overall'       => $overall,
 				'attendance'    => $attendance,
 				'high_scores'   => $high_scores,
+				'high_losses'   => $high_losses,
 				'blowouts'      => $blowouts,
 				'combined'      => $combined,
 				'bingos'				=> $bingos,
