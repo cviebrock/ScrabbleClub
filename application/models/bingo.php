@@ -25,6 +25,11 @@ class Bingo extends BaseModel {
 		'score'     => 'integer|min:55',
 	);
 
+	public function player()
+	{
+	 return $this->belongs_to('Player');
+	}
+
 	public function save() {
 		$this->word = strtolower($this->word);
 		$this->valid = ValidWord::where('word','=',$this->word)->count();
