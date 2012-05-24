@@ -39,7 +39,10 @@
 
 
 Route::controller('home');
-Route::any('/', array('as'=>'home','uses'=>'home@index') );
+Route::any('login',  array('as'=>'login',  'uses'=>'home@login')  );
+Route::any('logout', array('as'=>'logout', 'uses'=>'home@logout') );
+Route::any('/',      array('as'=>'home',   'uses'=>'home@index')  );
+
 
 Route::controller('ajax');
 Route::get('ajax/games/(:num)/(:num)', array( 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
@@ -154,4 +157,15 @@ View::composer('base', function($view)
 });
 
 
+View::composer('partials.header', function($view)
+{
 
+	if($user = Auth::user()) {
+		$view->nest('authbox', 'partials.header.auth_info', array(
+			'user' => $user
+		));
+	} else {
+		$view->nest('authbox', 'partials.header.auth_form');
+	}
+
+});

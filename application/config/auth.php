@@ -42,7 +42,7 @@ return array(
 	|
 	*/
 
-	'model' => 'User',
+	'model' => 'Player',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -55,6 +55,6 @@ return array(
 	|
 	*/
 
-	'table' => 'users',
+	'table' => 'players',
 
 );
