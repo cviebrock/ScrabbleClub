@@ -32,8 +32,59 @@ class Home_Controller extends Base_Controller {
 
 	public function get_index()
 	{
+
+
+		// SIDEBAR INFO
+
+		$query = DB::query('SELECT date
+			FROM games
+			ORDER BY date DESC
+			LIMIT 1');
+
+		if (count($query)) {
+
+			$date = $query[0]->date;
+
+			$temp = DB::query('SELECT
+				COUNT(g.id)/2 AS total_games,
+				COUNT(DISTINCT g.player_id) AS total_players,
+				AVG(g.player_score) AS average_score
+				FROM games g
+				WHERE g.date=?',
+				$date
+			);
+			$sidebar = (array)$temp[0];
+
+			$sidebar['bingos'] = Bingo::where('date','=',$date)
+				->order_by('score','desc')
+				->take(5)
+				->get();
+
+			$sidebar['ratings'] = Rating::select(array(
+					'*',
+					DB::raw('CAST(ending_rating AS signed) - CAST(starting_rating AS signed) AS delta')
+				))
+				->where('date','=',$date)
+				// ->order_by('delta', 'desc')
+				->order_by('performance_rating', 'desc')
+				->take(5)
+				->get();
+
+
+
+		} else {
+			$date = $sidebar = false;
+		}
+
+
+
+
+
 		$this->layout->with('title', 'Home')
-			->nest('content', 'home.index');
+			->nest('content', 'home.index', array(
+				'date' => $date,
+				'sidebar' => $sidebar,
+			));
 	}
 
 	public function get_login()
