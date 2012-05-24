@@ -19,6 +19,7 @@ help:
 	@echo "-----------------"
 	@echo "help           - this"
 	@echo "css            - build all CSS files from Less source"
+	@echo "js             - build and minify all Javascript files from source"
 	@echo "commit         - commit all built assets to git repository"
 	@echo "all            - build all assets, then commit"
 	@echo
