@@ -6,6 +6,13 @@
 	}
 
 
+	hr {
+		display: block;
+		page-break-after: always;
+		border: none !important;
+	}
+
+
 	// overall colors
 	* {
 		color: @black !important;
@@ -73,16 +80,33 @@
 		}
 	}
 
+	// hide any action buttons
+	.actions {
+		display: none;
+	}
+
+
 
 	// fix footer
 	footer {
-		margin-top: 0;
+		margin-top: 1em;
 		height: auto;
-		font-size: 80%;
+		font-size: 65%;
 		.navbar-inner {
 			text-transform: uppercase;
 			color: @grayLight !important;
 			height: auto;
+		}
+		// unfloat and shrink spans
+		.span6 {
+			margin-top: 0.5em;
+			width: 100%;
+			float: none !important;
+			text-align: right;
+		}
+		// no line breaks
+		br {
+			display: none;
 		}
 	}
 
@@ -102,9 +126,7 @@
 
 	.table {
 		border-color: @black;
-	}
 
-	.table{
 		td,
 		th {
 			border-color: @black !important;

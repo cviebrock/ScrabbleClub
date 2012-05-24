@@ -66,7 +66,7 @@ ul.sc_actions {
 
 
 // default width of 100% causes tables to not respect .spanX widths on columns
-.table {
+.table-auto {
 	width: auto;
 }
 
@@ -188,4 +188,41 @@ p.help-text {
 	color: @grayLight;
   margin-top: @baseLineHeight / 4;
   margin-bottom: @baseLineHeight / 4;
+}
+
+
+
+// sidebar
+
+.sidebar {
+
+	font-size: @baseFontSize * .85;
+	margin-top: 1em;
+	padding: 10px;
+	width: 280px;		// span3=300px, less padding
+	background-color: fade(@infoBackground, 50%);
+	.border-radius(10px);
+	.box-shadow();
+
+	h3 {
+		font-size: @baseFontSize * 1.2;
+		line-height: @baseLineHeight;
+	}
+	h4 {
+		font-size: @baseFontSize;
+		color: @grayLight;
+		font-weight: normal;
+		text-transform: uppercase;
+	}
+
+
+	table {
+		margin-top: 1em;
+	}
+
+
+}
+
+hr {
+	display: none;
 }
