@@ -28,6 +28,7 @@ echo Form::field('email', 'email', 'Email Address',
 	array('error' => $player->error('email'))
 );
 
+
 echo Form::field('text', 'naspa_id', 'NASPA ID',
 	array($player->naspa_id, array('class'=>'span2')),
 	array(
@@ -40,6 +41,47 @@ echo Form::field('number', 'naspa_rating', 'NASPA Rating',
 	array($player->naspa_rating, array('class'=>'span1')),
 	array('error' => $player->error('naspa_rating'))
 );
+
+?>
+<h2>Password</h2>
+
+
+<?php if ($mode=='edit' && !empty($player->password) ): ?>
+
+<p>
+	This player is currently able to administer the site.  Uncheck this box to disable this.
+</p>
+
+<?php echo Form::field('checkbox', 'password[enable]', 'Enable Admin',
+	array( 'yes', !empty($player->password) )
+); ?>
+
+<p>
+	Leave the above box checked and complete these fields to change the user&rsquo;s password,
+	or leave both fields blank to leave the password as-is.
+</p>
+
+<?php else: ?>
+
+<p>
+	Only complete these fields if you want the player to be able to administer the site.
+</p>
+
+<?php endif; ?>
+
+
+<?php
+
+echo Form::field('password', 'password[password]', 'Password',
+	array(),
+	array('error' => $player->error('password'))
+);
+
+echo Form::field('password', 'password[confirmation]', 'Confirm Password',
+	array()
+);
+
+
 
 
 echo Form::actions(array(
