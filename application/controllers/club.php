@@ -66,6 +66,12 @@ class Club_Controller extends Base_Controller {
 			->take(5)
 			->get();
 
+		$bingos = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
+			->order_by('score','desc')
+			->order_by('date','desc')
+			->take(5)
+			->get();
+
 		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
 
 		$this->layout->with('title', 'Club Statistics')
@@ -77,6 +83,7 @@ class Club_Controller extends Base_Controller {
 				'closest_games' => $closest_games,
 				'blowouts'      => $blowouts,
 				'combined'      => $combined,
+				'bingos'				=> $bingos,
 			));
 
 		// Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');

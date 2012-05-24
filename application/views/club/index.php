@@ -71,6 +71,33 @@
 		->render();
 ?>
 
+<h2>Best Bingos</h2>
+<table class="table table-striped table-bordered sortable">
+	<thead class="small">
+		<tr>
+			<th class="span2">Date</th>
+			<th class="span3">Player</th>
+			<th class="span3">Bingo</th>
+			<th class="span1">Score</th>
+			<th class="span1">Playability</th>
+			<th class="span1">Valid</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php foreach ($bingos as $bingo): ?>
+		<tr <?php echo ($bingo->valid ? '' : ' class="phoney"'); ?>>
+			<td><?php echo App::format_date($bingo->date); ?></td>
+			<td><?php echo $bingo->player->fullname(); ?></td>
+			<td><?php echo $bingo->word; ?></td>
+			<td class="numeric"><?php echo ($bingo->score ? $bingo->score : '&mdash;'); ?></td>
+			<td class="numeric"><?php echo ($bingo->playability ? $bingo->playability : '&mdash;'); ?></td>
+			<td class="center"><?php echo ($bingo->valid ? '<i class="icon-ok hide-text">1</i>' : '<i class="icon-remove hide-text">0</i>'); ?></td>
+		</tr>
+<?php endforeach; ?>
+	</tbody>
+</table>
+
+
 
 <script type="text/javascript">
 $(function() {
