@@ -670,6 +670,7 @@ table+h2{margin-top:40px;}
 #ooo_loader{display:inline-block;width:16px;height:16px;background:transparent url('/img/loader.gif') no-repeat 0 0;}
 .form-actions .btn{vertical-align:middle;}
 .form-actions .btn+.btn{margin-left:10px;}
+p.help-text{font-size:85%;color:#999999;margin-top:0.3333325em;margin-bottom:0.3333325em;}
 .sparkline{display:inline-block;vertical-align:bottom;margin-left:10px;}.sparkline table,.sparkline tbody,.sparkline tr,.sparkline td{border:none;padding:0;}
 .tinybadges{position:absolute;font-size:10px;font-weight:bold;text-align:center;top:-1px;left:-14px;line-height:10px;color:#ffffff;padding:1px 0;width:40px;height:10px;border-top:1px solid #000000;border-bottom:1px solid #000000;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);}.tinybadges.p1{background-color:#c67605;border-color:#ad6704;}
 .tinybadges.p2{background-color:#f89406;border-color:#df8505;}
