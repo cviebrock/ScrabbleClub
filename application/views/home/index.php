@@ -1,7 +1,81 @@
-<div class="page-header">
-	<h1><?php echo Config::get('application.clubname'); ?></h1>
-</div>
+<div class="row">
 
-<p>
-	This is the homepage.
-</p>
+	<div class="span8">
+
+		<h1><?php echo Config::get('application.clubname'); ?></h1>
+
+		<p>
+			This is the homepage.
+		</p>
+	</div>
+
+
+
+	<div class="span4 sidebar">
+
+		<?php if ($date): ?>
+
+		<h3>Last Week&rsquo;s Statistics</h3>
+
+		<h4><?php echo App::format_date($date, 'M d, Y'); ?></h4>
+
+		<table class="table table-condensed">
+			<tbody>
+				<tr>
+					<th class="span1 horizontal-header">Players</th>
+					<td class="span1 numeric"><?php echo (int)$sidebar['total_players']; ?></td>
+				</tr>
+				<tr>
+					<th class="span1 horizontal-header">Games</th>
+					<td class="span1 numeric"><?php echo (int)$sidebar['total_games']; ?></td>
+				</tr>
+				<tr>
+					<th class="span1 horizontal-header">Average Score</th>
+					<td class="span1 numeric"><?php echo round($sidebar['average_score']); ?></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>Bingos</h4>
+
+		<table class="table table-condensed">
+			<tbody>
+			<?php foreach($sidebar['bingos'] as $bingo): ?>
+				<tr>
+					<td><?php echo $bingo->player->fullname(); ?></td>
+					<td><?php echo $bingo->word; ?></td>
+					<td class="numeric"><?php echo $bingo->score; ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+
+
+		<h4>Best Performances</h4>
+
+		<table class="table table-condensed">
+			<tbody>
+			<?php foreach($sidebar['ratings'] as $rating): ?>
+			<?php $delta = $rating->ending_rating - $rating->starting_rating; ?>
+				<tr>
+					<td><?php echo $rating->player->fullname(); ?></td>
+					<td><?php printf('%.1f/%d', $rating->games_won, $rating->games_played); ?></td>
+					<td class="numeric"><?php echo $rating->performance_rating; ?></td>
+					<td class="numeric"><?php printf('%+d', $delta); ?></td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+
+		<div class="actions pull-right">
+			<?php echo App::action_link_to_route('club@summary', 'Full Summary', array($date), 'arrow-right|white', array('class'=>'btn btn-info btn-small')); ?>
+		</div>
+
+		<?php endif; ?>
+
+	</div>
+
+
+
+
+</div>
