@@ -98,9 +98,10 @@ $(function() {
 
 	$('table.sortable').tablesorter({
 		headers: {
-			2: { sorter: 'sc_record' }
+			3: { sorter: 'sc_record' }
 		},
-		sortList: [[4,1], [2,1]]
+		// sortList: [[4,1], [2,1]]
+		sortList: [[1,1]]
 	});
 
 <?php
