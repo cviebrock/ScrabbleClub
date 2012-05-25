@@ -9,6 +9,14 @@
 			<?php echo HTML::link( URL::base(), Config::get('application.clubname'), array('class'=>'brand')); ?>
 			<div class="nav-collapse">
 				<ul class="nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo HTML::link_to_action('about', 'About the Club'); ?></li>
+							<li><?php echo HTML::link_to_action('about@resources', 'Resources'); ?></li>
+							<li><?php echo HTML::link_to_action('about@links', 'Links'); ?></li>
+						</ul>
+					</li>
 					<li><?php echo HTML::link_to_action('club', 'Club Stats'); ?></li>
 					<li><?php echo HTML::link_to_action('players', 'Player Stats'); ?></li>
 					<?php if (Auth::check()): ?>

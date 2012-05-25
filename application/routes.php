@@ -43,6 +43,7 @@ Route::any('login',  array('as'=>'login',  'uses'=>'home@login')  );
 Route::any('logout', array('as'=>'logout', 'uses'=>'home@logout') );
 Route::any('/',      array('as'=>'home',   'uses'=>'home@index')  );
 
+Route::controller('about');
 
 Route::controller('ajax');
 Route::get('ajax/games/(:num)/(:num)', array( 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
