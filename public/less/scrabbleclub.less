@@ -55,6 +55,9 @@ body {
 	text-transform: uppercase;
 	color: @grayLight;
 	font-size: 13px;
+	&.large {
+		font-size: @baseFontSize;
+	}
 }
 
 
@@ -206,10 +209,11 @@ p.help-text {
 	font-size: @baseFontSize * .85;
 	margin-top: 1em;
 	padding: 10px;
-	width: 280px;		// span3=300px, less padding
+	width: 278px;		// span3=300px, less padding + border
 	background-color: fade(@infoBackground, 50%);
+	border: 1px solid @infoBackground;
 	.border-radius(10px);
-	.box-shadow();
+	// .box-shadow();
 
 	h3 {
 		font-size: @baseFontSize * 1.2;
@@ -236,4 +240,8 @@ hr {
 
 .icon-fade {
 	.opacity(50);
+}
+
+.gray {
+	color: @grayLight;
 }
