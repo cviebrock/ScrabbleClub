@@ -32,7 +32,7 @@ echo Form::field('date', 'date', 'Date',
 	<label class="control-label">Games</label>
 	<div class="controls">
 
-	<table class="table table-condensed games">
+	<table class="table table-condensed games table-auto">
 		<thead>
 			<tr>
 				<th>Score</th>
