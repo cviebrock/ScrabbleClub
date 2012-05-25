@@ -5,7 +5,7 @@
 
 <h2>Overall Statistics</h2>
 
-<table class="table table-condensed table-auto">
+<table class="table table-auto">
 	<tbody>
 		<tr>
 			<th class="span3 horizontal-header">Dates Played</th>
@@ -15,7 +15,9 @@
 		<tr>
 			<th class="span3 horizontal-header">Players per Date</th>
 			<td class="span1 numeric"><?php echo round($overall['players_per_date']); ?></td>
-			<td class="span3"><div id="graph_attendance" class="sparkline" style="height: 30px; width: 250px;"></td>
+			<td class="span3 spark">
+				<div id="graph_attendance" class="sparkline" style="height: 30px; width: 250px;">
+			</td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Total Games Played</th>
