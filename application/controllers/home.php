@@ -70,8 +70,8 @@ class Home_Controller extends Base_Controller {
 					DB::raw('CAST(ending_rating AS signed) - CAST(starting_rating AS signed) AS delta')
 				))
 				->where('date','=',$date)
-				// ->order_by('delta', 'desc')
-				->order_by('performance_rating', 'desc')
+				->order_by('delta', 'desc')
+				// ->order_by('performance_rating', 'desc')
 				->take(5)
 				->get();
 

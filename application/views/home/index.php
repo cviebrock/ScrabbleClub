@@ -76,9 +76,9 @@
 			<?php $delta = $rating->ending_rating - $rating->starting_rating; ?>
 				<tr>
 					<td><?php echo $rating->player->fullname(); ?></td>
-					<td><?php printf('%.1f/%d', $rating->games_won, $rating->games_played); ?></td>
-					<td class="numeric"><?php echo $rating->performance_rating; ?></td>
+					<td><?php printf('%.1f-%.1f', $rating->games_won, ($rating->games_played-$rating->games_won)); ?></td>
 					<td class="numeric"><?php printf('%+d', $delta); ?></td>
+					<td class="numeric"><span class="gray"><?php echo $rating->performance_rating; ?></span></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
