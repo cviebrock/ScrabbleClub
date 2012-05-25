@@ -74,8 +74,6 @@ class Admin_Players_Controller extends Base_Controller {
 
 		}
 
-print_r($player);
-die;
 
 		if ($player->is_valid()) {
 			$player->save();
