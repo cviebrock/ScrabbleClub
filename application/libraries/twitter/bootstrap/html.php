@@ -44,9 +44,11 @@ class HTML extends \Laravel\HTML {
 		return '<ul class="nav">'.$html.'</ul>';
 	}
 
-	public static function link($url, $title, $attributes = array(), $https = false)
+	public static function link($url, $title=null, $attributes = array(), $https = false)
 	{
 		$url = static::entities(URL::to($url, $https));
+
+		if (!$title) $title = $url;
 
 		return '<a href="'.$url.'"'.static::attributes($attributes).'>'.$title.'</a>';
 	}
