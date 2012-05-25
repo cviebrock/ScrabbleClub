@@ -1,5 +1,6 @@
 <div class="page-header">
-	<h1>Game Night Summary for <?php echo App::format_date($date); ?></h1>
+	<h1>Game Night Summary</h1>
+	<span class="subhead large"><?php echo App::format_date($date); ?></span>
 </div>
 
 <h2>Overall Statistics</h2>
@@ -19,32 +20,6 @@
 			<th class="span3 horizontal-header">Average Score</th>
 			<td class="span4"><?php echo round($overall['average_score']); ?></td>
 		</tr>
-	</tbody>
-</table>
-
-
-<h2>Best Bingos</h2>
-
-<table class="table table-striped table-bordered sortable">
-	<thead class="small">
-		<tr>
-			<th class="span3">Player</th>
-			<th class="span3">Bingo</th>
-			<th class="span1">Score</th>
-			<th class="span1">Playability</th>
-			<th class="span1">Valid</th>
-		</tr>
-	</thead>
-	<tbody>
-<?php foreach ($bingos as $bingo): ?>
-		<tr <?php echo ($bingo->valid ? '' : ' class="phoney"'); ?>>
-			<td><?php echo $bingo->player->fullname(); ?></td>
-			<td><?php echo $bingo->word; ?></td>
-			<td class="numeric"><?php echo ($bingo->score ? $bingo->score : '&mdash;'); ?></td>
-			<td class="numeric"><?php echo ($bingo->playability ? $bingo->playability : '&mdash;'); ?></td>
-			<td class="center"><?php echo ($bingo->valid ? '<i class="icon-ok hide-text">1</i>' : '<i class="icon-remove hide-text">0</i>'); ?></td>
-		</tr>
-<?php endforeach; ?>
 	</tbody>
 </table>
 
@@ -73,7 +48,7 @@ foreach ($ratings as $rating) {
 		$delta = $rating->ending_rating - $rating->starting_rating;
 
 		echo '<tr>';
-		echo '<td>' . $rating->player->fullname() . '</td>';
+		echo '<td>' . HTML::link_to_action('players@details', $rating->player->fullname(), array($rating->player->id) ) . '</td>';
 		echo '<td class="numeric">' . $rating->starting_rating . '</td>';
 		echo '<td class="numeric">' . $rating->games_played . '</td>';
 		echo '<td class="numeric">' . round($rating->total_opp_ratings / $rating->games_played) . '</td>';
@@ -86,6 +61,32 @@ foreach ($ratings as $rating) {
 		echo "<tr>\n";
 }
 ?>
+	</tbody>
+</table>
+
+
+<h2>Best Bingos</h2>
+
+<table class="table table-striped table-bordered sortable">
+	<thead class="small">
+		<tr>
+			<th class="span3">Player</th>
+			<th class="span3">Bingo</th>
+			<th class="span1">Score</th>
+			<th class="span1">Playability</th>
+			<th class="span1">Valid</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php foreach ($bingos as $bingo): ?>
+		<tr <?php echo ($bingo->valid ? '' : ' class="phoney"'); ?>>
+			<td><?php echo $bingo->player->fullname(); ?></td>
+			<td><?php echo $bingo->word; ?></td>
+			<td class="numeric"><?php echo ($bingo->score ? $bingo->score : '&mdash;'); ?></td>
+			<td class="numeric"><?php echo ($bingo->playability ? $bingo->playability : '&mdash;'); ?></td>
+			<td class="center"><?php echo ($bingo->valid ? '<i class="icon-ok hide-text">1</i>' : '<i class="icon-remove hide-text">0</i>'); ?></td>
+		</tr>
+<?php endforeach; ?>
 	</tbody>
 </table>
 
