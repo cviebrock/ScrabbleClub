@@ -10,6 +10,10 @@ class Players_Controller extends Base_Controller {
 			->take(1)
 			->first();
 
+		$total_games = Game::count() / 2;
+		$min_games_played = floor($total_games * 0.04);
+
+
 		$players = DB::query('SELECT
 			p.id,
 			CONCAT (p.firstname," ",p.lastname) AS fullname,
@@ -24,6 +28,7 @@ class Players_Controller extends Base_Controller {
 			MAX(g.spread) AS best_spread
 			FROM players p LEFT JOIN games g ON (p.id=g.player_id)
 			GROUP BY p.id
+			HAVING games_played>0
 			ORDER BY games_played DESC
 		');
 
@@ -45,9 +50,10 @@ class Players_Controller extends Base_Controller {
 
 		$this->layout->with('title', 'Players')
 			->nest('content', 'players.index', array(
-				'lastgame' => $lastgame,
-				'players'  => $players,
-				'bingos'   => $bingos,
+				'min_games_played' => $min_games_played,
+				'lastgame'         => $lastgame,
+				'players'          => $players,
+				'bingos'           => $bingos,
 			));
 
 	}

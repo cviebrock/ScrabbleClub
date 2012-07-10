@@ -1,6 +1,9 @@
 <div class="page-header">
 	<h1>Player Statistics</h1>
-	<span class="subhead">As of <?php echo App::format_date($lastgame->date); ?></span>
+	<span class="subhead">
+		As of <?php echo App::format_date($lastgame->date); ?> /
+		Minimum <?php echo $min_games_played; ?> games played
+	</span>
 </div>
 
 <table class="table table-striped table-bordered sortable">
@@ -15,9 +18,6 @@
 			<th class="span1">Avg. Against</th>
 			<th class="span1">Avg. Spread</th>
 			<th class="span1">High Score</th>
-<!--
-			<th class="span1">High Spread</th>
--->
 			<th class="span1">Bingos /Game</th>
 			<th class="span1">Bingo Phoniness</th>
 		</tr>
@@ -45,7 +45,7 @@ foreach ($players as $player) {
 			$bingo = false;
 		}
 
-		if ($sortable && $player->games_played==0) {
+		if ($sortable && $player->games_played<$min_games_played) {
 			echo "</tbody>\n<tbody class=\"nosort\">\n";
 			$sortable = false;
 			$rank = false;
@@ -84,7 +84,6 @@ foreach ($players as $player) {
 
 		echo '<td class="numeric r_bingos">' . ($bingo ? sprintf('%.1f', $bingo->num_played / $player->games_played) : '&mdash;') . '</td>';
 		echo '<td class="numeric r_phoniness">' . ($bingo ? sprintf('%.1f%%',100*$bingo->phoniness) : '&mdash;') . '</td>';
-
 
 		echo "</tr>\n";
 }
