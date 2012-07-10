@@ -10,10 +10,6 @@ class Players_Controller extends Base_Controller {
 			->take(1)
 			->first();
 
-		$total_games = Game::count() / 2;
-		$min_games_played = floor($total_games * 0.04);
-
-
 		$players = DB::query('SELECT
 			p.id,
 			CONCAT (p.firstname," ",p.lastname) AS fullname,
@@ -31,6 +27,9 @@ class Players_Controller extends Base_Controller {
 			HAVING games_played>0
 			ORDER BY games_played DESC
 		');
+
+		$total_games = Game::count() / 2;
+		$min_games_played = floor( $total_games / count($players) );
 
 		$temp = DB::query('SELECT
 			player_id,
