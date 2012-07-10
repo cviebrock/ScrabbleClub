@@ -119,6 +119,11 @@ td.tie_game {
 	background: lighten(@yellow,30%) !important;
 }
 
+.table tbody + tbody tr:first-child td {
+	border-top: 3px double #ddd;
+}
+
+
 // give some breathing room to icons on buttons
 i[class^="icon-"] {
 	margin-right: 5px;

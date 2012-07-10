@@ -659,6 +659,7 @@ table.games td.error .input-prepend .add-on,table.games td.error .input-append .
 td.winning_game{background:#cdeacd !important;}
 tr.phoney td,td.losing_game{background:#f4c8c5 !important;}
 td.tie_game{background:#ffe9a6 !important;}
+.table tbody+tbody tr:first-child td{border-top:3px double #ddd;}
 i[class^="icon-"]{margin-right:5px;}
 i.empty{margin-right:0 !important;}
 i[class^="icon-"].hide-text{text-indent:-10000px;}
