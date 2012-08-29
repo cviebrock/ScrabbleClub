@@ -1,4 +1,5 @@
 <div class="page-header">
+	<?php echo App::action_link_to_route('admin.players@new', '', array(), 'plus|white', array('class'=>'btn btn-primary pull-right')); ?>
 	<h1>Players</h1>
 </div>
 
