@@ -81,7 +81,7 @@
 
 <h2>Club Rating</h2>
 
-<div id="graph_rating" style="width: 940px; height: 200px;"></div>
+<div id="graph_rating" style="width: 940px; height: 300px;"></div>
 
 
 <h2>Bingos</h2>
@@ -298,16 +298,22 @@ $year = $date->format('Y');
 			title: {
 				text: null
 			},
-			formatter: function() {
-				return this.value;
+			labels: {
+				formatter: function() {
+					return this.value;
+				}
 			}
 		},
 		legend: {
 			enabled: false
 		},
 		tooltip: {
+			shared: true,
+			crosshairs: true,
 			formatter: function() {
-				return Highcharts.dateFormat('%e-%b-%Y', this.x) +': '+ this.y;
+				return Highcharts.dateFormat('%e-%b-%Y', this.x) +
+					'<br>' + this.points[1].series.name + ': ' + this.points[1].y +
+					'<br>' + this.points[0].series.name + ': ' + this.points[0].y;
 			}
 		},
 		series: [{
@@ -325,7 +331,30 @@ $year = $date->format('Y');
 	}
 ?>
 			]
+		},{
+			name: 'Performance Rating',
+			type: 'spline',
+			lineWidth: 1,
+			shadow: false,
+			color: '#c60',
+			marker: {
+				enabled: false
+			},
+			data: [
+<?php
+	foreach($ratings as $rating) {
+		$date = new DateTime($rating->date);
+		printf("\t\t\t\t[ Date.UTC(%4d, %-2d, %-2d), %d ],\n",
+			$date->format('Y'),
+			$date->format('m')-1,
+			$date->format('d'),
+			$rating->performance_rating
+		);
+	}
+?>
+			]
 		}]
 	});
+
 });
 </script>
