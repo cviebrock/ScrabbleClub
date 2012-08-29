@@ -1,6 +1,8 @@
 <div class="page-header">
+	<?php echo App::action_link_to_route('admin.games@new', '', array(), 'plus|white', array('class'=>'btn btn-primary pull-right')); ?>
 	<h1>Games</h1>
 </div>
+
 
 <table class="table table-striped table-bordered sortable">
 	<thead>
@@ -45,7 +47,8 @@ foreach ($games as $game) {
 	</tbody>
 </table>
 
-<?php echo App::action_link_to_route('admin.games@new', 'Add new games', array(), 'plus|white', array('class'=>'btn btn-primary')); ?>
+<?php echo App::action_link_to_route('admin.games@new', 'Add new games', array(), 'plus|white', array('class'=>'btn btn-primary pull-right')); ?>
+
 
 <script>
 $(document).ready( function() {
