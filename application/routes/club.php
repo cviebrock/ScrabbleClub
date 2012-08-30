@@ -100,7 +100,7 @@ Route::get('players/(:num)/bingos', array( 'as'=>'player_bingos', function($id)
 	', array($id));
 
 	$view = View::make('default')
-		->with('title', $player->fullname())
+		->with('title', $player->fullname)
 		->nest('content', 'players.bingos', array(
 			'player' => $player,
 			'bingos' => $bingos,

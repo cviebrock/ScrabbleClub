@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Bingos for <?php echo $player->fullname(); ?></h1>
+	<h1>Bingos for <?php echo $player->fullname; ?></h1>
 </div>
 
 <table class="table table-striped table-bordered sortable">
@@ -15,7 +15,7 @@
 	<tbody>
 <?php foreach ($bingos as $bingo): ?>
 		<tr <?php echo ($bingo->valid ? '' : ' class="phoney"'); ?>>
-			<td><?php echo App::format_date($bingo->date); ?></td>
+			<td><?php echo format_date($bingo->date); ?></td>
 			<td><?php echo $bingo->word; ?></td>
 			<td class="numeric"><?php echo ($bingo->score ? $bingo->score : '&mdash;'); ?></td>
 			<td class="numeric"><?php echo ($bingo->playability ? $bingo->playability : '&mdash;'); ?></td>
@@ -25,7 +25,7 @@
 	</tbody>
 </table>
 
-<?php echo App::action_link_to_route('players@details', 'Back to player details', array($player->id), 'arrow-left', array('class'=>'btn')); ?>
+<?php echo action_link_to_route('players@details', 'Back to player details', array($player->id), 'arrow-left', array('class'=>'btn')); ?>
 
 
 <script>

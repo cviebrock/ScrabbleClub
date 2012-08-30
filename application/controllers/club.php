@@ -43,30 +43,35 @@ class Club_Controller extends Base_Controller {
 		');
 
 
-		$high_scores = Game::order_by('player_score','desc')
+		$high_scores = Game::with(array('player','opponent'))
+			->order_by('player_score','desc')
 			->order_by('opponent_score','desc')
 			->order_by('date','desc')
 			->take(5)
 			->get();
 
-		$high_losses = Game::where('spread','>',0)
+		$high_losses = Game::with(array('player','opponent'))
+			->where('spread','>',0)
 			->order_by('opponent_score','desc')
 			->order_by('date','desc')
 			->take(5)
 			->get();
 
-		$blowouts = Game::order_by('spread','desc')
+		$blowouts = Game::with(array('player','opponent'))
+			->order_by('spread','desc')
 			->order_by('date','desc')
 			->take(5)
 			->get();
 
-		$combined = Game::where('spread','>=',0)
+		$combined = Game::with(array('player','opponent'))
+			->where('spread','>=',0)
 			->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
 			->order_by('date','desc')
 			->take(5)
 			->get();
 
-		$bingos = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
+		$bingos = Bingo::with('player')
+			->left_join('validwords', 'bingos.word', '=', 'validwords.word')
 			->order_by('score','desc')
 			->order_by('date','desc')
 			->take(5)
@@ -116,16 +121,19 @@ class Club_Controller extends Base_Controller {
 			return;
 		}
 
-		$bingos = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
+		$bingos = Bingo::with('player')
+			->left_join('validwords', 'bingos.word', '=', 'validwords.word')
 			->where('date','=',$date)
 			->order_by('score','desc')
 			->take(5)
 			->get(array('bingos.*','validwords.playability'));
 
-		$ratings = Rating::where('date','=',$date)
+		$ratings = Rating::with('player')
+			->where('date','=',$date)
 			->get();
 
-		$games = Game::select(array(
+		$games = Game::with(array('player','opponent'))
+			->select(array(
 				'*',
 				DB::raw('IF(spread=0,IF(player_id>opponent_id,1,0),sign(spread)) AS filter')
 			))

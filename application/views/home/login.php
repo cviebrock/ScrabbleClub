@@ -24,7 +24,7 @@ echo Form::field('checkbox', 'remember', 'Remember Me',
 
 echo Form::actions(array(
 	Form::submit('Login', array('class' => 'btn-primary')),
-	App::action_link_to_route('home', 'Back Home', array(), 'arrow-left')
+	action_link_to_route('home', 'Back Home', array(), 'arrow-left')
 ));
 
 

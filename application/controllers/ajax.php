@@ -20,7 +20,7 @@ class Ajax_Controller extends Base_Controller {
 		$data = array();
 
 		foreach($players as $player) {
-			$data[ $player->id ] = $player->fullname();
+			$data[ $player->id ] = $player->fullname;
 		}
 
 		header('application/json');
@@ -31,9 +31,10 @@ class Ajax_Controller extends Base_Controller {
 	public function get_games($player_id, $opponent_id)
 	{
 
-		usleep(500000);
+		// usleep(500000);
 
-		$games = Game::where('player_id','=',$player_id)
+		$games = Game::with(array('player','opponent'))
+			->where('player_id','=',$player_id)
 			->where('opponent_id','=',$opponent_id)
 			->order_by('date','desc')
 			->get();

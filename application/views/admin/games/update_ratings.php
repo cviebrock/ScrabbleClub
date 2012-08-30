@@ -18,7 +18,7 @@ echo Form::field('labelled_checkbox', 'confirm', 'Are you sure?',
 
 echo Form::actions(array(
 	Form::submit('Update Ratings', array('class' => 'btn-primary')),
-	App::action_link_to_route('admin.games@index', 'Back to Games List', array(), 'arrow-left')
+	action_link_to_route('admin.games@index', 'Back to Games List', array(), 'arrow-left')
 ));
 
 

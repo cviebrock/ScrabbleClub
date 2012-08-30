@@ -1,7 +1,7 @@
 <div class="page-header">
 	<h1>Player Statistics</h1>
 	<span class="subhead">
-		As of <?php echo App::format_date($lastgame->date); ?> /
+		As of <?php echo format_date($lastgame->date); ?> /
 		Minimum <?php echo $min_games_played; ?> games played
 	</span>
 </div>
@@ -53,7 +53,7 @@ foreach ($players as $player) {
 
 		$numerator = $player->wins + ($player->ties / 2 );
 		$ratio = ($player->games_played ? $numerator*100/$player->games_played : 0);
-		$rating = Player::find($player->id)->current_rating();
+		$rating = array_key_exists($player->id, $ratings) ? $ratings[ $player->id ]->ending_rating : '&mdash;';
 
 		if ($rank) {
 			$rankings['rating'][$player->id] = $rating;
@@ -67,7 +67,7 @@ foreach ($players as $player) {
 		echo '<tr id="row_' . $player->id . '">';
 
 		echo '<td class="nowrap">' .
-			App::link_to_action('players@details', $player->fullname, array($player->id) ) .
+			HTML::link_to_action('players@details', $player->fullname, array($player->id) ) .
 			'</td>';
 		echo '<td class="numeric r_rating">' . $rating . '</td>';
 		echo '<td class="numeric">' . $player->games_played . '</td>';

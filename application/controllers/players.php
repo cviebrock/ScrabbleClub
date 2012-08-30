@@ -22,7 +22,8 @@ class Players_Controller extends Base_Controller {
 			ROUND(AVG(g.spread)) AS average_spread,
 			MAX(g.player_score) AS best_score,
 			MAX(g.spread) AS best_spread
-			FROM players p LEFT JOIN games g ON (p.id=g.player_id)
+			FROM players p
+				LEFT JOIN games g ON (p.id=g.player_id)
 			GROUP BY p.id
 			HAVING games_played>0
 			ORDER BY games_played DESC
@@ -44,6 +45,21 @@ class Players_Controller extends Base_Controller {
 			$bingos[ $data->player_id ] = $data;
 		}
 
+		$temp = DB::query('SELECT
+			r1.player_id, r1.ending_rating
+			FROM ratings r1
+				LEFT JOIN ratings r2 ON (
+			 		r1.player_id = r2.player_id AND r1.date < r2.date
+			 	)
+			WHERE r2.id IS NULL
+			ORDER BY r1.player_id
+		');
+		$ratings = array();
+		foreach($temp as $data) {
+			$ratings[ $data->player_id ] = $data;
+		}
+
+
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
@@ -53,6 +69,7 @@ class Players_Controller extends Base_Controller {
 				'lastgame'         => $lastgame,
 				'players'          => $players,
 				'bingos'           => $bingos,
+				'ratings'          => $ratings,
 			));
 
 	}
@@ -107,8 +124,7 @@ class Players_Controller extends Base_Controller {
 			->order_by('date','desc')
 			->first();
 
-		$high_loss = Game::where('player_id','=',$id)
-			->where('spread','<',0)
+		$high_loss = Game::where('spread','<',0)
 			->order_by('player_score','desc')
 			->order_by('date','desc')
 			->first();
@@ -126,11 +142,11 @@ class Players_Controller extends Base_Controller {
 		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
 
 
-		$this->layout->with('title', $player->fullname())
+		$this->layout->with('title', $player->fullname)
 			->nest('content', 'players.details', array(
 				'player'       => $player,
 				'ratings'      => $player->ratings,
-				'all_players'  => App::all_players($id),
+				'all_players'  => all_players($id),
 				'club_details' => $club_details,
 				'best_spread'  => $best_spread,
 				'worst_spread' => $worst_spread,
@@ -157,7 +173,7 @@ class Players_Controller extends Base_Controller {
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
-		$this->layout->with('title', $player->fullname().TITLE_DELIM.'Bingos')
+		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Bingos')
 			->nest('content', 'players.bingos', array(
 				'player' => $player,
 				'bingos' => $bingos,
@@ -175,7 +191,7 @@ class Players_Controller extends Base_Controller {
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
-		$this->layout->with('title', $player->fullname().TITLE_DELIM.'Games')
+		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Games')
 			->nest('content', 'players.games', array(
 				'player' => $player,
 				'games'  => $player->games,
@@ -192,7 +208,7 @@ class Players_Controller extends Base_Controller {
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
-		$this->layout->with('title', $player->fullname().TITLE_DELIM.'Ratings')
+		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Ratings')
 			->nest('content', 'players.ratings', array(
 				'player'  => $player,
 				'ratings' => $player->ratings,

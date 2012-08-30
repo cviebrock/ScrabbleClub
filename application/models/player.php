@@ -71,7 +71,7 @@ class Player extends BaseModel {
 		return $r;
 	}
 
-	public function fullname()
+	public function get_fullname()
 	{
 		return $this->firstname . ' ' . $this->lastname;
 	}

@@ -58,7 +58,7 @@ Route::get('admin/games/(\d{4}-\d{2}-\d{2})', array( 'as'=>'admin_games_list', f
 		}
 	}
 
-	$fdate = App::format_date($date);
+	$fdate = format_date($date);
 
 	$view = View::make('default')
 		->with('title', 'Games for '.$fdate)
@@ -97,7 +97,7 @@ Route::get('admin/games/new/(:any?)', array( 'as'=>'admin_games_new', function($
 		->with('title', 'New Games')
 		->nest('content', 'admin.games.form', array(
 			'gameform' => $gameform,
-			'all_players'  => App::all_players(),
+			'all_players'  => all_players(),
 		));
 
 	Asset::add('dateinput', 'js/jquery.tools.min.js', 'jquery');
@@ -134,7 +134,7 @@ Route::post('admin/games/new', array( 'before' => 'csrf', function()
 			->with('title', 'New Games')
 			->nest('content', 'admin.games.form', array(
 				'gameform' => $gameform,
-				'all_players'  => App::all_players(),
+				'all_players'  => all_players(),
 			));
 
 		Asset::container('head')->add('dateinput', 'js/jquery.tools.min.js', 'jquery');
@@ -151,8 +151,8 @@ Route::post('admin/games/new', array( 'before' => 'csrf', function()
 
 	$gameform->save();
 	return Redirect::to_route('admin_games_new')
-		->with('success', 'Games for "' . $gameform->player()->fullname() . '" on ' .
-			App::format_date($gameform->date) . ' added.');
+		->with('success', 'Games for "' . $gameform->player()->fullname . '" on ' .
+			format_date($gameform->date) . ' added.');
 
 
 }));
@@ -167,7 +167,7 @@ Route::get('admin/games/edit/(:num)', array( 'as'=>'admin_game_edit', function($
 		->with('title', 'Edit Game')
 		->nest('content', 'admin.games.edit', array(
 			'game' => $game,
-			'all_players'  => App::all_players(),
+			'all_players'  => all_players(),
 		));
 
 	Asset::container('head')->add('dateinput', 'js/jquery.tools.min.js', 'jquery');
@@ -203,7 +203,7 @@ Route::post('admin/games/edit/(:num)', array( 'before' => 'csrf', function($id)
 			->with('title', 'Edit Game')
 			->nest('content', 'admin.games.edit', array(
 				'game' => $game,
-				'all_players'  => App::all_players(),
+				'all_players'  => all_players(),
 			));
 
 		Asset::container('head')->add('dateinput', 'js/jquery.tools.min.js', 'jquery');

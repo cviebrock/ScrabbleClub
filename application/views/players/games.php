@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Games for <?php echo $player->fullname(); ?></h1>
+	<h1>Games for <?php echo $player->fullname; ?></h1>
 </div>
 
 <?php
@@ -11,7 +11,7 @@
 		->render();
 ?>
 
-<?php echo App::action_link_to_route('players@details', 'Back to Player Details', array($player->id), 'arrow-left', array('class'=>'btn')); ?>
+<?php echo action_link_to_route('players@details', 'Back to Player Details', array($player->id), 'arrow-left', array('class'=>'btn')); ?>
 
 
 <script>

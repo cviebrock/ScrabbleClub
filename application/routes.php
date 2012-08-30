@@ -48,13 +48,14 @@ Route::controller('about');
 Route::controller('ajax');
 Route::get('ajax/games/(:num)/(:num)', array( 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
 
+Route::controller('bingo');
 Route::controller('club');
-
 Route::controller('players');
 
 Route::controller('admin.games');
 Route::controller('admin.players');
 Route::controller('admin.housekeeping');
+Route::controller('admin.news');
 
 
 

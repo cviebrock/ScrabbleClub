@@ -78,7 +78,7 @@ class Admin_Players_Controller extends Base_Controller {
 		if ($player->is_valid()) {
 			$player->save();
 			return Redirect::to_action('admin.players')
-				->with('success', 'Player "' . $player->fullname() . '" added.');
+				->with('success', 'Player "' . $player->fullname . '" added.');
 		}
 
 
@@ -97,7 +97,7 @@ class Admin_Players_Controller extends Base_Controller {
 
 		$player = Player::find($id);
 
-		$this->layout->with('title', $player->fullname() )
+		$this->layout->with('title', $player->fullname )
 			->nest('content', 'admin.players.show', array(
 				'player'	=> $player,
 			));
@@ -165,7 +165,7 @@ class Admin_Players_Controller extends Base_Controller {
 
 			$player->save();
 			return Redirect::to_action('admin.players@edit', array($id))
-				->with('success', 'Player "' . $player->fullname() . '" edited.');
+				->with('success', 'Player "' . $player->fullname . '" edited.');
 
 		}
 
@@ -204,7 +204,7 @@ class Admin_Players_Controller extends Base_Controller {
 
 		$player->delete();
 		return Redirect::to_action('admin.players')
-			->with('success', 'Player "' . $player->fullname() . '" deleted.');
+			->with('success', 'Player "' . $player->fullname . '" deleted.');
 
 	}
 

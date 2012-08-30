@@ -72,19 +72,24 @@ class Admin_Games_Controller extends Base_Controller {
 
 		$matched_games = $unmatched_games = $seen = array();
 
+
+$x = array_pluck($temp,'id');
+$games = index_array( Game::with(array('player','opponent'))->where_in('id', $x )->get() );
+
+
 		foreach ($temp as $k=>$game) {
 
 			if ($game->matching_game) {
 				if (!in_array($game->matching_game, $seen)) {
-					$matched_games[] = Game::find($game->id);
+					$matched_games[] = $games[$game->id];
 					$seen[] = $game->id;
 				}
 			} else {
-				$unmatched_games[] = Game::find($game->id);
+				$unmatched_games[] = $games[$game->id];
 			}
 		}
 
-		$fdate = App::format_date($date);
+		$fdate = format_date($date);
 
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		// Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
@@ -124,7 +129,7 @@ class Admin_Games_Controller extends Base_Controller {
 		$this->layout->with('title', 'New Games')
 			->nest('content', 'admin.games.form', array(
 				'gameform' => $gameform,
-				'all_players'  => App::all_players(),
+				'all_players'  => all_players(),
 			));
 
 	}
@@ -159,8 +164,8 @@ class Admin_Games_Controller extends Base_Controller {
 			$gameform->save();
 			Log::info('gameform saved.');
 			return Redirect::to_action('admin.games@new')
-				->with('success', 'Games for "' . $gameform->player()->fullname() . '" on ' .
-					App::format_date($gameform->date) . ' added.');
+				->with('success', 'Games for "' . $gameform->player()->fullname . '" on ' .
+					format_date($gameform->date) . ' added.');
 
 		}
 
@@ -173,7 +178,7 @@ class Admin_Games_Controller extends Base_Controller {
 		$this->layout->with('title', 'New Games')
 			->nest('content', 'admin.games.form', array(
 				'gameform' => $gameform,
-				'all_players'  => App::all_players(),
+				'all_players'  => all_players(),
 			));
 
 
@@ -195,7 +200,7 @@ class Admin_Games_Controller extends Base_Controller {
 		$this->layout->with('title', 'Edit Game')
 			->nest('content', 'admin.games.edit', array(
 				'game' => $game,
-				'all_players'  => App::all_players(),
+				'all_players'  => all_players(),
 			));
 
 	}
@@ -226,7 +231,7 @@ class Admin_Games_Controller extends Base_Controller {
 			$this->layout->with('title', 'Edit Game')
 				->nest('content', 'admin.games.edit', array(
 					'game' => $game,
-					'all_players'  => App::all_players(),
+					'all_players'  => all_players(),
 				));
 
 			return;

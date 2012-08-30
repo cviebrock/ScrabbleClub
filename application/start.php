@@ -175,3 +175,5 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 
 
 define('TITLE_DELIM', ' | ');
+
+require path('app').'libraries/helpers.php';

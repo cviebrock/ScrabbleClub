@@ -1,6 +1,6 @@
 <div class="page-header">
 	<h1>Game Night Summary</h1>
-	<span class="subhead large"><?php echo App::format_date($date); ?></span>
+	<span class="subhead large"><?php echo format_date($date); ?></span>
 </div>
 
 <h2>Overall Statistics</h2>
@@ -48,7 +48,7 @@ foreach ($ratings as $rating) {
 		$delta = $rating->ending_rating - $rating->starting_rating;
 
 		echo '<tr>';
-		echo '<td>' . HTML::link_to_action('players@details', $rating->player->fullname(), array($rating->player->id) ) . '</td>';
+		echo '<td>' . HTML::link_to_action('players@details', $rating->player->fullname, array($rating->player->id) ) . '</td>';
 		echo '<td class="numeric">' . $rating->starting_rating . '</td>';
 		echo '<td class="numeric">' . $rating->games_played . '</td>';
 		echo '<td class="numeric">' . round($rating->total_opp_ratings / $rating->games_played) . '</td>';
@@ -79,7 +79,7 @@ foreach ($ratings as $rating) {
 	<tbody>
 <?php foreach ($bingos as $bingo): ?>
 		<tr <?php echo ($bingo->valid ? '' : ' class="phoney"'); ?>>
-			<td><?php echo $bingo->player->fullname(); ?></td>
+			<td><?php echo $bingo->player->fullname; ?></td>
 			<td>
 				<i class="<?php echo ($bingo->valid ? 'icon-ok' : 'icon-remove'); ?> icon-fade"></i>
 				<?php echo $bingo->word; ?>
@@ -107,7 +107,7 @@ foreach ($ratings as $rating) {
 ?>
 
 <div class="actions">
-<?php echo App::action_link_to_route('home', 'Back to Homepage', array(), 'arrow-left'); ?>
+<?php echo action_link_to_route('home', 'Back to Homepage', array(), 'arrow-left'); ?>
 </div>
 
 

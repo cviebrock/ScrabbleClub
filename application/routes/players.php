@@ -113,10 +113,10 @@ Route::get('players/(:num)', array( 'as'=>'player_details', function($id)
 
 
 	$view = View::make('default')
-		->with('title', $player->fullname())
+		->with('title', $player->fullname)
 		->nest('content', 'players.details', array(
 			'player'       => $player,
-			'all_players'  => App::all_players($id),
+			'all_players'  => all_players($id),
 			'club_details' => $club_details,
 			'best_spread'  => $best_spread,
 			'worst_spread' => $worst_spread,
@@ -150,7 +150,7 @@ Route::get('players/(:num)/bingos', array( 'as'=>'player_bingos', function($id)
 	', array($id));
 
 	$view = View::make('default')
-		->with('title', $player->fullname())
+		->with('title', $player->fullname
 		->nest('content', 'players.bingos', array(
 			'player' => $player,
 			'bingos' => $bingos,

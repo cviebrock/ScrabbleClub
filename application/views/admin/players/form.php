@@ -86,7 +86,7 @@ echo Form::field('password', 'password[confirmation]', 'Confirm Password',
 
 echo Form::actions(array(
 	Form::submit($submit_text, array('class' => 'btn-primary')),
-	App::action_link_to_route('admin.players', 'Back to Players List', array(), 'arrow-left')
+	action_link_to_route('admin.players', 'Back to Players List', array(), 'arrow-left')
 ));
 
 echo Form::close();

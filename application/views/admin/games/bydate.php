@@ -2,9 +2,6 @@
 	<h1>Games for <?php echo $fdate; ?></h1>
 </div>
 
-
-
-
 <?php if (count($unmatched_games)): ?>
 
 <h2>Unmatched Games</h2>
@@ -24,15 +21,15 @@
 <?php
 foreach ($unmatched_games as $game) {
 		echo '<tr>';
-		echo '<td>' . $game->player->fullname() . '</td>';
+		echo '<td>' . $game->player->fullname . '</td>';
 		echo '<td class="numeric">' . $game->player_score . '</td>';
-		echo '<td>' . $game->opponent->fullname() . '</td>';
+		echo '<td>' . $game->opponent->fullname . '</td>';
 		echo '<td class="numeric">' . $game->opponent_score . '</td>';
 		echo '<td class="numeric">' . $game->spread . '</td>';
 		echo '<td><ul class="sc_actions">' .
-			'<li>' . App::action_link_to_route('admin.games@edit', 'edit', array($game->id), 'small|pencil' ) . '</li>' .
-			'<li>' . App::action_link_to_route('admin.games@create_match', 'match', array($game->id), 'small|magnet' ) . '</li>' .
-			'<li>' . App::action_link_to_route('admin.games@delete', 'delete', array($game->id), 'small|remove' ) . '</li>' .
+			'<li>' . action_link_to_route('admin.games@edit', 'edit', array($game->id), 'small|pencil' ) . '</li>' .
+			'<li>' . action_link_to_route('admin.games@create_match', 'match', array($game->id), 'small|magnet' ) . '</li>' .
+			'<li>' . action_link_to_route('admin.games@delete', 'delete', array($game->id), 'small|remove' ) . '</li>' .
 		 '</ul></td>';
 		echo "<tr>\n";
 }
@@ -61,9 +58,9 @@ foreach ($unmatched_games as $game) {
 <?php
 foreach ($matched_games as $game) {
 		echo '<tr>';
-		echo '<td>' . $game->player->fullname() . '</td>';
+		echo '<td>' . $game->player->fullname . '</td>';
 		echo '<td class="numeric">' . $game->player_score . '</td>';
-		echo '<td>' . $game->opponent->fullname() . '</td>';
+		echo '<td>' . $game->opponent->fullname . '</td>';
 		echo '<td class="numeric">' . $game->opponent_score . '</td>';
 		echo '<td class="numeric">' . $game->spread . '</td>';
 		echo '<td><ul class="sc_actions">' .
@@ -78,9 +75,9 @@ foreach ($matched_games as $game) {
 <?php endif; ?>
 
 
-<?php echo App::action_link_to_route('admin.games@new', 'Add new games', array($date), 'plus|white', array('class'=>'btn btn-primary')); ?>
+<?php echo action_link_to_route('admin.games@new', 'Add new games', array($date), 'plus|white', array('class'=>'btn btn-primary')); ?>
 
-<?php echo App::action_link_to_route('admin.games', 'Back to games', array(), 'arrow-left', array('class'=>'btn')); ?>
+<?php echo action_link_to_route('admin.games', 'Back to games', array(), 'arrow-left', array('class'=>'btn')); ?>
 
 
 <script>

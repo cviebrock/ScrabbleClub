@@ -1,5 +1,5 @@
 <div class="page-header">
-	<?php echo App::action_link_to_route('admin.players@new', '', array(), 'plus|white', array('class'=>'btn btn-primary pull-right')); ?>
+	<?php echo action_link_to_route('admin.players@new', '', array(), 'plus|white', array('class'=>'btn btn-primary pull-right')); ?>
 	<h1>Players</h1>
 </div>
 
@@ -23,8 +23,8 @@ foreach ($players as $player) {
 		echo '<td>' . ($player->naspa_id ? $player->naspa_id : '&mdash;') . '</td>';
 		echo '<td>' . ($player->naspa_rating ? $player->naspa_rating : '&mdash;') . '</td>';
 		echo '<td><ul class="sc_actions">' .
-			'<li>' . App::action_link_to_route('admin.players@edit', 'Edit', array($player->id), 'small|pencil' ) . '</li>' .
-			'<li>' . App::action_link_to_route('admin.players@delete', 'Delete', array($player->id), 'small|remove' ) . '</li>' .
+			'<li>' . action_link_to_route('admin.players@edit', 'Edit', array($player->id), 'small|pencil' ) . '</li>' .
+			'<li>' . action_link_to_route('admin.players@delete', 'Delete', array($player->id), 'small|remove' ) . '</li>' .
 		 '</ul></td>';
 		echo "<tr>\n";
 }
@@ -32,7 +32,7 @@ foreach ($players as $player) {
 	</tbody>
 </table>
 
-<?php echo App::action_link_to_route('admin.players@new', 'Add new player', array(), 'plus|white', array('class'=>'btn btn-primary')); ?>
+<?php echo action_link_to_route('admin.players@new', 'Add new player', array(), 'plus|white', array('class'=>'btn btn-primary')); ?>
 
 <script>
 $(document).ready( function() {

@@ -17,10 +17,10 @@
 	<tbody>
 <?php
 	echo '<tr>';
-	echo '<td>' . App::format_date($game->date) . '</td>';
-	echo '<td>' . $game->player->fullname() . '</td>';
+	echo '<td>' . format_date($game->date) . '</td>';
+	echo '<td>' . $game->player->fullname . '</td>';
 	echo '<td class="numeric">' . $game->player_score . '</td>';
-	echo '<td>' . $game->opponent->fullname() . '</td>';
+	echo '<td>' . $game->opponent->fullname . '</td>';
 	echo '<td class="numeric">' . $game->opponent_score . '</td>';
 	echo '<td class="numeric">' . $game->spread . '</td>';
 	echo "<tr>\n";
@@ -39,7 +39,7 @@ echo Form::field('labelled_checkbox', 'confirm', 'Are you sure?',
 
 echo Form::actions(array(
 	Form::submit('Delete Game', array('class' => 'btn-primary btn-warning')),
-	App::action_link_to_route('admin.games@index', 'Back to Games List', array(), 'arrow-left')
+	action_link_to_route('admin.games@index', 'Back to Games List', array(), 'arrow-left')
 ));
 
 

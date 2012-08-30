@@ -9,6 +9,7 @@
 			<?php echo HTML::link( URL::base(), Config::get('application.clubname'), array('class'=>'brand')); ?>
 			<div class="nav-collapse">
 				<ul class="nav">
+
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -17,22 +18,34 @@
 							<li><?php echo HTML::link_to_action('about@links', 'Links'); ?></li>
 						</ul>
 					</li>
-					<li><?php echo HTML::link_to_action('club', 'Club Stats'); ?></li>
-					<li><?php echo HTML::link_to_action('players', 'Player Stats'); ?></li>
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Stats <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo HTML::link_to_action('players', 'Player'); ?></li>
+							<li><?php echo HTML::link_to_action('club', 'Club'); ?></li>
+							<li><?php echo HTML::link_to_action('bingo', 'Bingo'); ?></li>
+						</ul>
+					</li>
+
 					<?php if (Auth::check()): ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo HTML::link_to_action('admin.players', 'Players'); ?></li>
 							<li><?php echo HTML::link_to_action('admin.games', 'Games'); ?></li>
+							<li><?php echo HTML::link_to_action('admin.news', 'News'); ?></li>
 							<li><?php echo HTML::link_to_action('admin.housekeeping', 'Housekeeping'); ?></li>
 						</ul>
 					</li>
 					<?php endif; ?>
+
 				</ul>
+
 				<ul class="nav pull-right">
 					<?php echo $authbox; ?>
 				</ul>
+
 			</div><!--/.nav-collapse -->
 		</div>
 	</div>

@@ -23,10 +23,10 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td><?php echo App::format_date($game->date); ?></td>
-			<td><?php echo $game->opponent->fullname(); ?></td>
+			<td><?php echo format_date($game->date); ?></td>
+			<td><?php echo $game->opponent->fullname; ?></td>
 			<td class="numeric"><?php echo $game->opponent_score; ?></td>
-			<td><?php echo $game->player->fullname(); ?></td>
+			<td><?php echo $game->player->fullname; ?></td>
 			<td class="numeric"><?php echo $game->player_score; ?></td>
 		</tr>
 	</tbody>
@@ -46,10 +46,10 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td><?php echo App::format_date($game->date); ?></td>
-			<td><?php echo $game->player->fullname(); ?></td>
+			<td><?php echo format_date($game->date); ?></td>
+			<td><?php echo $game->player->fullname; ?></td>
 			<td class="numeric"><?php echo $game->player_score; ?></td>
-			<td><?php echo $game->opponent->fullname(); ?></td>
+			<td><?php echo $game->opponent->fullname; ?></td>
 			<td class="numeric"><?php echo $game->opponent_score; ?></td>
 		</tr>
 	</tbody>
@@ -67,7 +67,7 @@ echo Form::field('labelled_checkbox', 'confirm', 'Are you sure?',
 
 echo Form::actions(array(
 	Form::submit('Create Match', array('class' => 'btn-primary')),
-	App::action_link_to_route('admin.games@bydate', 'Back to Games List', array($game->date), 'arrow-left')
+	action_link_to_route('admin.games@bydate', 'Back to Games List', array($game->date), 'arrow-left')
 ));
 
 echo Form::close();

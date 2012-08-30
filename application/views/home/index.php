@@ -17,7 +17,7 @@
 
 		<h3>Last Week&rsquo;s Statistics</h3>
 
-		<h4><?php echo App::format_date($date, 'M j, Y'); ?></h4>
+		<h4><?php echo format_date($date, 'M j, Y'); ?></h4>
 
 		<table class="table table-condensed">
 			<tbody>
@@ -42,7 +42,7 @@
 			<tbody>
 			<?php foreach($sidebar['bingos'] as $bingo): ?>
 				<tr>
-					<td><?php echo $bingo->player->fullname(); ?></td>
+					<td><?php echo $bingo->player->fullname; ?></td>
 					<td>
 						<i class="icon-<?php echo $bingo->valid ? 'ok' : 'remove'; ?> icon-fade"></i>
 						<?php echo $bingo->word; ?>
@@ -60,7 +60,7 @@
 			<tbody>
 			<?php foreach($sidebar['high_scores'] as $game): ?>
 				<tr>
-					<td><?php echo $game->player->fullname(); ?></td>
+					<td><?php echo $game->player->fullname; ?></td>
 					<td class="numeric"><?php echo $game->player_score; ?></td>
 				</tr>
 			<?php endforeach; ?>
@@ -75,7 +75,7 @@
 			<?php foreach($sidebar['ratings'] as $rating): ?>
 			<?php $delta = $rating->ending_rating - $rating->starting_rating; ?>
 				<tr>
-					<td><?php echo $rating->player->fullname(); ?></td>
+					<td><?php echo $rating->player->fullname; ?></td>
 					<td><?php printf('%.1f-%.1f', $rating->games_won, ($rating->games_played-$rating->games_won)); ?></td>
 					<td class="numeric"><?php printf('%+d', $delta); ?></td>
 					<td class="numeric"><span class="gray"><?php echo $rating->performance_rating; ?></span></td>
@@ -85,7 +85,7 @@
 		</table>
 
 		<div class="actions pull-right">
-			<?php echo App::action_link_to_route('club@summary', 'Full Summary', array($date), 'arrow-right|white', array('class'=>'btn btn-info btn-small')); ?>
+			<?php echo action_link_to_route('club@summary', 'Full Summary', array($date), 'arrow-right|white', array('class'=>'btn btn-info btn-small')); ?>
 		</div>
 
 		<?php endif; ?>

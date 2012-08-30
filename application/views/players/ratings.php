@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Ratings for <?php echo $player->fullname(); ?></h1>
+	<h1>Ratings for <?php echo $player->fullname; ?></h1>
 </div>
 
 <table class="table table-striped table-bordered sortable">
@@ -24,7 +24,7 @@ foreach ($ratings as $rating) {
 		$delta = $rating->ending_rating - $rating->starting_rating;
 
 		echo '<tr>';
-		echo '<td>' . App::format_date($rating->date) . '</td>';
+		echo '<td>' . format_date($rating->date) . '</td>';
 		echo '<td class="numeric">' . $rating->starting_rating . '</td>';
 		echo '<td class="numeric">' . $rating->games_played . '</td>';
 		echo '<td class="numeric">' . round($rating->total_opp_ratings / $rating->games_played) . '</td>';
@@ -40,7 +40,7 @@ foreach ($ratings as $rating) {
 	</tbody>
 </table>
 
-<?php echo App::action_link_to_route('players@details', 'Back to Player Details', array($player->id), 'arrow-left', array('class'=>'btn')); ?>
+<?php echo action_link_to_route('players@details', 'Back to Player Details', array($player->id), 'arrow-left', array('class'=>'btn')); ?>
 
 
 

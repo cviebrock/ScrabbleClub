@@ -58,7 +58,7 @@ Route::post('admin/players/new', array( 'before' => 'csrf', function()
 
 	$player->save();
 	return Redirect::to_route('admin_players')
-		->with('success', 'Player "' . $player->fullname() . '" added.');
+		->with('success', 'Player "' . $player->fullname . '" added.');
 
 }));
 
@@ -69,7 +69,7 @@ Route::get('admin/players/(:num)', array( 'as'=>'admin_player_view', function($i
 	$player = Player::find($id);
 
 	return View::make('default')
-		->with('title', $player->fullname() )
+		->with('title', $player->fullname )
 		->nest('content', 'admin.players.show', array(
 			'player'	=> $player,
 		));
@@ -117,7 +117,7 @@ Route::post('admin/players/edit/(:num)', array( 'before' => 'csrf', function($id
 
 	$player->save();
 	return Redirect::to_route('admin_player_edit', array($id))
-		->with('success', 'Player "' . $player->fullname() . '" edited.');
+		->with('success', 'Player "' . $player->fullname . '" edited.');
 }));
 
 
@@ -146,6 +146,6 @@ Route::post('admin/players/delete/(:num)', array( 'before' => 'csrf', function($
 
 	$player->delete();
 	return Redirect::to_route('admin_players',array($id))
-		->with('success', 'Player "' . $player->fullname() . '" deleted.');
+		->with('success', 'Player "' . $player->fullname . '" deleted.');
 
 }));

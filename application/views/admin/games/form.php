@@ -88,12 +88,12 @@ for($i=0; $i<$c; $i++) {
 
 echo Form::field('textarea', 'bingo_list', 'Bingos',
 	array($gameform->bingo_list, array(
-		'class'          =>'span6',
-		'placeholder'    =>App::rwords(),
-		'tabindex'       =>$tabindex++,
-		'autocorrect'    =>'off',
-		'autocomplete'   =>'off',
-		'autocapitalize' =>'off',
+		'class'          => 'span6',
+		'placeholder'    => rwords(),
+		'tabindex'       => $tabindex++,
+		'autocorrect'    => 'off',
+		'autocomplete'   => 'off',
+		'autocapitalize' => 'off',
 	)),
 	array('error' => (
 		$gameform->error('bingo_list') ? join('<br>',$gameform->error('bingo_list')) : ''
@@ -106,7 +106,7 @@ echo Form::actions(array(
 		'class'    => 'btn-primary',
 		'tabindex' => $tabindex++
 	)),
-	App::action_link_to_route('admin.games', 'Back to Games List', array(), 'arrow-left')
+	action_link_to_route('admin.games', 'Back to Games List', array(), 'arrow-left')
 ));
 
 

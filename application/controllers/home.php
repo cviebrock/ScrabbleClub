@@ -55,17 +55,20 @@ class Home_Controller extends Base_Controller {
 			);
 			$sidebar = (array)$temp[0];
 
-			$sidebar['bingos'] = Bingo::where('date','=',$date)
+			$sidebar['bingos'] = Bingo::with('player')
+				->where('date','=',$date)
 				->order_by('score','desc')
 				->take(5)
 				->get();
 
-			$sidebar['high_scores'] = Game::where('date','=',$date)
+			$sidebar['high_scores'] = Game::with('player')
+				->where('date','=',$date)
 				->order_by('player_score','desc')
 				->take(5)
 				->get();
 
-			$sidebar['ratings'] = Rating::select(array(
+			$sidebar['ratings'] = Rating::with('player')
+				->select(array(
 					'*',
 					DB::raw('CAST(ending_rating AS signed) - CAST(starting_rating AS signed) AS delta')
 				))
@@ -80,10 +83,6 @@ class Home_Controller extends Base_Controller {
 		} else {
 			$date = $sidebar = false;
 		}
-
-
-
-
 
 		$this->layout->with('title', 'Home')
 			->nest('content', 'home.index', array(
@@ -129,7 +128,7 @@ class Home_Controller extends Base_Controller {
 		if (Auth::attempt( $auth ) ) {
 
 			return Redirect::to_action('home')
-				->with('success', 'Welcome back, '.Auth::user()->fullname().'!');
+				->with('success', 'Welcome back, '.Auth::user()->fullname.'!');
 
 		}
 
@@ -149,7 +148,7 @@ class Home_Controller extends Base_Controller {
 		$redirect = Redirect::home();
 		if (Auth::check())
 		{
-			$name = Auth::user()->fullname();
+			$name = Auth::user()->fullname;
 			Auth::logout();
 			$redirect->with('success', 'Bye, ' . $name . '.  You are now signed out.');
 		}

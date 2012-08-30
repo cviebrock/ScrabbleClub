@@ -38,10 +38,10 @@ foreach ($games as $game):
 
 ?>
 		<tr>
-			<?php if (!$hide_date): ?><td><?php echo App::format_date($game->date); ?></td><?php endif; ?>
-			<td class="<?php echo $p_class; ?>"><?php echo $game->player->fullname(); ?></td>
+			<?php if (!$hide_date): ?><td><?php echo format_date($game->date); ?></td><?php endif; ?>
+			<td class="<?php echo $p_class; ?>"><?php echo $game->player->fullname; ?></td>
 			<td class="numeric<?php echo $p_class; ?>"><?php echo $game->player_score; ?></td>
-			<td class="<?php echo $o_class; ?>"><?php echo $game->opponent->fullname(); ?></td>
+			<td class="<?php echo $o_class; ?>"><?php echo $game->opponent->fullname; ?></td>
 			<td class="numeric<?php echo $o_class; ?>"><?php echo $game->opponent_score; ?></td>
 			<td class="numeric"><?php echo isset($combined) ? $game->player_score + $game->opponent_score : $game->spread; ?></td>
 		</tr>

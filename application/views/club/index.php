@@ -1,6 +1,6 @@
 <div class="page-header">
 	<h1>Club Statistics</h1>
-	<span class="subhead">As of <?php echo App::format_date($lastgame->date); ?></span>
+	<span class="subhead">As of <?php echo format_date($lastgame->date); ?></span>
 </div>
 
 <h2>Overall Statistics</h2>
@@ -13,7 +13,7 @@
 			<td class="span3"></td>
 		</tr>
 		<tr>
-			<th class="span3 horizontal-header">Players per Date</th>
+			<th class="span3 horizontal-header">Average Players per Date</th>
 			<td class="span1 numeric"><?php echo round($overall['players_per_date']); ?></td>
 			<td class="span3 spark">
 				<div id="graph_attendance" class="sparkline" style="height: 30px; width: 250px;">
@@ -95,8 +95,8 @@
 	<tbody>
 <?php foreach ($bingos as $bingo): ?>
 		<tr <?php echo ($bingo->valid ? '' : ' class="phoney"'); ?>>
-			<td><?php echo App::format_date($bingo->date); ?></td>
-			<td><?php echo $bingo->player->fullname(); ?></td>
+			<td><?php echo format_date($bingo->date); ?></td>
+			<td><?php echo $bingo->player->fullname; ?></td>
 			<td><?php echo $bingo->word; ?></td>
 			<td class="numeric"><?php echo ($bingo->score ? $bingo->score : '&mdash;'); ?></td>
 			<td class="numeric"><?php echo ($bingo->playability ? $bingo->playability : '&mdash;'); ?></td>
