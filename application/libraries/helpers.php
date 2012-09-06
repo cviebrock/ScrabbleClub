@@ -49,6 +49,7 @@ function all_players($excl=null)
 	if ($excl && array_key_exists($excl, $players)) {
 		unset($players[$excl]);
 	}
+	$players[0] = '';
 	return $players;
 	// $data = array(0=>'');
 	// foreach($players as $player) {
