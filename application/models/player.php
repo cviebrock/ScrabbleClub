@@ -133,4 +133,10 @@ class Player extends BaseModel {
 		return $this->games_won()->count() + ($this->games_tied()->count() * 0.5);
 	}
 
+
+	public function __toString()
+	{
+		return $this->get_fullname();
+	}
+
 }
