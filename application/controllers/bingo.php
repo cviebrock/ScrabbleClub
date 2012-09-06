@@ -14,7 +14,7 @@ class Bingo_Controller extends Base_Controller {
 			->left_join('validwords', 'bingos.word', '=', 'validwords.word')
 			->order_by('score','desc')
 			->order_by('date','desc')
-			->take(20)
+			->take(30)
 			->get(array('bingos.*','validwords.playability'));
 
 		$commonest = Bingo::with('player')

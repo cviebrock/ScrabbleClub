@@ -7,6 +7,8 @@
 <?php echo render('partials.bingo_listing', array('bingos'=>$bingos)); ?>
 
 
+<hr>
+
 <div class="row">
 	<div class="span6">
 
@@ -36,6 +38,7 @@
 		</table>
 
 	</div>
+
 	<div class="span6">
 
 		<h2>Common Alphagrams</h2>
@@ -94,11 +97,14 @@
 </div>
 
 
+<hr>
+
+
 <h2>Letter Frequency</h2>
-<div id="graph_freq" style="width: 940px; height: 300px;"></div>
+<div id="graph_freq" style="width: 940px; height: 350px;"></div>
 
 <h2>Common Endings</h2>
-<div id="graph_tails" style="width: 940px; height: 600px;"></div>
+<div id="graph_tails" style="width: 940px; height: 700px;"></div>
 
 
 <script type="text/javascript">
