@@ -173,7 +173,7 @@ class Form extends \Laravel\Form {
 	 * @param  array   $attributes
 	 * @return string
 	 */
-	public static function submit($value, $attributes = array())
+	public static function submit($value = null, $attributes = array())
 	{
 		$attributes['type'] = 'submit';
 		$attributes['class'] .= ' btn';
@@ -188,7 +188,7 @@ class Form extends \Laravel\Form {
 	 * @param  array   $attributes
 	 * @return string
 	 */
-	public static function reset($value, $attributes = array())
+	public static function reset($value = null, $attributes = array())
 	{
 		$attributes['type'] = 'reset';
 		$attributes['class'] .= ' btn';
