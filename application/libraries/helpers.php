@@ -50,6 +50,7 @@ function all_players($excl=null)
 		unset($players[$excl]);
 	}
 	$players[0] = '';
+	ksort($players);
 	return $players;
 	// $data = array(0=>'');
 	// foreach($players as $player) {
