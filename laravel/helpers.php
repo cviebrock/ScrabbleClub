@@ -34,7 +34,10 @@ function __($key, $replacements = array(), $language = null)
  */
 function dd($value)
 {
-	die(var_dump($value));
+	echo "<pre>";
+	var_dump($value);
+	echo "</pre>";
+	die;
 }
 
 /**
@@ -323,7 +326,7 @@ function head($array)
  * @param  bool    $https
  * @return string
  */
-function url($url = '', $https = false)
+function url($url = '', $https = null)
 {
 	return Laravel\URL::to($url, $https);
 }
@@ -335,7 +338,7 @@ function url($url = '', $https = false)
  * @param  bool    $https
  * @return string
  */
-function asset($url, $https = false)
+function asset($url, $https = null)
 {
 	return Laravel\URL::to_asset($url, $https);
 }
@@ -462,7 +465,7 @@ function root_namespace($class, $separator = '\\')
 /**
  * Get the "class basename" of a class or object.
  *
- * The basename is considered the name of the class minus all namespaces.
+ * The basename is considered to be the name of the class minus all namespaces.
  *
  * @param  object|string  $class
  * @return string
@@ -540,7 +543,7 @@ function render($view, $data = array())
 /**
  * Get the rendered contents of a partial from a loop.
  *
- * @param  string  $view
+ * @param  string  $partial
  * @param  array   $data
  * @param  string  $iterator
  * @param  string  $empty
@@ -580,4 +583,16 @@ function get_cli_option($option, $default = null)
 	}
 
 	return value($default);
+}
+	
+/**
+ * Calculate the human-readable file size (with proper units).
+ *
+ * @param  int     $size
+ * @return string
+ */
+function get_file_size($size)
+{
+	$units = array('Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB');
+	return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2).' '.$units[$i];
 }
