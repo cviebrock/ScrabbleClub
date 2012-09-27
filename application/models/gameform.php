@@ -111,7 +111,7 @@ class Gameform {
 					$score = intval(array_shift($temp), 10);
 				}
 
-Log::info("$line -->  $word ($score)");
+Log::info("$line --> $word ($score)");
 
 				$bingo = new Bingo;
 				$bingo->fill(array(
@@ -208,12 +208,11 @@ Log::info("$line -->  $word ($score)");
 
 		foreach($this->games as $game) {
 
-			Log::info('saving game:'.print_r($game->attributes,true));
-
 			if ($game->save()) {
-				Log::info('game saved, matching game');
+				Log::info('game saved: ' . $game->id);
 				$game->match_game();
 			} else {
+				Log::info('game not saved: ' . $game->id);
 				$success = false;
 			}
 		}
