@@ -157,12 +157,12 @@ $games = index_array( Game::with(array('player','opponent'))->where_in('id', $x 
 
 		if ($gameform->is_valid()) {
 
-			Log::info('gameform is valid: '.print_r($gameform->games,true));
+			Log::info('Gameform is valid');
 
 			Session::put('last_date', $gameform->date);
 
 			$gameform->save();
-			Log::info('gameform saved.');
+			Log::info('Gameform saved.');
 			return Redirect::to_action('admin.games@new')
 				->with('success', 'Games for "' . $gameform->player()->fullname . '" on ' .
 					format_date($gameform->date) . ' added.');
