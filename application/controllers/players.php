@@ -134,6 +134,13 @@ class Players_Controller extends Base_Controller {
 			->order_by('date','desc')
 			->first();
 
+		$best_combined = Game::where('player_id','=',$id)
+			->where('spread','>=',0)
+			->order_by('spread','desc')
+			->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
+			->first();
+
+
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 		Asset::add('string_score', 'js/string_score.min.js', 'jquery');
@@ -144,16 +151,17 @@ class Players_Controller extends Base_Controller {
 
 		$this->layout->with('title', $player->fullname)
 			->nest('content', 'players.details', array(
-				'player'       => $player,
-				'ratings'      => $player->ratings,
-				'all_players'  => all_players($id),
-				'club_details' => $club_details,
-				'best_spread'  => $best_spread,
-				'worst_spread' => $worst_spread,
-				'high_score'   => $high_score,
-				'high_loss'    => $high_loss,
-				'low_score'    => $low_score,
-				'bingos'       => $bingos,
+				'player'        => $player,
+				'ratings'       => $player->ratings,
+				'all_players'   => all_players($id),
+				'club_details'  => $club_details,
+				'best_spread'   => $best_spread,
+				'worst_spread'  => $worst_spread,
+				'high_score'    => $high_score,
+				'high_loss'     => $high_loss,
+				'low_score'     => $low_score,
+				'best_combined' => $best_combined,
+				'bingos'        => $bingos,
 			));
 
 

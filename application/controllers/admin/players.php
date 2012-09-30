@@ -147,7 +147,7 @@ class Admin_Players_Controller extends Base_Controller {
 					'password_same'  => 'Passwords much match.',
 				));
 
-				if ($pass->passes()) {
+				if ($pass->passes() && array_key_exists('password', $input)) {
 					$player->password = Hash::make($input['password']);
 				} else {
 					$player->errors = $pass->errors->messages;

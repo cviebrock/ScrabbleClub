@@ -155,6 +155,8 @@
 </table>
 
 
+<hr>
+
 
 <h2>High Score</h2>
 <?php
@@ -208,6 +210,16 @@
 		->render();
 ?>
 
+<h2>Best Combined <span class="subhead">highest combined score</span></h2>
+<?php
+	echo View::make('partials.game_listing')
+		->with('games', $best_combined)
+		->with('id', 'worst_spread')
+		->with('mark_winners', true)
+		->with('small_head', true)
+		->with('combined', true)
+		->render();
+?>
 
 <h2 id="one_on_one">One-on-One History versus
 <?php echo Form::select('opponent', $all_players, null, array('id'=>'ooo_select','class'=>'span4')); ?>

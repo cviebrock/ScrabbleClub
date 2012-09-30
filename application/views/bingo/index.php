@@ -129,7 +129,7 @@ $(function() {
 			text: null
 		},
 		xAxis: {
-		 	categories: <?php echo strtoupper(json_encode($alpha)); ?>
+		 	categories: <?php echo strtoupper(json_encode(array_keys($letter_freq))); ?>
 		},
 		yAxis: {
 			min: 0,
