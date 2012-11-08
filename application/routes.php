@@ -56,6 +56,7 @@ Route::controller('admin.games');
 Route::controller('admin.players');
 Route::controller('admin.housekeeping');
 Route::controller('admin.news');
+Route::controller('admin.resources');
 
 
 

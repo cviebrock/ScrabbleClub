@@ -67,7 +67,7 @@
 			</tbody>
 		</table>
 
-
+<?php if ($sidebar['ratings']): ?>
 		<h4>Best Performances</h4>
 
 		<table class="table table-condensed">
@@ -83,6 +83,7 @@
 			<?php endforeach; ?>
 			</tbody>
 		</table>
+<?php endif ?>
 
 		<div class="actions pull-right">
 			<?php echo action_link_to_route('club@summary', 'Full Summary', array($date), 'arrow-right|white', array('class'=>'btn btn-info btn-small')); ?>
