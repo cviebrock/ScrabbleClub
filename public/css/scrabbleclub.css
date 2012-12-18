@@ -678,6 +678,7 @@ h2+table{margin-top:10px;}
 p.help-text{margin-top:5px;margin-bottom:5px;}
 .sidebar{font-size:12.75px;margin-top:1em;padding:10px;width:278px;background-color:rgba(217, 237, 247, 0.5);border:1px solid #d9edf7;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}.sidebar h3{font-size:18px;line-height:20px;}
 .sidebar h4{font-size:15px;color:#999999;font-weight:normal;text-transform:uppercase;}
+.sidebar p.more{text-align:right;margin-bottom:0;}
 .sidebar table{margin-top:1em;}
 hr{display:none;}
 .icon-fade{opacity:0.5;filter:alpha(opacity=50);}
