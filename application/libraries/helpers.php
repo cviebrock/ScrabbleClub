@@ -184,3 +184,14 @@ function make_color($index, $level) {
 	return sprintf('#%02x%02x%02x' , $r, $g, $b );
 
 }
+
+
+/**
+ * Add "http://" to URLs if it doesn't already exist
+ */
+function protofy($address)
+{
+	if (empty($address)) return '';
+	$http = preg_match('/^([a-z]+:)?\/\//i', $address) ? '' : 'http://';
+	return $http.$address;
+}

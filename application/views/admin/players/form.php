@@ -28,11 +28,22 @@ echo Form::field('email', 'email', 'Email Address',
 	array('error' => $player->error('email'))
 );
 
+$naspa = array(
+	'naspa_profile_search_key_given'   => $player->firstname,
+	'naspa_profile_search_key_surname' => $player->lastname,
+	'naspa_profile_search'             => 'Search'
+);
+
+
 
 echo Form::field('text', 'naspa_id', 'NASPA ID',
 	array($player->naspa_id, array('class'=>'span2')),
 	array(
-		'post_field' => ' <a class="btn btn-small" id="naspa_lookup">Lookup</a>',
+		'post_field' => ' ' . HTML::link(
+			'http://scrabbleplayers.org/cgi-bin/members.pl?' . http_build_query($naspa),
+			'Lookup',
+			array('class'=>'btn btn-small', 'id'=>'naspa_lookup', 'target'=>'blank')
+		),
 		'error' => $player->error('naspa_id')
 	)
 );
@@ -43,6 +54,11 @@ echo Form::field('number', 'naspa_rating', 'NASPA Rating',
 );
 
 ?>
+
+
+
+<?php if (Auth::check()): ?>
+
 <h2>Password</h2>
 
 
@@ -81,7 +97,7 @@ echo Form::field('password', 'password[confirmation]', 'Confirm Password',
 	array()
 );
 
-
+endif; // Auth::check()
 
 
 echo Form::actions(array(
@@ -95,10 +111,10 @@ echo Form::close();
 ?>
 
 <script>
-$(document).ready( function() {
-	$('#naspa_lookup').click( function(e) {
-		e.preventDefault();
-		alert('Feature coming soon');
-	});
-});
+// $(document).ready( function() {
+// 	$('#naspa_lookup').click( function(e) {
+// 		e.preventDefault();
+// 		alert('Feature coming soon');
+// 	});
+// });
 </script>

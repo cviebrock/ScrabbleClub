@@ -347,7 +347,7 @@ class HTML {
 
 		return '<'.$type.static::attributes($attributes).'>'.$html.'</'.$type.'>';
 	}
-	
+
 	/**
 	 * Generate a definition list.
 	 *
@@ -360,13 +360,13 @@ class HTML {
 		$html = '';
 
 		if (count($list) == 0) return $html;
-		
+
 		foreach ($list as $term => $description)
 		{
 			$html .= '<dt>'.static::entities($term).'</dt>';
 			$html .= '<dd>'.static::entities($description).'</dd>';
 		}
-		
+
 		return '<dl'.static::attributes($attributes).'>'.$html.'</dl>';
 	}
 

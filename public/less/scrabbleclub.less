@@ -166,6 +166,7 @@ textarea {
 h2+table {
 	margin-top: 10px;
 }
+.push-down,
 table+h2 {
 	margin-top: 40px;
 }
@@ -198,9 +199,12 @@ table+h2 {
 	}
 }
 
-p.help-text {
+.help-text {
+	display: block;
 	font-size: 85%;
 	color: @grayLight;
+}
+p.help-text {
   margin-top: @baseLineHeight / 4;
   margin-bottom: @baseLineHeight / 4;
 }
@@ -250,3 +254,5 @@ hr {
 .gray {
 	color: @grayLight;
 }
+
+

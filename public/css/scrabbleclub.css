@@ -667,12 +667,13 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 input.required,select.required,textarea.required{background-image:url(/img/required.png);background-repeat:no-repeat;background-position:100% 0;}
 textarea{height:5em;}
 h2+table{margin-top:10px;}
-table+h2{margin-top:40px;}
+.push-down,table+h2{margin-top:40px;}
 #one_on_one input{font-size:inherit;font-weight:inherit;color:inherit;margin-bottom:5px;}
 #ooo_loader{display:inline-block;width:16px;height:16px;background:transparent url('/img/loader.gif') no-repeat 0 0;}
 .form-actions .btn{vertical-align:middle;}
 .form-actions .btn+.btn{margin-left:10px;}
-p.help-text{font-size:85%;color:#999999;margin-top:5px;margin-bottom:5px;}
+.help-text{display:block;font-size:85%;color:#999999;}
+p.help-text{margin-top:5px;margin-bottom:5px;}
 .sidebar{font-size:12.75px;margin-top:1em;padding:10px;width:278px;background-color:rgba(217, 237, 247, 0.5);border:1px solid #d9edf7;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}.sidebar h3{font-size:18px;line-height:20px;}
 .sidebar h4{font-size:15px;color:#999999;font-weight:normal;text-transform:uppercase;}
 .sidebar table{margin-top:1em;}

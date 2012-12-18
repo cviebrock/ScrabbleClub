@@ -39,9 +39,10 @@
 
 
 Route::controller('home');
-Route::any('login',  array('as'=>'login',  'uses'=>'home@login')  );
-Route::any('logout', array('as'=>'logout', 'uses'=>'home@logout') );
-Route::any('/',      array('as'=>'home',   'uses'=>'home@index')  );
+Route::any('login',    array('as'=>'login',    'uses'=>'home@login')    );
+Route::any('logout',   array('as'=>'logout',   'uses'=>'home@logout')   );
+Route::get('download/(:num)/(:any)/(:all)', array('as'=>'download', 'uses'=>'home@download') );
+Route::any('/',        array('as'=>'home',     'uses'=>'home@index')    );
 
 Route::controller('about');
 
@@ -56,6 +57,7 @@ Route::controller('admin.games');
 Route::controller('admin.players');
 Route::controller('admin.housekeeping');
 Route::controller('admin.news');
+Route::get('admin/resources/(:num)', array('uses' => 'admin.resources@index') );
 Route::controller('admin.resources');
 
 

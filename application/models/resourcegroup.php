@@ -10,13 +10,21 @@ class Resourcegroup extends BaseModel {
 
 	public function resources()
 	{
-	 return $this->has_many('Resource');
+	 return $this->has_many('Resource')->order_by('sort_order','asc');
 	}
 
 
 	public static function last_sort()
 	{
 		return static::max('sort_order');
+	}
+
+	public function delete()
+	{
+		foreach( $this->resources as $resource ) {
+			$resource->delete();
+		}
+		return parent::delete();
 	}
 
 }
