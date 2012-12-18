@@ -641,6 +641,8 @@ footer,.push{height:60px;}
 footer{margin:60px 0 0 0;color:#555555;font-size:9px;line-height:13px;}footer .pull-right{text-align:right;}
 footer .navbar-inner{height:40px;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;padding:10px 0;}
 footer .copyright{color:#999999;font-size:12px;line-height:15px;}
+.cfx{*zoom:1;}.cfx:before,.cfx:after{display:table;content:"";}
+.cfx:after{clear:both;}
 body{padding:60px 0;}
 .page-header{border:0;}
 .subhead{text-transform:uppercase;color:#999999;font-size:13px;}.subhead.large{font-size:15px;}
