@@ -39,13 +39,16 @@ class Ajax_Controller extends Base_Controller {
 			->order_by('date','desc')
 			->get();
 
-		if (count($games)) {
+		if ( count($games) ) {
+
+			$summary = game_summary($games);
 
 			echo View::make('partials.game_listing')
 				->with('games', $games)
 				->with('id', 'ooo_games')
 				->with('mark_winners', true)
 				->with('small_head', true)
+				->with('summary', $summary)
 				->render();
 
 		} else {

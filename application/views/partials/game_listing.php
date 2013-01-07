@@ -3,6 +3,54 @@ $hide_date = isset($hide_date);
 $pspan = $hide_date ? 'span4' : 'span3';
 ?>
 
+<?php if (isset($summary)): ?>
+
+<h3>Summary</h3>
+
+<table class="table table-condensed table-auto">
+	<tbody>
+
+		<tr>
+			<th class="span3 horizontal-header">Games Played</th>
+			<td class="span4"><?php echo $summary->games_played; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Record</th>
+			<td class="span4"><?php echo $summary->record; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Winning Percentage</th>
+			<td class="span4"><?php echo $summary->percentage; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Wins</th>
+			<td class="span4"><?php echo $summary->wins; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Losses</th>
+			<td class="span4"><?php echo $summary->losses; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Ties</th>
+			<td class="span4"><?php echo $summary->ties; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Average Score</th>
+			<td class="span4"><?php echo $summary->average_score; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Average Opp. Score</th>
+			<td class="span4"><?php echo $summary->average_opponent_score; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Average Spread</th>
+			<td class="span4"><?php echo $summary->average_spread; ?></td>
+		</tr>
+	</tbody>
+</table>
+
+<?php endif; /* summary */ ?>
+
 <table id="<?php echo $id; ?>" class="table table-striped table-bordered sortable">
 	<thead <?php echo ($small_head ? 'class="small"' : ''); ?>>
 		<tr>
