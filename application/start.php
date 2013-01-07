@@ -179,3 +179,4 @@ define('TITLE_DELIM', ' | ');
 require path('app').'libraries/helpers.php';
 
 set_path('uploads', path('storage').'uploads'.DS);
+

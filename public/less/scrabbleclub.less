@@ -232,7 +232,7 @@ p.help-text {
 .sidebar {
 
 	font-size: @baseFontSize * .85;
-	margin-top: 1em;
+	margin-top: @baseLineHeight;
 	padding: 10px;
 	width: 278px;		// span3=300px, less padding + border
 	background-color: fade(@infoBackground, 50%);
@@ -278,4 +278,40 @@ ul.resources {
 }
 .resource-desc {
 	margin-left: 1em;
+}
+
+
+#preview-result {
+	border: 1px solid #ccc;
+	.border-radius(3px);
+	padding: 9px;
+	height: 10em;
+	overflow-y: auto;
+	width: 610px;
+}
+
+
+.news-summary {
+	border-top: 1px solid @grayLight;
+	margin-top: @baseLineHeight;
+	padding-top: @baseLineHeight - 1;
+	color: @grayLight;
+}
+
+
+h1 {
+	margin-bottom: @baseLineHeight;
+}
+
+.pull-down::before {
+	display: block;
+	content: ' ';
+	height: @baseLineHeight;
+}
+
+h3.latest-news {
+	font-size: @baseFontSize;
+	color: @grayLight;
+	font-weight: normal;
+	text-transform: uppercase;
 }

@@ -242,3 +242,20 @@ function game_summary( array $games )
 
 		return $summary;
 }
+
+
+
+
+function paragraphs($value, $paragraphs = 2, $end = '...')
+{
+	if (trim($value) == '') return '';
+
+	$parts = preg_split('/\n+/', $value, null, PREG_SPLIT_DELIM_CAPTURE);
+
+	$num = ($paragraphs * 2 ) - 1;
+
+	$chunk = array_chunk($parts, $num);
+
+	return join($chunk[0]);
+
+}

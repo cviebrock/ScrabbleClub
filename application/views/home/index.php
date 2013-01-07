@@ -1,16 +1,10 @@
 <div class="row">
 
-<style type="text/css">
-.intro {
-	padding: 9px;
-	border-radius: 10px;
-	border: 1px solid rgba(0,0,0,0.1);
-}
-</style>
+	<div class="span8">
 
-	<div class="span12">
-
-		<h1><?php echo Config::get('application.clubname'); ?></h1>
+		<div class="page-header">
+			<h1><?php echo Config::get('application.clubname'); ?></h1>
+		</div>
 
 		<p>
 			The Winnipeg Scrabble&reg; Club meets every Thursday evening 6:30 &ndash; 10:00 p.m.
@@ -18,16 +12,19 @@
 			<?php echo HTML::link_to_action('about','Find out more &hellip;'); ?>
 		</p>
 
-	</div>
+		<h3 class="pull-down latest-news">Latest News</h3>
 
-</div>
+<?php foreach($news as $item): ?>
+
+	<h2>
+		<?php echo $item->title; ?>
+	</h2>
+
+	<?php echo $item->summary_with_link; ?>
+
+<?php endforeach; ?>
 
 
-
-<div class="row">
-
-	<div class="span8">
-		<h2>News</h2>
 	</div>
 
 	<div class="span4 sidebar">

@@ -60,4 +60,17 @@ class Ajax_Controller extends Base_Controller {
 	}
 
 
+	public function post_markdown()
+	{
+
+		$title = Input::get('title');
+		$body = Input::get('body');
+
+		$text = '##'.$title."\n\n".$body;
+
+		require path('bundle').'docs/libraries/markdown.php';
+		echo Markdown($text);
+
+	}
+
 }

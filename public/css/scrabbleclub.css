@@ -679,7 +679,7 @@ h2+table{margin-top:10px;}
 .form-actions .btn+.btn{margin-left:10px;}
 .help-text{display:block;font-size:85%;color:#999999;}
 p.help-text{margin-top:5px;margin-bottom:5px;}
-.sidebar{font-size:12.75px;margin-top:1em;padding:10px;width:278px;background-color:rgba(217, 237, 247, 0.5);border:1px solid #d9edf7;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}.sidebar h3{font-size:18px;line-height:20px;}
+.sidebar{font-size:12.75px;margin-top:20px;padding:10px;width:278px;background-color:rgba(217, 237, 247, 0.5);border:1px solid #d9edf7;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}.sidebar h3{font-size:18px;line-height:20px;}
 .sidebar h4{font-size:15px;color:#999999;font-weight:normal;text-transform:uppercase;}
 .sidebar table{margin-top:1em;}
 hr{display:none;}
@@ -687,6 +687,11 @@ hr{display:none;}
 .gray{color:#999999;}
 ul.resources li{margin-bottom:10px;}
 .resource-desc{margin-left:1em;}
+#preview-result{border:1px solid #ccc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;padding:9px;height:10em;overflow-y:auto;width:610px;}
+.news-summary{border-top:1px solid #999999;margin-top:20px;padding-top:19px;color:#999999;}
+h1{margin-bottom:20px;}
+.pull-down::before{display:block;content:' ';height:20px;}
+h3.latest-news{font-size:15px;color:#999999;font-weight:normal;text-transform:uppercase;}
 .sparkline{display:inline-block;}
 .table tbody td.spark{padding:0px 8px;vertical-align:middle;}
 .tinybadges{position:absolute;font-size:10px;font-weight:bold;text-align:center;top:-1px;left:-14px;line-height:10px;color:#ffffff;padding:1px 0;width:40px;height:10px;border-top:1px solid #000000;border-bottom:1px solid #000000;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg);-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);}.tinybadges.p1{background-color:#c67605;border-color:#ad6704;}

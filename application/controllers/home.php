@@ -33,6 +33,11 @@ class Home_Controller extends Base_Controller {
 	public function get_index()
 	{
 
+		$news = News::where('active','=',true)
+			->order_by('date','desc')
+			->take(3)
+			->get();
+
 
 		// SIDEBAR INFO
 
@@ -86,10 +91,13 @@ class Home_Controller extends Base_Controller {
 
 		$this->layout->with('title', 'Home')
 			->nest('content', 'home.index', array(
-				'date' => $date,
+				'date'    => $date,
 				'sidebar' => $sidebar,
+				'news'    => $news,
 			));
 	}
+
+
 
 	public function get_login()
 	{
