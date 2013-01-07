@@ -112,15 +112,28 @@ table.games td.error {
 }
 
 td.winning_game {
-	background: lighten(@green,40%) !important;
+	background: lighten(@green,45%) !important;
 }
 tr.phoney td,
 td.losing_game {
-	background: lighten(@red,50%) !important;
+	background: lighten(@red,55%) !important;
 }
 td.tie_game {
-	background: lighten(@yellow,30%) !important;
+	background: lighten(@yellow,35%) !important;
 }
+
+table.sortable tbody tr:hover {
+	td.winning_game {
+		background-color: mix( lighten(@green,45%), @tableSortableHoverRow, 50% ) !important;
+	}
+	td.losing_game {
+		background-color: mix( lighten(@red,55%), @tableSortableHoverRow, 50% ) !important;
+	}
+	td.tie_game {
+		background-color: mix( lighten(@yellow,35%), @tableSortableHoverRow, 50% ) !important;
+	}
+}
+
 
 .table tbody + tbody tr:first-child td {
 	border-top: 3px double #ddd;
