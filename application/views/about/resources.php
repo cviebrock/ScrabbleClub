@@ -2,13 +2,22 @@
 	<h1>Resources</h1>
 </div>
 
-<h3>Downloads</h3>
+<?php foreach($resourcegroups as $resourcegroup): ?>
 
-<ul>
-	<li><?php echo HTML::link('/pdfs/gamesheet.pdf', 'Game sheet'); ?></li>
-	<li><?php echo HTML::link('/pdfs/scoresheet.pdf', 'Scoring and tracking sheet'); ?></li>
-	<li><?php echo HTML::link('/pdfs/words2-3.pdf', 'Two- and three-letter word list'); ?></li>
+<h2><?php echo $resourcegroup->title; ?></h2>
+
+<ul class="resources">
+<?php foreach($resourcegroup->resources as $resource): ?>
+	<li>
+		<?php echo HTML::link( $resource->url, $resource->title ); ?>
+		<?php if ( $resource->description ): ?>
+		<div class="resource-desc"><?php echo $resource->description; ?></div>
+		<?php endif; ?>
+	</li>
+<?php endforeach; ?>
 </ul>
+
+<?php endforeach; ?>
 
 
 <script type="text/javascript">

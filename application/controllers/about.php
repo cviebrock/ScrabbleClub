@@ -13,17 +13,15 @@ class About_Controller extends Base_Controller {
 	public function get_resources()
 	{
 
-		$this->layout->with('title', 'Resources')
-			->nest('content', 'about.resources');
+		$resourcegroups = Resourcegroup::with(array('resources'))
+			->order_by('sort_order','asc')->get();
+
+		$this->layout->with('title', 'Resources & Links')
+			->nest('content', 'about.resources', array(
+				'resourcegroups' => $resourcegroups,
+			));
 
 	}
 
-	public function get_links()
-	{
-
-		$this->layout->with('title', 'Links')
-			->nest('content', 'about.links');
-
-	}
 
 }
