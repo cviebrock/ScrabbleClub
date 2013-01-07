@@ -195,3 +195,50 @@ function protofy($address)
 	$http = preg_match('/^([a-z]+:)?\/\//i', $address) ? '' : 'http://';
 	return $http.$address;
 }
+
+
+function game_summary( array $games )
+{
+
+		$summary = (object) array(
+			'games_played'  => 0,
+			'wins'          => 0,
+			'losses'        => 0,
+			'ties'          => 0,
+			'total_score'   => 0,
+			'total_against' => 0,
+			'record'        => '0.0-0.0',
+			'percentage'    => '&mdash;'
+		);
+
+		if (count($games) ) {
+
+			foreach($games as $game) {
+				$summary->games_played++;
+				$summary->total_score += $game->player_score;
+				$summary->total_against += $game->opponent_score;
+
+				if ($game->spread == 0 ) {
+					$summary->ties++;
+				} else if ($game->spread > 0 ) {
+					$summary->wins++;
+				} else {
+					$summary->losses++;
+				}
+			}
+
+			$numerator = $summary->wins + ($summary->ties / 2 );
+			$summary->record = sprintf('%.1f-%.1f',
+				$numerator,
+				$summary->losses
+			);
+			$summary->percentage = sprintf('%.1f%%', $numerator * 100 / $summary->games_played );
+
+			$summary->average_score = round( $summary->total_score / $summary->games_played );
+			$summary->average_opponent_score = round( $summary->total_against / $summary->games_played );
+			$summary->average_spread = round( ($summary->total_score - $summary->total_against) / $summary->games_played );
+
+		}
+
+		return $summary;
+}
