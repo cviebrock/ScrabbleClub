@@ -124,7 +124,8 @@ class Players_Controller extends Base_Controller {
 			->order_by('date','desc')
 			->first();
 
-		$high_loss = Game::where('spread','<',0)
+		$high_loss = Game::where('player_id','=',$id)
+			->where('spread','<',0)
 			->order_by('player_score','desc')
 			->order_by('date','desc')
 			->first();
@@ -135,8 +136,6 @@ class Players_Controller extends Base_Controller {
 			->first();
 
 		$best_combined = Game::where('player_id','=',$id)
-			->where('spread','>=',0)
-			->order_by('spread','desc')
 			->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
 			->first();
 
