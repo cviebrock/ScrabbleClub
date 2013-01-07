@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Resources</h1>
+	<h1>Resources &amp; Links</h1>
 </div>
 
 <?php foreach($resourcegroups as $resourcegroup): ?>

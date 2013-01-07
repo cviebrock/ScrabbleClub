@@ -14,8 +14,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo HTML::link_to_action('about', 'About the Club'); ?></li>
-							<li><?php echo HTML::link_to_action('about@resources', 'Resources'); ?></li>
-							<li><?php echo HTML::link_to_action('about@links', 'Links'); ?></li>
+							<li><?php echo HTML::link_to_action('about@resources', 'Resources & Links'); ?></li>
 						</ul>
 					</li>
 
