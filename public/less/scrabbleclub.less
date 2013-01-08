@@ -51,6 +51,13 @@ body {
 // remove Bootstrap default underline
 .page-header {
 	border: 0;
+	h1 {
+		line-height: 30px;
+	}
+}
+
+h1 {
+	margin-bottom: @baseLineHeight;
 }
 
 // subhead
@@ -58,11 +65,16 @@ body {
 	text-transform: uppercase;
 	color: @grayLight;
 	font-size: 13px;
+	font-weight: normal;
 	&.large {
 		font-size: @baseFontSize;
 	}
 }
 
+h1 .subhead {
+	display: block;
+	line-height: @baseLineHeight;
+}
 
 // set up style for action buttons in tables
 ul.sc_actions {
@@ -298,10 +310,6 @@ ul.resources {
 	color: @grayLight;
 }
 
-
-h1 {
-	margin-bottom: @baseLineHeight;
-}
 
 .pull-down::before {
 	display: block;

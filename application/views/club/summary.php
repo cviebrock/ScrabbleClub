@@ -1,6 +1,7 @@
 <div class="page-header">
-	<h1>Game Night Summary</h1>
-	<span class="subhead large"><?php echo format_date($date); ?></span>
+	<h1>Game Night Summary
+		<span class="subhead large"><?php echo format_date($date); ?></span>
+	</h1>
 </div>
 
 <h2>Overall Statistics</h2>
@@ -24,7 +25,7 @@
 </table>
 
 
-<h2>Ratings</h2>
+<h2>Performance</h2>
 
 <table class="table table-striped table-bordered sortable" id="ratings">
 	<thead class="small">

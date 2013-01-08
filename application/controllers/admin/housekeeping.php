@@ -21,16 +21,6 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 	}
 
 
-
-	public function get_backup()
-	{
-
-		$this->layout->with('title', 'Backup')
-			->nest('content', 'admin.housekeeping.backup');
-
-	}
-
-
 	public function get_backup_sql()
 	{
 
@@ -59,6 +49,42 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 			'Content-Length'            => strlen($data)
 		));
 
+
+	}
+
+
+	public function get_export_bingos()
+	{
+
+		$bingos = Bingo::with(array('player'))
+			->order_by('date','asc')
+			->get();
+
+		$data = '"date","player","player naspa","bingo","phoney","score"' . "\n";
+
+		foreach($bingos as $bingo) {
+			$data .= sprintf('"%s","%s","%s","%s","%s"',
+				$bingo->date,
+				$bingo->player,
+				$bingo->player->naspa_id,
+				$bingo->word,
+				$bingo->valid ? '' : 'x',
+				$bingo->score ?: ''
+			) . "\n";
+		}
+
+		$filename = 'bingos-' . format_date($bingo->date,'Ymd') . '.csv';
+
+		return Response::make($data, 200, array(
+			'Content-Description'       => 'File Transfer',
+			'Content-Type'              => File::mime('csv'),
+			'Content-Disposition'       => 'attachment; filename="'. $filename . '"',
+			'Content-Transfer-Encoding' => 'binary',
+			'Expires'                   => 0,
+			'Cache-Control'             => 'must-revalidate, post-check=0, pre-check=0',
+			'Pragma'                    => 'public',
+			'Content-Length'            => strlen($data)
+		));
 
 	}
 

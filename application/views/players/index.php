@@ -1,9 +1,10 @@
 <div class="page-header">
-	<h1>Player Statistics</h1>
-	<span class="subhead">
-		As of <?php echo format_date($lastgame->date); ?> /
-		Minimum <?php echo $min_games_played; ?> games played
-	</span>
+	<h1>Player Statistics
+		<span class="subhead">
+			As of <?php echo format_date($lastgame->date); ?> /
+			Minimum <?php echo $min_games_played; ?> games played
+		</span>
+	</h1>
 </div>
 
 <table class="table table-striped table-bordered sortable">
