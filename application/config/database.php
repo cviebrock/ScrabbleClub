@@ -72,7 +72,7 @@ return array(
 			'host'     => 'sql.private',
 			'database' => 'scrabbleclub',
 			'username' => 'scrabble',
-			'password' => $_SERVER['mysql_password'],
+			'password' => $_SERVER['MYSQL_PASSWORD'],
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
