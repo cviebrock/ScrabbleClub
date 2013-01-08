@@ -69,10 +69,10 @@ return array(
 
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     => 'localhost',
+			'host'     => 'sql.private',
 			'database' => 'scrabbleclub',
 			'username' => 'scrabble',
-			'password' => 'zyzzyva',
+			'password' => $_SERVER['mysql_password'],
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
