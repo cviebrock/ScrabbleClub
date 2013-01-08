@@ -6,11 +6,14 @@ class News_Controller extends Base_Controller {
 	public function get_index()
 	{
 
-		$item = News::find($id);
+		$news = News::where('active','=',true)
+			->order_by('date','desc')
+			->paginate(5);
 
-		$this->layout->with('title', $item->title)
-			->nest('content', 'home.index', array(
-				'item'    => $item,
+
+		$this->layout->with('title', 'News Archive')
+			->nest('content', 'news.index', array(
+				'news'    => $news,
 			));
 	}
 

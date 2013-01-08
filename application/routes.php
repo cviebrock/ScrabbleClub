@@ -53,7 +53,7 @@ Route::controller('bingo');
 Route::controller('club');
 
 // Route::controller('news');
-Route::get('news/(:num)/(:all)', array( 'as'=>'news', 'uses'=>'news@item' ));
+Route::get('news/(:num)/(:all)', array( 'as'=>'news_item', 'uses'=>'news@item' ));
 
 Route::controller('players');
 

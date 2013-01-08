@@ -6,7 +6,7 @@
 				The SCRABBLE&reg; trademark is owned by J.W. Spear and Sons, PLC, a subsidiary of Mattel, Inc. outside of the U.S. and Canada.
 			</div>
 			<div class="span4 copyright pull-right">
-				<a href="http://github.com/cviebrock/ScrabbleClub" target="_blank">Scrabble Club Portal Software</a><br>
+				<a href="http://github.com/cviebrock/ScrabbleClub" target="_blank">Scrabble Club Portal Software</a>
   			&copy; 2012 Colin Viebrock
   		</div>
   	</div>

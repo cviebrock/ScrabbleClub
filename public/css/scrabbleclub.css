@@ -690,7 +690,7 @@ hr{display:none;}
 ul.resources li{margin-bottom:10px;}
 .resource-desc{margin-left:1em;}
 #preview-result{border:1px solid #ccc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;padding:9px;height:10em;overflow-y:auto;width:610px;}
-.news-summary{border-top:1px solid #999999;margin-top:20px;padding-top:19px;color:#999999;}
+.news-summary{text-align:right;margin-top:20px;color:#999999;font-size:12px;}
 .pull-down::before{display:block;content:' ';height:20px;}
 h3.latest-news{font-size:15px;color:#999999;font-weight:normal;text-transform:uppercase;}
 .sparkline{display:inline-block;}

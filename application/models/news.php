@@ -34,7 +34,7 @@ class News extends BaseModel {
 		$text = paragraphs($this->body, 2, '');
 
 		return $this->markdown($text) .
-			'<p>'.HTML::link_to_route('news', 'Read more...', array($this->id, $this->slug)).'</p>';
+			'<p>'.HTML::link_to_route('news_item', 'Read more...', array($this->id, $this->slug)).'</p>';
 	}
 
 	public function get_slug()
