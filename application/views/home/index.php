@@ -34,9 +34,10 @@
 
 		<?php if ($date): ?>
 
-		<h3>Last Week&rsquo;s Statistics</h3>
-
-		<h4><?php echo format_date($date, 'M j, Y'); ?></h4>
+		<h3>
+			Last Week&rsquo;s Statistics
+			<span class="subhead"><?php echo format_date($date, 'M j, Y'); ?></span>
+		</h3>
 
 		<table class="table table-condensed">
 			<tbody>
