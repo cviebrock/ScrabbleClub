@@ -12,7 +12,8 @@
 
 	<div class="span4 news-summary">
 		Published <?php echo $item->formatted_date; ?><br>
-		by <?php echo $item->author; ?>
+		by <?php echo $item->author; ?><br>
+		<a href="javascript:history.back()">&larr; Back</a>
 	</div>
 
 </div>

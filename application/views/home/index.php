@@ -16,8 +16,11 @@
 
 <?php foreach($news as $item): ?>
 
-	<h2>
+	<h2 class="news-title">
 		<?php echo $item->title; ?>
+		<span class="subhead">
+			<?php echo $item->formatted_date; ?> | <?php echo $item->author; ?>
+		</span>
 	</h2>
 
 	<?php echo $item->summary_with_link; ?>

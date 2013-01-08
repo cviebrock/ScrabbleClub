@@ -71,9 +71,18 @@ h1 {
 	}
 }
 
-h1 .subhead {
+h1 .subhead,
+h2 .subhead {
 	display: block;
 	line-height: @baseLineHeight;
+}
+
+h2.news-title {
+	line-height: 30px;
+	margin-bottom: 10px;
+	.subhead {
+		text-transform: none;
+	}
 }
 
 // set up style for action buttons in tables
@@ -272,6 +281,9 @@ p.help-text {
 
 hr {
 	display: none;
+	&.on {
+		display: block;
+	}
 }
 
 .icon-fade {

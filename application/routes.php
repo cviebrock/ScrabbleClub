@@ -52,8 +52,8 @@ Route::get('ajax/games/(:num)/(:num)', array( 'as'=>'ajax_one_on_one', 'uses'=>'
 Route::controller('bingo');
 Route::controller('club');
 
-// Route::controller('news');
-Route::get('news/(:num)/(:all)', array( 'as'=>'news_item', 'uses'=>'news@item' ));
+Route::get('news/(:num)/(:all?)', array( 'as'=>'news_item', 'uses'=>'news@item' ));
+Route::controller('news');
 
 Route::controller('players');
 
