@@ -24,6 +24,10 @@ class News_Controller extends Base_Controller {
 
 		$item = News::find($id);
 
+		if ( !$item || !$item->active ) {
+			return Response::error('404');
+		}
+
 		$this->layout->with('title', $item->title)
 			->nest('content', 'news.item', array(
 				'item'    => $item,
