@@ -49,7 +49,7 @@ echo Form::field('textarea', 'body', 'Body',
 <?php
 
 echo Form::field('labelled_checkbox', 'active', 'Published?',
-	array('Yes', 1, false)
+	array('Yes', 1, $item->active)
 );
 
 echo Form::actions(array(

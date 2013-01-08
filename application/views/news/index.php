@@ -2,6 +2,8 @@
 	<h1>News Archive</h1>
 </div>
 
+<?php if ( count($news->results) ): ?>
+
 <?php foreach($news->results as $item): ?>
 
 	<h2 class="news-title">
@@ -19,3 +21,9 @@
 
 
 <?php echo $news->links(); ?>
+
+<?php else: ?>
+
+	<p>There are no news items to display.</p>
+
+<?php endif; ?>

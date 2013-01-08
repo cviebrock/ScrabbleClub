@@ -668,6 +668,7 @@ table.sortable tbody tr:hover td.winning_game{background-color:#dcefeb !importan
 table.sortable tbody tr:hover td.losing_game{background-color:#e9e5e9 !important;}
 table.sortable tbody tr:hover td.tie_game{background-color:#eceedb !important;}
 .table tbody+tbody tr:first-child td{border-top:3px double #ddd;}
+tr.inactive td{color:#999999;}
 i[class^="icon-"]{margin-right:5px;}
 i.empty{margin-right:0 !important;}
 i[class^="icon-"].hide-text{text-indent:-10000px;}

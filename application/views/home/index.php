@@ -12,6 +12,8 @@
 			<?php echo HTML::link_to_action('about','Find out more &hellip;'); ?>
 		</p>
 
+<?php if ( count($news) ): ?>
+
 		<h3 class="pull-down latest-news">Latest News</h3>
 
 <?php foreach($news as $item): ?>
@@ -26,7 +28,7 @@
 	<?php echo $item->summary_with_link; ?>
 
 <?php endforeach; ?>
-
+<?php endif; ?>
 
 	</div>
 

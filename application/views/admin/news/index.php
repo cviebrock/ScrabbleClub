@@ -13,10 +13,9 @@
 	</thead>
 	<tbody>
 <?php foreach($news as $item): ?>
-		<tr>
+		<tr <?php echo $item->active ?: 'class="inactive"'; ?>>
 			<td><?php echo format_date($item->date); ?></td>
 			<td>
-				<i class="icon-<?php echo $item->active ? 'ok' : ''; ?>"></i>
 				<?php echo $item->title; ?>
 			</td>
 			<td><ul class="sc_actions">
