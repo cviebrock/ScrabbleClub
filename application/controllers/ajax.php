@@ -79,8 +79,6 @@ class Ajax_Controller extends Base_Controller {
 
 		$q = Input::get('q');
 
-		Log::info($q);
-
 		$bingos = Bingo::with(array('player'))
 			->where('word', 'LIKE', '%'.$q.'%' )
 			->order_by('word', 'ASC')
