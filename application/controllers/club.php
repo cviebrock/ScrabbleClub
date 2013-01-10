@@ -34,6 +34,13 @@ class Club_Controller extends Base_Controller {
 
 		$overall = array_merge($overall, (array)$temp[0]);
 
+		$temp = DB::query('SELECT
+			COUNT(id) AS total_bingos,
+			SUM(valid) AS valid_bingos
+			FROM bingos
+		');
+
+		$overall = array_merge($overall, (array)$temp[0]);
 
 		$attendance = DB::query('SELECT
 			g.date AS date,

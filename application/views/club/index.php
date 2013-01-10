@@ -35,6 +35,21 @@
 			<td class="span1 numeric"><?php echo round($overall['average_score']); ?></td>
 			<td class="span3"></td>
 		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Bingos Played</th>
+			<td class="span1 numeric"><?php echo $overall['total_bingos']; ?></td>
+			<td class="span3"></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Average Bingos/Game</th>
+			<td class="span1 numeric"><?php printf('%.1f', $overall['total_bingos']/$overall['total_games'] ); ?></td>
+			<td class="span3 help-text">both players combined</td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Bingo Phoniness</th>
+			<td class="span1 numeric"><?php printf('%.1f%%', 100*(1-$overall['valid_bingos']/$overall['total_bingos']) ); ?></td>
+			<td class="span3"></td>
+		</tr>
 	</tbody>
 </table>
 
@@ -58,6 +73,8 @@
 		->render();
 ?>
 
+<hr>
+
 <h2>Biggest Spreads</h2>
 <?php
 	echo View::make('partials.game_listing')
@@ -67,8 +84,6 @@
 		->with('small_head', true)
 		->render();
 ?>
-
-<hr>
 
 <h2>Highest Combined Scores</h2>
 <?php
