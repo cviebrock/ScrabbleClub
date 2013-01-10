@@ -74,6 +74,16 @@ class Players_Controller extends Base_Controller {
 
 	}
 
+	public function get_slug($slug)
+	{
+		$player = Player::where(DB::raw('CONCAT(firstname,"-",lastname)'),'=',$slug)
+			->first();
+
+		print_r($player);
+		die;
+	}
+
+
 
 	public function get_details($id)
 	{

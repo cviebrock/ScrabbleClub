@@ -73,4 +73,26 @@ class Ajax_Controller extends Base_Controller {
 
 	}
 
+
+	public function post_bingo_search()
+	{
+
+		$q = Input::get('q');
+
+		Log::info($q);
+
+		$bingos = Bingo::with(array('player'))
+			->where('word', 'LIKE', '%'.$q.'%' )
+			->order_by('word', 'ASC')
+			->order_by('date', 'DESC')
+			->take(25)
+			->get();
+
+		echo View::make('partials.bingo_listing')
+			->with('bingos', $bingos )
+			->with('admin', true)
+			->render();
+
+	}
+
 }

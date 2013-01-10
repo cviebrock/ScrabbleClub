@@ -59,6 +59,7 @@ Route::controller('players');
 
 Route::controller('admin.games');
 Route::controller('admin.players');
+Route::controller('admin.bingos');
 Route::controller('admin.housekeeping');
 Route::controller('admin.news');
 Route::get('admin/resources/(:num)', array('uses' => 'admin.resources@index') );

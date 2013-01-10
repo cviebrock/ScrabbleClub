@@ -678,7 +678,7 @@ textarea{height:5em;}
 h2+table{margin-top:10px;}
 .push-down,table+h2{margin-top:40px;}
 #one_on_one input{font-size:inherit;font-weight:inherit;color:inherit;margin-bottom:5px;}
-#ooo_loader{display:inline-block;width:16px;height:16px;background:transparent url('/img/loader.gif') no-repeat 0 0;}
+#ooo_loader,#loader{display:inline-block;width:16px;height:16px;background:transparent url('/img/loader.gif') no-repeat 0 0;}
 .form-actions .btn{vertical-align:middle;}
 .form-actions .btn+.btn{margin-left:10px;}
 .help-text{display:block;font-size:85%;color:#999999;}
