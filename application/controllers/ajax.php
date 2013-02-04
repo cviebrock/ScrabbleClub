@@ -68,7 +68,7 @@ class Ajax_Controller extends Base_Controller {
 
 		$text = '##'.$title."\n\n".$body;
 
-		require path('bundle').'docs/libraries/markdown.php';
+		require_once path('bundle').'docs/libraries/markdown.php';
 		echo Markdown($text);
 
 	}

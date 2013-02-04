@@ -51,7 +51,7 @@ class News extends BaseModel {
 
 	protected function markdown($text)
 	{
-		require path('bundle').'docs/libraries/markdown.php';
+		require_once path('bundle').'docs/libraries/markdown.php';
 		return Markdown($text);
 	}
 
