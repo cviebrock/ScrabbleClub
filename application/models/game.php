@@ -47,8 +47,6 @@ class Game extends BaseModel {
 	public function match_game()
 	{
 
-		Log::info('Matching game '.$this->id);
-
 		$other = Game::where('date', '=', $this->date)
 			->where('player_id', '=', $this->opponent_id)
 			->where('opponent_id', '=', $this->player_id)
@@ -58,16 +56,13 @@ class Game extends BaseModel {
 			->first();
 
 		if ($other instanceof Game) {
-			Log::info('Found match: '.$other->id);
 			$other->matching_game = $this->id;
 			$this->matching_game = $other->id;
 			$other->save();
 			$this->save();
-			Log::info('Matches saved');
 			return true;
 		}
 
-		Log::info('No match');
 		return false;
 
 	}

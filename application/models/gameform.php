@@ -111,8 +111,6 @@ class Gameform {
 					$score = intval(array_shift($temp), 10);
 				}
 
-Log::info("$line --> $word ($score)");
-
 				$bingo = new Bingo;
 				$bingo->fill(array(
 					'date'   		=> $this->date,
@@ -202,17 +200,13 @@ Log::info("$line --> $word ($score)");
 	public function save()
 	{
 
-		Log::info('entering gameform::save');
-
 		$success = true;
 
 		foreach($this->games as $game) {
 
 			if ($game->save()) {
-				Log::info('game saved: ' . $game->id);
 				$game->match_game();
 			} else {
-				Log::info('game not saved: ' . $game->id);
 				$success = false;
 			}
 		}
