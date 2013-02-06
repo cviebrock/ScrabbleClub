@@ -30,7 +30,8 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 		$filename = 'scrabble-' . date('YmdHis') . '.sql.gz';
 
 		$command = sprintf(
-			'mysqldump --user=%s --password=%s %s | gzip -f -9',
+			'mysqldump --host=%s --user=%s --password=%s %s | gzip -f -9',
+			escapeshellarg($db['host']),
 			escapeshellarg($db['username']),
 			escapeshellarg($db['password']),
 			escapeshellarg($db['database'])
