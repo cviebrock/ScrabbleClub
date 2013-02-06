@@ -17,7 +17,7 @@ if ($.tablesorter) {
 		id: 'sc_date',
 		is: function(s) { return false; },
 		format: function(s) {
-			return new Date(s).getTime();
+			return Date.parse(s)/1000;
 		},
 		type: 'numeric'
 	});
