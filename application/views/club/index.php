@@ -1,3 +1,5 @@
+<?php echo View::make('partials.year_picker')->with('year', $year)->render(); ?>
+
 <div class="page-header">
 	<h1>Club Statistics
 		<span class="subhead"><?php echo $year ? 'For '.$year : 'All games'; ?></span>

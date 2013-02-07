@@ -5,6 +5,7 @@
 		Player Statistics
 		<span class="subhead">
 			<?php echo $year ? 'For '.$year : 'All games'; ?>
+			/ As of <?php echo format_date($lastgame->date); ?>
 			/ Minimum <?php echo pluralize('games',$min_games_played); ?> played
 		</span>
 	</h1>
