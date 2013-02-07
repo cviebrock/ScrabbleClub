@@ -95,13 +95,14 @@ foreach ($players as $player) {
 	</tbody>
 </table>
 
-<div class="noprint">
 
-<p>
-	To view this chart with a different number of minimum games played, enter the number below
-	and click <em>Reload</em>.  Or <?php echo HTML::link_to_action('players', 'click here'); ?>
-	to automatically calculate the minimum number of games.
-</p>
+<div class="no-print">
+
+	<p>
+		To view this chart with a different number of minimum games played, enter the number below
+		and click <em>Reload</em>.  Or <?php echo HTML::link_to_action('players', 'click here'); ?>
+		to automatically calculate the minimum number of games.
+	</p>
 
 <?php echo Form::open(null, 'get', array('class'=>Form::TYPE_INLINE)); ?>
 	<label for="min_games">Minimum Games</label>
@@ -113,6 +114,7 @@ foreach ($players as $player) {
 <?php echo Form::close(); ?>
 
 </div>
+
 
 <script>
 

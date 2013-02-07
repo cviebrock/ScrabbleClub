@@ -5,7 +5,13 @@
 		margin: 0.5in 1in 0in;
 	}
 
+	// force hiding unwanted items
+	.no-print {
+		display: none !important;
+	}
 
+
+	// hr becomes page breaks
 	hr {
 		display: block;
 		page-break-after: always;
@@ -13,7 +19,7 @@
 	}
 
 
-	// overall colors
+	// make it all B&W
 	* {
 		color: @black !important;
 		background: @white !important;
