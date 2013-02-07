@@ -16,17 +16,21 @@ class Bingo_Controller extends Base_Controller {
 			COUNT(word) AS total,
 			AVG(score) AS average_score,
 			SUM(valid) AS total_valid
-			FROM bingos' .
-			($year ? ' WHERE YEAR(date) = ?' : '');
+			FROM bingos';
 
-		$all_bingos = DB::query($temp, array($year))[0];
+		if ($year) {
+			$all_bingos = DB::query($temp.' WHERE YEAR(date) = ?', array($year));
+		} else {
+			$all_bingos = DB::query($temp);
+		}
+
+		$all_bingos = $all_bingos[0];
 
 		$all_bingos->phonies = $all_bingos->total - $all_bingos->total_valid;
 
 		$all_bingos->phoniness = $all_bingos->total ?
 			100 * (1 - ($all_bingos->total_valid / $all_bingos->total)) :
 			0;
-
 
 
 		$temp = Bingo::with('player')
