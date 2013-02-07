@@ -1,9 +1,9 @@
+<?php echo View::make('partials.year_picker')->with('year', $year)->render(); ?>
+
 <div class="page-header">
 	<h1>
 		Games for <?php echo $player->fullname; ?>
-<?php if ($year = Input::get('year')): ?>
-		<span class="subhead">For <?php echo $year; ?></span>
-<?php endif; ?>
+		<span class="subhead"><?php echo $year ? 'For '.$year : 'All games'; ?></span>
 	</h1>
 </div>
 

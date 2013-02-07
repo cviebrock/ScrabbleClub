@@ -153,6 +153,10 @@ function find_subwords($word, $min_length=0, $max_length=false) {
 	 return $return;
 }
 
+function pluralize($what, $num)
+{
+	return sprintf('%d %s', $num, Str::plural($what,$num) );
+}
 
 function make_color($index, $level) {
 

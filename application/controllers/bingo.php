@@ -8,10 +8,6 @@ class Bingo_Controller extends Base_Controller {
 
 		$year = Input::get('year', null);
 
-		$firstgame = Game::order_by('date', 'asc')
-			->take(1)
-			->first();
-
 		$temp = 'SELECT
 			COUNT(word) AS total,
 			AVG(score) AS average_score,
@@ -333,7 +329,6 @@ class Bingo_Controller extends Base_Controller {
 
 		$this->layout->with('title', 'Bingo Statistics')
 			->nest('content', 'bingo.index', array(
-				'firstgame'   => $firstgame,
 				'year'        => $year,
 				'all_bingos'  => $all_bingos,
 				'bingos'      => $bingos,

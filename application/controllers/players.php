@@ -6,7 +6,7 @@ class Players_Controller extends Base_Controller {
 	public function get_index()
 	{
 
-		$year = Config::get('scrabble.current_year', date('Y'));
+		$year = Input::get('year', Config::get('scrabble.current_year') );
 
 		$lastgame = Game::order_by('date', 'desc')
 			->where(DB::raw('YEAR(date)'), '=', $year)

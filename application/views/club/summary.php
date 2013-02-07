@@ -1,6 +1,29 @@
+<div class="no-print" id="year-picker">
+<?php
+
+	echo Form::open(null, 'get', array('class'=>Form::TYPE_INLINE));
+	echo '<label for="year">Show Summary for</label> ';
+	echo Form::select('date', $all_dates, $date) . ' ';
+	echo Form::close();
+?>
+<script type="text/javascript">
+$(function() {
+	$('#year-picker select').on('change', function(e) {
+		var d = $(this).val();
+		console.log(d);
+		location.href='<?php echo URL::to_action('club@summary'); ?>/' + d ;
+	});
+});
+</script>
+</div>
+
+
+
 <div class="page-header">
 	<h1>Game Night Summary
-		<span class="subhead large"><?php echo format_date($date); ?></span>
+		<span class="subhead">
+			For <?php echo format_date($date); ?>
+		</span>
 	</h1>
 </div>
 
@@ -106,10 +129,6 @@ foreach ($ratings as $rating) {
 		->with('hide_date', true)
 		->render();
 ?>
-
-<div class="actions">
-<?php echo action_link_to_route('home', 'Back to Homepage', array(), 'arrow-left'); ?>
-</div>
 
 
 <script>

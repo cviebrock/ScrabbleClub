@@ -1,11 +1,8 @@
+<?php echo View::make('partials.year_picker')->with('year', $year)->render(); ?>
+
 <div class="page-header">
 	<h1>Bingo Statistics
-		<span class="subhead">
-<?php if ($year): ?>
-			For <?php echo $year; ?></span>
-<?php else: ?>
-			All games since <?php echo format_date($firstgame->date); ?></span>
-<?php endif; ?>
+		<span class="subhead"><?php echo $year ? 'For '.$year : 'All games'; ?></span>
 	</h1>
 </div>
 

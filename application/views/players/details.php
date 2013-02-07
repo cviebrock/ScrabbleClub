@@ -1,29 +1,10 @@
+<?php echo View::make('partials.year_picker')->with('year', $year)->render(); ?>
+
 <div class="page-header">
-	<h1><?php echo $player->fullname; ?>
-		<span class="subhead">
-<?php
-		if ($year) {
-			echo 'Statistics for ' . $year;
-		} else {
-			echo 'All-time statistics';
-		}
-?>
-		</span></h1>
+	<h1>
+		<span class="subhead"><?php echo $year ? 'For '.$year : 'All games'; ?></span>
+	</h1>
 </div>
-
-<div class="no-print">
-
-<?php echo Form::open(null, 'get', array('class'=>Form::TYPE_INLINE, 'id'=>'yearpicker')); ?>
-	<label for="min_games">Show Stats for</label>
-
-<?php echo Form::select('year', $all_years, $year); ?>
-
-<?php echo Form::submit('Reload', array('class' => 'btn-primary') ); ?>
-
-<?php echo Form::close(); ?>
-
-</div>
-
 
 
 <h2>Player Statistics</h2>
