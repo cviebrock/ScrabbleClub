@@ -6,7 +6,7 @@ class Bingo_Controller extends Base_Controller {
 	public function get_index()
 	{
 
-		$lastgame = Game::order_by('date', 'desc')
+		$firstgame = Game::order_by('date', 'asc')
 			->take(1)
 			->first();
 
@@ -294,7 +294,7 @@ class Bingo_Controller extends Base_Controller {
 
 		$this->layout->with('title', 'Bingo Statistics')
 			->nest('content', 'bingo.index', array(
-				'lastgame'    => $lastgame,
+				'firstgame'   => $firstgame,
 				'bingos'      => $bingos,
 				'commonest'   => $commonest,
 				'alpha'				=> $alpha,

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title><?php echo Config::get('application.clubname') . TITLE_DELIM . $title; ?></title>
+	<title><?php echo Config::get('scrabble.clubname') . TITLE_DELIM . $title; ?></title>
 	<?php echo Asset::container('head')->styles(); ?>
 	<?php echo Asset::styles(); ?>
 	<?php echo Asset::container('head')->scripts(); ?>

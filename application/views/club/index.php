@@ -1,6 +1,6 @@
 <div class="page-header">
 	<h1>Club Statistics
-		<span class="subhead">As of <?php echo format_date($lastgame->date); ?></span>
+		<span class="subhead">All games since <?php echo format_date($firstgame->date); ?></span>
 	</h1>
 </div>
 

@@ -6,7 +6,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<?php echo HTML::link( URL::base(), Config::get('application.clubname'), array('class'=>'brand')); ?>
+			<?php echo HTML::link( URL::base(), Config::get('scrabble.clubname'), array('class'=>'brand')); ?>
 			<div class="nav-collapse">
 				<ul class="nav">
 

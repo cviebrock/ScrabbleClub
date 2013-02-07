@@ -6,7 +6,7 @@ class Club_Controller extends Base_Controller {
 	public function get_index()
 	{
 
-		$lastgame = Game::order_by('date', 'desc')
+		$firstgame = Game::order_by('date', 'asc')
 			->take(1)
 			->first();
 
@@ -88,7 +88,7 @@ class Club_Controller extends Base_Controller {
 
 		$this->layout->with('title', 'Club Statistics')
 			->nest('content', 'club.index', array(
-				'lastgame'      => $lastgame,
+				'firstgame'     => $firstgame,
 				'overall'       => $overall,
 				'attendance'    => $attendance,
 				'high_scores'   => $high_scores,

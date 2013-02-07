@@ -1,6 +1,7 @@
 <div class="page-header">
 	<h1>Player Statistics
 		<span class="subhead">
+			For year <?php echo $year; ?> /
 			As of <?php echo format_date($lastgame->date); ?> /
 			Minimum <?php echo $min_games_played; ?> games played
 		</span>
@@ -100,8 +101,8 @@ $(function() {
 		headers: {
 			3: { sorter: 'sc_record' }
 		},
-		// sortList: [[4,1], [2,1]]
-		sortList: [[1,1]]
+		sortList: [[4,1], [2,1]]
+		// sortList: [[1,1]]
 	});
 
 <?php

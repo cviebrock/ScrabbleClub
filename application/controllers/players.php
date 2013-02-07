@@ -6,7 +6,10 @@ class Players_Controller extends Base_Controller {
 	public function get_index()
 	{
 
+		$year = Config::get('scrabble.current_year', date('Y'));
+
 		$lastgame = Game::order_by('date', 'desc')
+			->where(DB::raw('YEAR(date)'), '=', $year)
 			->take(1)
 			->first();
 
@@ -24,12 +27,14 @@ class Players_Controller extends Base_Controller {
 			MAX(g.spread) AS best_spread
 			FROM players p
 				LEFT JOIN games g ON (p.id=g.player_id)
+			WHERE YEAR(g.date)=' . $year . '
 			GROUP BY p.id
 			HAVING games_played>0
 			ORDER BY games_played DESC
 		');
 
-		$total_games = Game::count() / 2;
+		$total_games = Game::where(DB::raw('YEAR(date)'), '=', $year)
+			->count() / 2;
 		$min_games_played = floor( $total_games / count($players) );
 
 		$temp = DB::query('SELECT
@@ -37,6 +42,7 @@ class Players_Controller extends Base_Controller {
 			COUNT(word) AS num_played,
 			SUM(1-valid)/COUNT(word) AS phoniness
 			FROM bingos
+			WHERE YEAR(date)=' . $year . '
 			GROUP BY player_id
 		');
 
@@ -67,6 +73,7 @@ class Players_Controller extends Base_Controller {
 			->nest('content', 'players.index', array(
 				'min_games_played' => $min_games_played,
 				'lastgame'         => $lastgame,
+				'year'             => $year,
 				'players'          => $players,
 				'bingos'           => $bingos,
 				'ratings'          => $ratings,

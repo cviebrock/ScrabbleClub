@@ -3,7 +3,7 @@
 	<div class="span8">
 
 		<div class="page-header">
-			<h1><?php echo Config::get('application.clubname'); ?></h1>
+			<h1><?php echo Config::get('scrabble.clubname'); ?></h1>
 		</div>
 
 		<p>
