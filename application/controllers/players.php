@@ -97,7 +97,22 @@ class Players_Controller extends Base_Controller {
 
 		$player = Player::find($id);
 
-		$temp = DB::query('SELECT
+		$year = Input::get('year', null);
+
+		$temp = DB::query(
+			'SELECT DISTINCT(YEAR(date)) AS year
+			FROM games
+			ORDER by year ASC');
+
+		$all_years = array(
+			'' => 'All-time'
+		);
+		foreach($temp as $v) {
+			$all_years[$v->year] = $v->year;
+		}
+
+
+		$q = 'SELECT
 			COUNT(g.id) AS games_played,
 			COUNT(DISTINCT g.date) AS dates_played,
 			SUM(IF(g.spread>0,1,0)) AS wins,
@@ -107,55 +122,120 @@ class Players_Controller extends Base_Controller {
 			ROUND(AVG(g.opponent_score)) AS average_opponent_score,
 			ROUND(AVG(g.spread)) AS average_spread
 			FROM games g
-			WHERE g.player_id = ?
-		', array($id));
+			WHERE g.player_id = ?';
+
+		if ($year) {
+			$q .= ' AND YEAR(g.date) = ?';
+			$temp = DB::query( $q, array($id, $year) );
+		} else {
+			$temp = DB::query( $q, array($id) );
+		}
 
 		$club_details = $temp[0];
 
-		$bingos = array(
-			'count'  => Bingo::where('player_id','=',$id)->count(),
-			'good'   => Bingo::where('player_id','=',$id)->where('valid','=',1)->count(),
-			'phoney' => Bingo::where('player_id','=',$id)->where('valid','=',0)->count(),
-			'best'   => Bingo::where('player_id','=',$id)->where('score','>',0)->order_by('score','desc')->first(),
-			'worst'  => Bingo::where('player_id','=',$id)->where('score','>',0)->order_by('score','asc')->first(),
-			'rarest' => Bingo::join('validwords', 'bingos.word', '=', 'validwords.word')
-										->where('player_id','=',$id)
-										->order_by('playability','asc')
-										->order_by('score','desc')
-										->first(),
-		);
+		// this is ugly, but kinda the only way
+
+		if ($year) {
+
+			$bingos = array(
+				'count'  => Bingo::where('player_id','=',$id)->where(DB::raw('YEAR(date)'),'=',$year)->count(),
+				'good'   => Bingo::where('player_id','=',$id)->where('valid','=',1)->where(DB::raw('YEAR(date)'),'=',$year)->count(),
+				'phoney' => Bingo::where('player_id','=',$id)->where('valid','=',0)->where(DB::raw('YEAR(date)'),'=',$year)->count(),
+				'best'   => Bingo::where('player_id','=',$id)->where('score','>',0)->where(DB::raw('YEAR(date)'),'=',$year)->order_by('score','desc')->first(),
+				'worst'  => Bingo::where('player_id','=',$id)->where('score','>',0)->where(DB::raw('YEAR(date)'),'=',$year)->order_by('score','asc')->first(),
+				'rarest' => Bingo::join('validwords', 'bingos.word', '=', 'validwords.word')
+											->where('player_id','=',$id)
+											->where(DB::raw('YEAR(date)'),'=',$year)
+											->order_by('playability','asc')
+											->order_by('score','desc')
+											->first(),
+			);
 
 
-		$best_spread = Game::where('player_id','=',$id)
-			->order_by('spread','desc')
-			->order_by('date','desc')
-			->first();
+			$best_spread = Game::where('player_id','=',$id)
+				->where(DB::raw('YEAR(date)'),'=',$year)
+				->order_by('spread','desc')
+				->order_by('date','desc')
+				->first();
 
-		$worst_spread = Game::where('player_id','=',$id)
-			->order_by('spread','asc')
-			->order_by('date','desc')
-			->first();
+			$worst_spread = Game::where('player_id','=',$id)
+				->where(DB::raw('YEAR(date)'),'=',$year)
+				->order_by('spread','asc')
+				->order_by('date','desc')
+				->first();
 
-		$high_score = Game::where('player_id','=',$id)
-			->order_by('player_score','desc')
-			->order_by('date','desc')
-			->first();
+			$high_score = Game::where('player_id','=',$id)
+				->where(DB::raw('YEAR(date)'),'=',$year)
+				->order_by('player_score','desc')
+				->order_by('date','desc')
+				->first();
 
-		$high_loss = Game::where('player_id','=',$id)
-			->where('spread','<',0)
-			->order_by('player_score','desc')
-			->order_by('date','desc')
-			->first();
+			$high_loss = Game::where('player_id','=',$id)
+				->where(DB::raw('YEAR(date)'),'=',$year)
+				->where('spread','<',0)
+				->order_by('player_score','desc')
+				->order_by('date','desc')
+				->first();
 
-		$low_score = Game::where('player_id','=',$id)
-			->order_by('player_score','asc')
-			->order_by('date','desc')
-			->first();
+			$low_score = Game::where('player_id','=',$id)
+				->where(DB::raw('YEAR(date)'),'=',$year)
+				->order_by('player_score','asc')
+				->order_by('date','desc')
+				->first();
 
-		$best_combined = Game::where('player_id','=',$id)
-			->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
-			->first();
+			$best_combined = Game::where('player_id','=',$id)
+				->where(DB::raw('YEAR(date)'),'=',$year)
+				->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
+				->first();
 
+
+		} else {
+
+			$bingos = array(
+				'count'  => Bingo::where('player_id','=',$id)->count(),
+				'good'   => Bingo::where('player_id','=',$id)->where('valid','=',1)->count(),
+				'phoney' => Bingo::where('player_id','=',$id)->where('valid','=',0)->count(),
+				'best'   => Bingo::where('player_id','=',$id)->where('score','>',0)->order_by('score','desc')->first(),
+				'worst'  => Bingo::where('player_id','=',$id)->where('score','>',0)->order_by('score','asc')->first(),
+				'rarest' => Bingo::join('validwords', 'bingos.word', '=', 'validwords.word')
+											->where('player_id','=',$id)
+											->order_by('playability','asc')
+											->order_by('score','desc')
+											->first(),
+			);
+
+
+			$best_spread = Game::where('player_id','=',$id)
+				->order_by('spread','desc')
+				->order_by('date','desc')
+				->first();
+
+			$worst_spread = Game::where('player_id','=',$id)
+				->order_by('spread','asc')
+				->order_by('date','desc')
+				->first();
+
+			$high_score = Game::where('player_id','=',$id)
+				->order_by('player_score','desc')
+				->order_by('date','desc')
+				->first();
+
+			$high_loss = Game::where('player_id','=',$id)
+				->where('spread','<',0)
+				->order_by('player_score','desc')
+				->order_by('date','desc')
+				->first();
+
+			$low_score = Game::where('player_id','=',$id)
+				->order_by('player_score','asc')
+				->order_by('date','desc')
+				->first();
+
+			$best_combined = Game::where('player_id','=',$id)
+				->order_by(DB::raw('`player_score`+`opponent_score`'),'desc')
+				->first();
+
+		}
 
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
@@ -168,7 +248,7 @@ class Players_Controller extends Base_Controller {
 		$this->layout->with('title', $player->fullname)
 			->nest('content', 'players.details', array(
 				'player'        => $player,
-				'ratings'       => $player->ratings,
+				'ratings'       => $year ? $player->ratings()->where(DB::raw('YEAR(date)'),'=',$year)->get() : $player->ratings,
 				'all_players'   => all_players($id),
 				'club_details'  => $club_details,
 				'best_spread'   => $best_spread,
@@ -178,6 +258,8 @@ class Players_Controller extends Base_Controller {
 				'low_score'     => $low_score,
 				'best_combined' => $best_combined,
 				'bingos'        => $bingos,
+				'year'          => $year,
+				'all_years'			=> $all_years,
 			));
 
 
@@ -189,9 +271,16 @@ class Players_Controller extends Base_Controller {
 
 		$player = Player::find($id);
 
-		$bingos = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
-			->where('player_id','=',$id)
-			->get(array('bingos.*','validwords.playability'));
+		$year = Input::get('year', null);
+
+		$temp = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
+			->where('player_id','=',$id);
+
+		if ($year) {
+			$temp->where(DB::raw('YEAR(date)'), '=', $year);
+		}
+
+		$bingos = $temp->get(array('bingos.*','validwords.playability'));
 
 
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
@@ -200,6 +289,7 @@ class Players_Controller extends Base_Controller {
 		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Bingos')
 			->nest('content', 'players.bingos', array(
 				'player' => $player,
+				'year'   => $year,
 				'bingos' => $bingos,
 			));
 
@@ -212,13 +302,16 @@ class Players_Controller extends Base_Controller {
 
 		$player = Player::find($id);
 
+		$year = Input::get('year', null);
+
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
 		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Games')
 			->nest('content', 'players.games', array(
 				'player' => $player,
-				'games'  => $player->games,
+				'year'   => $year,
+				'games'  => $year ? $player->games()->where(DB::raw('YEAR(date)'),'=',$year)->get() : $player->games,
 			));
 
 	}
@@ -229,13 +322,16 @@ class Players_Controller extends Base_Controller {
 
 		$player = Player::find($id);
 
+		$year = Input::get('year', null);
+
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
 		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Ratings')
 			->nest('content', 'players.ratings', array(
 				'player'  => $player,
-				'ratings' => $player->ratings,
+				'year'    => $year,
+				'ratings' => $year ? $player->ratings()->where(DB::raw('YEAR(date)'),'=',$year)->get() : $player->ratings,
 			));
 
 	}

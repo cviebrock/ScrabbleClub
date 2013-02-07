@@ -86,7 +86,7 @@ foreach ($players as $player) {
 		echo '<td class="numeric r_best_score">' . $player->best_score . '</td>';
 		// echo '<td class="numeric">' . $player->best_spread . '</td>';
 
-		echo '<td class="numeric r_bingos">' . ($bingo ? sprintf('%.1f', $bingo->num_played / $player->games_played) : '&mdash;') . '</td>';
+		echo '<td class="numeric r_bingos">' . ($bingo ? sprintf('%.2f', $bingo->num_played / $player->games_played) : '&mdash;') . '</td>';
 		echo '<td class="numeric r_phoniness">' . ($bingo ? sprintf('%.1f%%',100*$bingo->phoniness) : '&mdash;') . '</td>';
 
 		echo "</tr>\n";

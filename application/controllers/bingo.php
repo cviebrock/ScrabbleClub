@@ -6,22 +6,52 @@ class Bingo_Controller extends Base_Controller {
 	public function get_index()
 	{
 
+		$year = Input::get('year', null);
+
 		$firstgame = Game::order_by('date', 'asc')
 			->take(1)
 			->first();
 
-		$bingos = Bingo::with('player')
+		$temp = 'SELECT
+			COUNT(word) AS total,
+			AVG(score) AS average_score,
+			SUM(valid) AS total_valid
+			FROM bingos' .
+			($year ? ' WHERE YEAR(date) = ?' : '');
+
+		$all_bingos = DB::query($temp, array($year))[0];
+
+		$all_bingos->phonies = $all_bingos->total - $all_bingos->total_valid;
+
+		$all_bingos->phoniness = $all_bingos->total ?
+			100 * (1 - ($all_bingos->total_valid / $all_bingos->total)) :
+			0;
+
+
+
+		$temp = Bingo::with('player')
 			->left_join('validwords', 'bingos.word', '=', 'validwords.word')
 			->order_by('score','desc')
-			->order_by('date','desc')
-			->take(30)
+			->order_by('date','desc');
+
+		if ($year) {
+			$temp->where(DB::raw('YEAR(date)'),'=',$year);
+		}
+
+		$bingos = $temp->take(30)
 			->get(array('bingos.*','validwords.playability'));
 
-		$commonest = Bingo::with('player')
+		$temp = Bingo::with('player')
 			->left_join('validwords', 'bingos.word', '=', 'validwords.word')
 			->order_by('times_played','desc')
 			->order_by('average_score','desc')
-			->group_by('bingos.word')
+			->group_by('bingos.word');
+
+		if ($year) {
+			$temp->where(DB::raw('YEAR(date)'),'=',$year);
+		}
+
+		$commonest = $temp
 			// ->having('times_played','>',2)
 			->take(15)
 			->get(array(
@@ -31,14 +61,16 @@ class Bingo_Controller extends Base_Controller {
 				DB::raw('ROUND(AVG(bingos.score)) AS average_score'),
 			));
 
-
 		$q = array();
 		$alpha = range('a','z');
 		foreach($alpha as $letter) {
 			$q[] = 'SUM(LENGTH(word)-LENGTH(REPLACE(word,"'.$letter.'",""))) AS ' . $letter;
 		}
-		$q = DB::first('SELECT ' . join(",\n", $q) . ' FROM bingos');
-
+		if ($year) {
+			$q = DB::first('SELECT ' . join(",\n", $q) . ' FROM bingos WHERE YEAR(date) = ?', array($year) );
+		} else {
+			$q = DB::first('SELECT ' . join(",\n", $q) . ' FROM bingos');
+		}
 
 		$letter_freq = (array)$q;
 		$sum = array_sum($letter_freq);
@@ -52,15 +84,18 @@ class Bingo_Controller extends Base_Controller {
 
 		// calculate common word tails
 
-		$q = DB::query('SELECT
+		$temp = 'SELECT
 			COUNT(word) AS count,
 			REVERSE(RIGHT(UPPER(word),3)) AS r3,
 			REVERSE(RIGHT(UPPER(word),2)) AS r2,
 			RIGHT(UPPER(word),1) AS r1
-			FROM bingos
+			FROM bingos' .
+			($year ? ' WHERE YEAR(date) = ?' : '') . '
 			GROUP BY r3
 			ORDER BY r3, count DESC
-		');
+		';
+
+		$q = DB::query($temp, array($year));
 
 		$d1 = $d2 = $d3 = array();
 		$s1 = $s2 = array();
@@ -103,10 +138,6 @@ class Bingo_Controller extends Base_Controller {
 			);
 
 		}
-
-
-
-
 
 
 		// clean out
@@ -191,10 +222,14 @@ class Bingo_Controller extends Base_Controller {
 
 		// END tails
 
-
 		// calculate common alphagrams
 
-		$q = Bingo::all();
+		if ($year) {
+			$q = Bingo::where(DB::raw('YEAR(date)'), '=', $year)
+				->get();
+		} else {
+			$q = Bingo::all();
+		}
 
 		$alphagrams = array();
 
@@ -295,14 +330,16 @@ class Bingo_Controller extends Base_Controller {
 		$this->layout->with('title', 'Bingo Statistics')
 			->nest('content', 'bingo.index', array(
 				'firstgame'   => $firstgame,
+				'year'        => $year,
+				'all_bingos'  => $all_bingos,
 				'bingos'      => $bingos,
 				'commonest'   => $commonest,
-				'alpha'				=> $alpha,
+				'alpha'       => $alpha,
 				'letter_freq' => $letter_freq,
 				'tails'       => array( $d1, $d2, $d3 ),
 				'tail_sum'    => $s,
-				'alphagrams'	=> $alphagrams,
-				'subwords'	  => $subwords,
+				'alphagrams'  => $alphagrams,
+				'subwords'    => $subwords,
 			));
 
 	}

@@ -31,7 +31,7 @@ class Player extends BaseModel {
 
 	public function ratings()
 	{
-	 return $this->has_many('Rating')->order_by('date','asc');
+		return $this->has_many('Rating')->order_by('date','asc');
 	}
 
 	public function games()

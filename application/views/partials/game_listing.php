@@ -1,3 +1,5 @@
+<?php if ($games): ?>
+
 <?php
 $hide_date = isset($hide_date);
 $pspan = $hide_date ? 'span4' : 'span3';
@@ -98,3 +100,9 @@ endforeach;
 ?>
 	</tbody>
 </table>
+
+<?php else:  //  i.e. !$games ?>
+	<p class="no-games">
+		No games to display.
+	</p>
+<?php endif; ?>

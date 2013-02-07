@@ -28,14 +28,20 @@ class Ajax_Controller extends Base_Controller {
 	}
 
 
-	public function get_games($player_id, $opponent_id)
+	public function get_games($player_id, $opponent_id, $year=null)
 	{
 
 		// usleep(500000);
 
-		$games = Game::with(array('player','opponent'))
+		$query = Game::with(array('player','opponent'))
 			->where('player_id','=',$player_id)
-			->where('opponent_id','=',$opponent_id)
+			->where('opponent_id','=',$opponent_id);
+
+		if ($year) {
+			$query = $query->where(DB::raw('YEAR(date)'),'=',$year);
+		}
+
+		$games = $query
 			->order_by('date','desc')
 			->get();
 

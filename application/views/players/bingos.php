@@ -1,5 +1,10 @@
 <div class="page-header">
-	<h1>Bingos for <?php echo $player->fullname; ?></h1>
+	<h1>
+		Bingos for <?php echo $player->fullname; ?>
+<?php if ($year): ?>
+		<span class="subhead">For <?php echo $year; ?></span>
+<?php endif; ?>
+	</h1>
 </div>
 
 <table class="table table-striped table-bordered sortable">

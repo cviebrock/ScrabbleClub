@@ -1,8 +1,35 @@
 <div class="page-header">
 	<h1>Bingo Statistics
-		<span class="subhead">All games since <?php echo format_date($firstgame->date); ?></span>
+		<span class="subhead">
+<?php if ($year): ?>
+			For <?php echo $year; ?></span>
+<?php else: ?>
+			All games since <?php echo format_date($firstgame->date); ?></span>
+<?php endif; ?>
 	</h1>
 </div>
+
+<h2>All Bingos</h2>
+
+<table class="table table-condensed table-auto">
+	<tbody>
+		<tr>
+			<th class="span3 horizontal-header">Total Bingos Played</th>
+			<td class="span4"><?php echo $all_bingos->total; ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Average Score</th>
+			<td class="span4"><?php echo round($all_bingos->average_score); ?></td>
+		</tr>
+		<tr>
+			<th class="span3 horizontal-header">Phonies</th>
+			<td class="span4">
+				<?php echo $all_bingos->phonies; ?> (<?php printf('%.02f', $all_bingos->phoniness); ?>%)
+			</td>
+		</tr>
+	</tbody>
+</table>
+
 
 <h2>Best Bingos</h2>
 <?php echo render('partials.bingo_listing', array('bingos'=>$bingos)); ?>
@@ -200,7 +227,8 @@ $(function() {
 		tooltip: {
 			formatter: function() {
 				console.log(this);
-				return '<strong>' + this.point.name + '</strong> stems: ' + this.y;
+				return '<strong>' + this.point.name + '</strong> stems: ' + this.y +
+					' (' + (100*this.y/<?php echo $tail_sum; ?>).toFixed(2) + '%)';
 			}
 		},
 		series: [

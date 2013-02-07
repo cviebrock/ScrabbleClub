@@ -1,6 +1,29 @@
 <div class="page-header">
-	<h1><?php echo $player->fullname; ?></h1>
+	<h1><?php echo $player->fullname; ?>
+		<span class="subhead">
+<?php
+		if ($year) {
+			echo 'Statistics for ' . $year;
+		} else {
+			echo 'All-time statistics';
+		}
+?>
+		</span></h1>
 </div>
+
+<div class="no-print">
+
+<?php echo Form::open(null, 'get', array('class'=>Form::TYPE_INLINE, 'id'=>'yearpicker')); ?>
+	<label for="min_games">Show Stats for</label>
+
+<?php echo Form::select('year', $all_years, $year); ?>
+
+<?php echo Form::submit('Reload', array('class' => 'btn-primary') ); ?>
+
+<?php echo Form::close(); ?>
+
+</div>
+
 
 
 <h2>Player Statistics</h2>
@@ -24,11 +47,12 @@
 		<tr>
 			<th class="span3 horizontal-header">Current Club Rating</th>
 			<td class="span4"><?php echo $player->current_rating(); ?>
-			<?php echo HTML::link_to_action('players@ratings',
-				'<i class="icon-list icon-small" title="show all ratings calculations"></i>',
-				array($player->id),
-				array('class'=>'pull-right')
-			); ?></td>
+				<a href="<?php
+					echo URL::to_action('players@ratings', array($player->id) );
+					if ($year) echo '?year=' . $year;
+					?>" class="pull-right"><i class="icon-list icon-small" title="show all ratings calculations"></i>
+				</a>
+			</td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Dates Played</th>
@@ -37,11 +61,11 @@
 		<tr>
 			<th class="span3 horizontal-header">Games Played</th>
 			<td class="span4"><?php echo $club_details->games_played; ?>
-			<?php echo HTML::link_to_action('players@games',
-				'<i class="icon-list icon-small" title="show all games"></i>',
-				array($player->id),
-				array('class'=>'pull-right')
-			); ?>
+				<a href="<?php
+					echo URL::to_action('players@games', array($player->id) );
+					if ($year) echo '?year=' . $year;
+					?>" class="pull-right"><i class="icon-list icon-small" title="show all games"></i>
+				</a>
 			</td>
 		</tr>
 		<tr>
@@ -92,24 +116,24 @@
 		<tr>
 			<th class="span3 horizontal-header">Bingos Played</th>
 			<td class="span4"><?php echo $bingos['count']; ?>
-				<?php echo HTML::link_to_action('players@bingos',
-						'<i class="icon-list icon-small" title="show all bingos"></i>',
-						array($player->id),
-						array('class'=>'pull-right')
-						); ?>
+				<a href="<?php
+					echo URL::to_action('players@bingos', array($player->id) );
+					if ($year) echo '?year=' . $year;
+					?>" class="pull-right"><i class="icon-list icon-small" title="show all bingos"></i>
+				</a>
 			</td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Average Bingos/Game</th>
 			<td class="span4"><?php echo ($club_details->games_played ?
-				sprintf('%.1f', $bingos['count'] / $club_details->games_played) :
+				sprintf('%.2f', $bingos['count'] / $club_details->games_played) :
 				'&mdash;'
 				); ?></td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Phoney Frequency</th>
 			<td class="span4"><?php echo ($bingos['count'] ?
-				sprintf('%.0f%%', 100 * $bingos['phoney'] / $bingos['count']) :
+				sprintf('%.1f%%', 100 * $bingos['phoney'] / $bingos['count']) :
 				'&mdash;'
 				); ?></td>
 		</tr>
@@ -235,7 +259,18 @@
 <script>
 $(function() {
 
-	var ooo_url = '<?php echo URL::to_route('ajax_one_on_one',array($player->id)); ?>/';
+	$('#yearpicker').on('submit', function(e) {
+		var y = $('select', $(this)).val();
+		if (!y) {
+			location.href=location.pathname;
+			e.preventDefault();
+		}
+	});
+
+
+
+	var ooo_url = '<?php echo URL::to_route('ajax_one_on_one',array($player->id)); ?>/',
+		year = '<?php echo $year ? '/'.$year : ''; ?>';
 	$('#ooo_loader').hide();
 
 	$('#ooo_select').quickselect({
@@ -251,7 +286,7 @@ $(function() {
 
 				$('#ooo_loader').show();
 				$('#ooo_results').load(
-					ooo_url+opp_id,
+					ooo_url+opp_id+year,
 					function() {
 						$('#ooo_loader').hide();
 						$('#ooo_games').tablesorter({
@@ -297,14 +332,18 @@ $(function() {
 			dateTimeLabelFormats: {
 				month: '%b<br>%Y',
 			},
-<?php
-$last = end($ratings);
-$first = reset($ratings);
-$fdate = new DateTime($first->date);
-$ldate = new DateTime($last->date);
+<?php if ($year): ?>
+			min: Date.UTC(<?php echo $year; ?>,0,1),
+			max: Date.UTC(<?php echo $year+1; ?>,0,0),
+<?php else:
+	$last = end($ratings);
+	$first = reset($ratings);
+	$fdate = new DateTime($first->date);
+	$ldate = new DateTime($last->date);
 ?>
 			min: Date.UTC(<?php echo $fdate->format('Y'); ?>,<?php echo $fdate->format('m')-1; ?>,1),
 			max: Date.UTC(<?php echo $ldate->format('Y'); ?>,<?php echo $ldate->format('m'); ?>,0),
+<?php endif; ?>
 			minRange: 1000*60*60*24*7*30  // one month
 		},
 		yAxis: {

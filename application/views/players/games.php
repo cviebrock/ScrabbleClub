@@ -1,5 +1,10 @@
 <div class="page-header">
-	<h1>Games for <?php echo $player->fullname; ?></h1>
+	<h1>
+		Games for <?php echo $player->fullname; ?>
+<?php if ($year = Input::get('year')): ?>
+		<span class="subhead">For <?php echo $year; ?></span>
+<?php endif; ?>
+	</h1>
 </div>
 
 <?php
