@@ -1,9 +1,11 @@
 <div class="page-header">
 	<h1>Player Statistics
 		<span class="subhead">
-			For year <?php echo $year; ?> /
-			As of <?php echo format_date($lastgame->date); ?> /
-			Minimum <?php echo $min_games_played; ?> games played
+			For <?php echo $year; ?>
+			/ As of <?php echo format_date($lastgame->date); ?>
+<?php if($min_games_played): ?>
+			/ Minimum <?php echo $min_games_played; ?> games played
+<?php endif; ?>
 		</span>
 	</h1>
 </div>
@@ -92,6 +94,25 @@ foreach ($players as $player) {
 ?>
 	</tbody>
 </table>
+
+<div class="noprint">
+
+<p>
+	To view this chart with a different number of minimum games played, enter the number below
+	and click <em>Reload</em>.  Or <?php echo HTML::link_to_action('players', 'click here'); ?>
+	to automatically calculate the minimum number of games.
+</p>
+
+<?php echo Form::open(null, 'get', array('class'=>Form::TYPE_INLINE)); ?>
+	<label for="min_games">Minimum Games</label>
+
+<?php echo Form::number('min_games', $min_games_played, array('class'=>'span1')); ?>
+
+<?php echo Form::submit('Reload', array('class' => 'btn-primary') ); ?>
+
+<?php echo Form::close(); ?>
+
+</div>
 
 <script>
 

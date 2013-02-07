@@ -298,13 +298,14 @@ $(function() {
 				month: '%b<br>%Y',
 			},
 <?php
+$last = end($ratings);
 $first = reset($ratings);
-$date = new DateTime($first->date);
-$year = $date->format('Y');
+$fdate = new DateTime($first->date);
+$ldate = new DateTime($last->date);
 ?>
-			min: Date.UTC(<?php echo $year; ?>,0,1),
-			max: Date.UTC(<?php echo $year+1; ?>,0,0),
-			minRange: 1000*60*60*24*7  // one week
+			min: Date.UTC(<?php echo $fdate->format('Y'); ?>,<?php echo $fdate->format('m')-1; ?>,1),
+			max: Date.UTC(<?php echo $ldate->format('Y'); ?>,<?php echo $ldate->format('m'); ?>,0),
+			minRange: 1000*60*60*24*7*30  // one month
 		},
 		yAxis: {
 			title: {

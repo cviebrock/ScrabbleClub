@@ -35,7 +35,7 @@ class Players_Controller extends Base_Controller {
 
 		$total_games = Game::where(DB::raw('YEAR(date)'), '=', $year)
 			->count() / 2;
-		$min_games_played = floor( $total_games / count($players) );
+		$min_games_played = Input::get('min_games', floor( $total_games / count($players) ) );
 
 		$temp = DB::query('SELECT
 			player_id,
