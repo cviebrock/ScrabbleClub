@@ -31,10 +31,14 @@ class News extends BaseModel {
 
 	public function get_summary_with_link()
 	{
-		$text = paragraphs($this->body, 2, '');
+		if ( paragraphs($this->body, 2, '') == $this->body ) {
+			$link = '';
+		} else {
+			$link = '<p>'.HTML::link_to_route('news_item', 'Read more...', array($this->id, $this->slug)).'</p>';
+		}
 
-		return $this->markdown($text) .
-			'<p>'.HTML::link_to_route('news_item', 'Read more...', array($this->id, $this->slug)).'</p>';
+		return $this->summary . $link;
+
 	}
 
 	public function get_slug()
