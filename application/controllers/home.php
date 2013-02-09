@@ -33,7 +33,7 @@ class Home_Controller extends Base_Controller {
 	public function get_index()
 	{
 
-		$homepage = Cache::remember('page.home', function() {
+		$homepage = Cache::sear('page.home', function() {
 			$homepage = Page::load('home');
 			return $homepage->render;
 		}, 86400 );
