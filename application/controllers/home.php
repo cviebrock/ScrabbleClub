@@ -33,6 +33,11 @@ class Home_Controller extends Base_Controller {
 	public function get_index()
 	{
 
+		$homepage = Cache::remember('page.home', function() {
+			$homepage = Page::load('home');
+			return $homepage->render;
+		}, 86400 );
+
 		$news = News::where('active','=',true)
 			->order_by('date','desc')
 			->take(3)
@@ -91,9 +96,10 @@ class Home_Controller extends Base_Controller {
 
 		$this->layout->with('title', 'Home')
 			->nest('content', 'home.index', array(
-				'date'    => $date,
-				'sidebar' => $sidebar,
-				'news'    => $news,
+				'homepage' => $homepage,
+				'date'     => $date,
+				'sidebar'  => $sidebar,
+				'news'     => $news,
 			));
 	}
 

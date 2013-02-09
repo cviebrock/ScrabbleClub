@@ -90,4 +90,46 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 	}
 
 
+	public function get_homepage()
+	{
+
+		if ( !( $homepage = Page::load('home') ) ) {
+			$homepage = new Page;
+		}
+
+		$this->layout->with('title', 'Housekeeping'.TITLE_DELIM.'Home Page')
+			->nest('content', 'admin.housekeeping.homepage', array(
+				'homepage' => $homepage
+			));
+	}
+
+
+	public function post_homepage()
+	{
+
+		if ( !( $homepage = Page::load('home') ) ) {
+			$homepage = new Page(array('url'=>'/'));
+		}
+
+		$homepage->fill(array(
+			'title'  => Input::get('title'),
+			'body'   => Input::get('body'),
+		));
+
+
+		if ($homepage->is_valid()) {
+			$homepage->save();
+			return Redirect::to_action('admin.housekeeping@homepage')
+				->with('success', 'Homepage saved.');
+		}
+
+		$this->layout->with('title', 'Housekeeping'.TITLE_DELIM.'Home Page')
+			->nest('content', 'admin.housekeeping.homepage', array(
+				'homepage' => $homepage
+			));
+
+	}
+
+
+
 }

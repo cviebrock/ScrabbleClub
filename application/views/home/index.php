@@ -2,15 +2,7 @@
 
 	<div class="span8">
 
-		<div class="page-header">
-			<h1><?php echo Config::get('scrabble.clubname'); ?></h1>
-		</div>
-
-		<p>
-			The Winnipeg Scrabble&reg; Club meets every Thursday evening 6:30 &ndash; 10:00 p.m.
-			at the Kenaston Village Recreation Centre, 516 Kenaston Boulevard.
-			<?php echo HTML::link_to_action('about','Find out more &hellip;'); ?>
-		</p>
+<?php echo $homepage; ?>
 
 <?php if ( count($news) ): ?>
 

@@ -72,10 +72,14 @@ class Ajax_Controller extends Base_Controller {
 		$title = Input::get('title');
 		$body = Input::get('body');
 
-		$text = '##'.$title."\n\n".$body;
+		if ($title || $body) {
 
-		require_once path('bundle').'docs/libraries/markdown.php';
-		echo Markdown($text);
+			$text = '##'.$title."\n\n".$body;
+
+			require_once path('bundle').'docs/libraries/markdown.php';
+			echo Markdown($text);
+
+		}
 
 	}
 
