@@ -163,6 +163,9 @@ table.sortable tbody tr:hover {
 
 tr.inactive td {
 	color: @grayLight;
+	i {
+		.opacity(50);
+	}
 }
 
 
@@ -320,9 +323,20 @@ ul.resources {
 	.border-radius(3px);
 	padding: 9px;
 	height: 10em;
-	overflow-y: auto;
-	width: 610px;
+	overflow: auto;
+	width: 600px;
 }
+
+#preview-result,
+.news-item {
+	h2 {
+		color: @grayLight;
+		font-weight: normal;
+		font-size: 120%;
+		text-transform: uppercase;
+	}
+}
+
 
 
 .news-summary {
@@ -352,4 +366,43 @@ h3.latest-news {
 	select {
 		width: auto;
 	}
+}
+
+.news-album {
+	margin-top: @baseLineHeight;
+
+	ul {
+		margin-left: 0;
+		list-style: none;
+		.clearfix();
+
+		li {
+			float: left;
+			margin: 0 20px 20px 0;
+		}
+
+		a {
+			display: block;
+			.box-shadow();
+			&:hover {
+				outline: 1px solid #000;
+			}
+		}
+
+		img {
+			display: block;
+		}
+
+	}
+
+}
+
+.tooltip {
+	font-size: 12px;
+	line-height: 16px;
+}
+.tooltip-inner {
+	max-width: 250px;
+	text-align: left;
+	padding: 10px 15px;
 }

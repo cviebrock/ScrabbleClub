@@ -176,7 +176,17 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 
 define('TITLE_DELIM', ' | ');
 
-require path('app').'libraries/helpers.php';
+require path('app').'libraries'.DS.'helpers.php';
 
 set_path('uploads', path('storage').'uploads'.DS);
+
+
+IoC::register('facebook', function()
+{
+	require_once( path('base') . 'vendor'.DS.'facebook-php-sdk'.DS.'src'.DS.'facebook.php');
+	if ( !( $config = Config::get('facebook') ) ) {
+		throw new Exception('Facebook configuration missing');
+	}
+	return new Facebook( $config );
+});
 

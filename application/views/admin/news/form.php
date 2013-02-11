@@ -48,6 +48,14 @@ echo Form::field('textarea', 'body', 'Body',
 
 <?php
 
+echo Form::field('select', 'fb_album', 'Facebook Album',
+	array($albums, $item->fb_album, array('class'=>'span4')),
+	array(
+		'error' => $item->error('fb_album'),
+		'help' => 'Albums may take up to 10 minutes to appear after being added to Facebook'
+	)
+);
+
 echo Form::field('labelled_checkbox', 'active', 'Published?',
 	array('Yes', 1, $item->active)
 );

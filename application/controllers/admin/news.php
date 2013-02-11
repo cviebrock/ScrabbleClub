@@ -8,8 +8,31 @@ class Admin_News_Controller extends Base_Controller {
 		$this->filter('before', 'auth');
 		$this->filter('before', 'csrf')->on('post');
 		parent::__construct();
+	}
+
+	public function load_albums($refresh=false)
+	{
+
+		if ($refresh) {
+			Cache::forget('fb.albums');
+		}
+
+		return Cache::remember('fb.albums', function() {
+
+			$fb = Ioc::resolve('facebook');
+
+			$temp = $fb->api('/'.Config::get('facebook.uid').'/albums', 'GET', array('fields'=>'id,count,name,description') );
+
+			$albums = array(0=>'None');
+			foreach($temp['data'] as $v) {
+				$albums[ $v['id'] ] = $v['name'] . ' (' . pluralize( 'picture', $v['count'] ) . ')';
+			}
+
+			return $albums;
+		}, 10 );
 
 	}
+
 
 	public function get_index()
 	{
@@ -37,7 +60,8 @@ class Admin_News_Controller extends Base_Controller {
 		$this->layout->with('title', 'New News Item')
 			->nest('content', 'admin.news.form', array(
 				'item'        => $item,
-				'all_players'  => all_players(),
+				'all_players' => all_players(),
+				'albums'      => $this->load_albums(true),
 				'title'       => 'New News Item',
 				'submit_text' => 'Add News Item',
 				'mode'        => 'new'
@@ -55,11 +79,12 @@ class Admin_News_Controller extends Base_Controller {
 		$temp = new DateTime( Input::get('date') );
 
 		$item->fill(array(
-			'title'  => Input::get('title'),
-			'body'   => Input::get('body'),
-			'date'   => $temp->format('Y-m-d'),
+			'title'     => Input::get('title'),
+			'body'      => Input::get('body'),
+			'date'      => $temp->format('Y-m-d'),
 			'author_id' => Input::get('author_id'),
-			'active' => Input::get('active', 0),
+			'active'    => Input::get('active', 0),
+			'fb_album'  => Input::get('fb_album', 0),
 		));
 
 
@@ -73,10 +98,13 @@ class Admin_News_Controller extends Base_Controller {
 		Asset::add('string_score', 'js/string_score.min.js', 'jquery');
 		Asset::add('quickselect', 'js/jquery.quickselect.js', 'jquery');
 
+		$albums = $this->load_albums();
+
 		$this->layout->with('title', 'New News Item')
 			->nest('content', 'admin.news.form', array(
 				'item'        => $item,
-				'all_players'  => all_players(),
+				'all_players' => all_players(),
+				'albums'      => $this->load_albums(),
 				'title'       => 'New News Item',
 				'submit_text' => 'Add News Item',
 				'mode'        => 'new'
@@ -97,6 +125,7 @@ class Admin_News_Controller extends Base_Controller {
 			->nest('content', 'admin.news.form', array(
 				'item'        => $item,
 				'all_players'  => all_players(),
+				'albums'      => $this->load_albums(true),
 				'title'       => 'Edit News Item',
 				'submit_text' => 'Edit News Item',
 				'mode'        => 'edit'
@@ -117,6 +146,7 @@ class Admin_News_Controller extends Base_Controller {
 			'date'   => $temp->format('Y-m-d'),
 			'author_id' => Input::get('author_id'),
 			'active' => Input::get('active', 0),
+			'fb_album'  => Input::get('fb_album', 0),
 		));
 
 
@@ -134,6 +164,7 @@ class Admin_News_Controller extends Base_Controller {
 			->nest('content', 'admin.news.form', array(
 				'item'        => $item,
 				'all_players'  => all_players(),
+				'albums'      => $this->load_albums(true),
 				'title'       => 'Edit News Item',
 				'submit_text' => 'Edit News Item',
 				'mode'        => 'edit'

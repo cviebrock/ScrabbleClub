@@ -24,7 +24,7 @@ class News_Controller extends Base_Controller {
 
 		$item = News::find($id);
 
-		if ( !$item || !$item->active ) {
+		if ( !$item || ( !$item->active && !Auth::check() ) ) {
 			return Response::error('404');
 		}
 

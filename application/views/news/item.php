@@ -6,7 +6,10 @@
 			<h1><?php echo $item->title ?></h1>
 		</div>
 
-		<?php echo $item->full_article; ?>
+		<div class="news-item">
+<?php echo $item->full_article; ?>
+<?php echo $item->album(true); ?>
+		</div>
 
 	</div>
 
@@ -17,3 +20,4 @@
 	</div>
 
 </div>
+

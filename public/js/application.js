@@ -40,3 +40,5 @@ if ($.tablesorter) {
 	});
 
 }
+
+$('[rel="tooltip"]').tooltip();

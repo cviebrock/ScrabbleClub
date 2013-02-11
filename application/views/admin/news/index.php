@@ -17,6 +17,7 @@
 			<td><?php echo format_date($item->date); ?></td>
 			<td>
 				<?php echo $item->title; ?>
+				<?php echo $item->fb_album ? '<i class="icon-picture"></i>' : ''; ?>
 			</td>
 			<td><ul class="sc_actions">
 				<li><?php echo action_link_to_route('admin.news@edit', 'Edit', array($item->id), 'small|pencil' ); ?></li>

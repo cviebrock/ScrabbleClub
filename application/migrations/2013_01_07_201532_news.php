@@ -15,6 +15,7 @@ class News {
 			$table->string('title');
 			$table->text('body');
 			$table->integer('author_id')->unsigned();
+			$table->string('fb_album');
 			$table->boolean('active')->index();
 			$table->timestamps();
 		});
