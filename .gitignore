@@ -1,6 +1,6 @@
 # Capistrano
 Capfile
-config
+config/*
 
 # Numerous always-ignore extensions
 *.diff
