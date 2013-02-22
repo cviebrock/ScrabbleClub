@@ -28,6 +28,9 @@ class News_Controller extends Base_Controller {
 			return Response::error('404');
 		}
 
+		Asset::add('fancybox', 'js/fancybox.min.js', 'jquery');
+		Asset::container('head')->add('fancybox', 'css/fancybox.css');
+
 		$this->layout->with('title', $item->title)
 			->nest('content', 'news.item', array(
 				'item'    => $item,

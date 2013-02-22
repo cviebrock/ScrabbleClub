@@ -1,0 +1,3 @@
+[submodule "components/fancybox"]
+	path = components/fancybox
+	url = https://github.com/fancyapps/fancyBox

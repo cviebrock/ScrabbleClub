@@ -115,7 +115,7 @@
 <?php endif ?>
 
 		<div class="actions cfx">
-			<?php echo action_link_to_route('club@summary', 'Full Summary', array($date), 'arrow-right|white', array('class'=>'btn btn-info btn-small pull-right')); ?>
+			<?php echo action_link_to_route('club@summary', 'Weekly Summaries', array($date), 'arrow-right|white', array('class'=>'btn btn-info btn-small pull-right')); ?>
 		</div>
 
 		<?php endif; ?>

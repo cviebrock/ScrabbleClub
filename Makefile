@@ -1,6 +1,8 @@
 LESS_DIR         = ./public/less
 CSS_DIR          = ./public/css
 JS_DIR           = ./public/js
+IMG_DIR          = ./public/img
+COMPONENTS_DIR   = ./components
 
 TEMP_DIR         = /var/tmp
 
@@ -20,12 +22,13 @@ help:
 	@echo "help           - this"
 	@echo "css            - build all CSS files from Less source"
 	@echo "js             - build and minify all Javascript files from source"
+	@echo "components     - build and minify all component files from source"
 	@echo "commit         - commit all built assets to git repository"
 	@echo "all            - build all assets, then commit"
 	@echo
 
 
-all: css js commit
+all: css js components commit
 
 css:
 	${LESSC} ${LESSC_FLAGS} ${LESS_DIR}/bootstrap.less > ${CSS_DIR}/scrabbleclub.css
@@ -52,6 +55,14 @@ js-bootstrap:
 
 js-application:
 	${UGLIFY} ${UGLIFY_FLAGS} ${JS_DIR}/application.js > ${JS_DIR}/scrabbleclub.min.js
+
+components: comp-fancybox
+
+comp-fancybox:
+	${UGLIFY} ${UGLIFY_FLAGS}	${COMPONENTS_DIR}/fancybox/source/jquery.fancybox.js > ${JS_DIR}/fancybox.min.js
+	${LESSC} ${LESSC_FLAGS} ${COMPONENTS_DIR}/fancybox/source/jquery.fancybox.css > ${CSS_DIR}/fancybox.css
+	cp ${COMPONENTS_DIR}/fancybox/source/*.gif ${IMG_DIR}
+	cp ${COMPONENTS_DIR}/fancybox/source/*.png ${IMG_DIR}
 
 commit:
 	git add ${CSS_DIR} ${JS_DIR}
