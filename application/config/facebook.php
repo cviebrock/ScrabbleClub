@@ -6,9 +6,9 @@ return array(
 	// this is just to keep them secret from github
 
 	'url'        => 'http://www.facebook.com/WinnipegScrabble',
-	'appId'      => ini_get('scrabble.facebook.appid'),
-	'secret'     => ini_get('scrabble.facebook.secret'),
+	'appId'      => $_SERVER['FACEBOOK_APPID'],
+	'secret'     => $_SERVER['FACEBOOK_SECRET'],
 	'fileUpload' => false,
-	'uid'        => ini_get('scrabble.facebook.uid'),
+	'uid'        => $_SERVER['FACEBOOK_UID'],
 
 );
