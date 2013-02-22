@@ -180,7 +180,11 @@ require path('app').'libraries'.DS.'helpers.php';
 
 set_path('uploads', path('storage').'uploads'.DS);
 
-require path('base').'vendor/autoload.php';
+
+Autoloader::map(array(
+	'Facebook' => path('base').'vendor'.DS.'facebook'.DS.'php-sdk'.DS.'src'.DS.'facebook'.EXT
+));
+
 
 IoC::register('facebook', function()
 {
