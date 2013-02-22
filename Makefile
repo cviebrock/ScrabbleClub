@@ -61,8 +61,8 @@ components: comp-fancybox
 comp-fancybox:
 	${UGLIFY} ${UGLIFY_FLAGS}	${COMPONENTS_DIR}/fancybox/source/jquery.fancybox.js > ${JS_DIR}/fancybox.min.js
 	${LESSC} ${LESSC_FLAGS} ${COMPONENTS_DIR}/fancybox/source/jquery.fancybox.css > ${CSS_DIR}/fancybox.css
-	cp ${COMPONENTS_DIR}/fancybox/source/*.gif ${IMG_DIR}
-	cp ${COMPONENTS_DIR}/fancybox/source/*.png ${IMG_DIR}
+	cp ${COMPONENTS_DIR}/fancybox/source/*.gif ${CSS_DIR}
+	cp ${COMPONENTS_DIR}/fancybox/source/*.png ${CSS_DIR}
 
 commit:
 	git add ${CSS_DIR} ${JS_DIR}

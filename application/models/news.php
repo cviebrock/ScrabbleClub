@@ -98,7 +98,7 @@ EOB;
 
 				foreach ($temp['photos']['data'] as $photo) {
 
-					$r .= sprintf('<li><a href="%s" title="%s" rel="tooltip"><img src="%s" alt="%2$s"></a></li>',
+					$r .= sprintf('<li><a href="%s" class="fancybox" title="%s" rel="tooltip"><img src="%s" alt="%2$s"></a></li>',
 						$photo['source'],
 						(array_key_exists('name', $photo)
 							? preg_replace( '/\n/', '<br>', HTML::entities($photo['name']) )

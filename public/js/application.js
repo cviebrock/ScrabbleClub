@@ -42,3 +42,15 @@ if ($.tablesorter) {
 }
 
 $('[rel="tooltip"]').tooltip();
+
+$('.fancybox').fancybox({
+	padding: 0,
+	nextEffect	: 'fade',
+	prevEffect	: 'fade',
+	helpers : {
+		title : {
+			type: 'over'
+		}
+	}
+});
+
