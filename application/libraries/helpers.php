@@ -200,6 +200,18 @@ function protofy($address)
 	return $http.$address;
 }
 
+/**
+ * Remove "http://" from URLs
+ */
+function deprotofy($address, $remove_www = false)
+{
+	$match = '^(https?:)?\/\/';
+	if ($remove_www) {
+		$match .= '(www\.)?';
+	}
+	return preg_replace('/'.$match.'/i', '', $address);
+}
+
 
 function game_summary( array $games )
 {

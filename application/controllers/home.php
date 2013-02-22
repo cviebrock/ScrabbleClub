@@ -100,7 +100,12 @@ class Home_Controller extends Base_Controller {
 				'date'     => $date,
 				'sidebar'  => $sidebar,
 				'news'     => $news,
+			))
+			->nest('fb', 'partials.facebook', array(
+				'fb' => Config::get('facebook')
 			));
+
+
 	}
 
 

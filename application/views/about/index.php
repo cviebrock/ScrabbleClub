@@ -53,6 +53,16 @@
 			<li>Brian Williams at 204-489-0682 (evenings) or <?php echo HTML::mailto('thewall812@yahoo.com','via email'); ?></li>
 		</ul>
 
+<?php if( $url = Config::get('facebook.url') ): ?>
+		<h2>Like Us on Facebook</h2>
+		<p>
+			Visit our Facebook page at <?php echo HTML::link($url, deprotofy($url), array('target'=>'_blank')); ?> and be sure to like us!
+		</p>
+		<div class="fb-like" data-href="<?php echo $url; ?>"
+		 data-send="true" data-width="450" data-show-faces="true"></div>
+<?php endif; ?>
+
+
 
 	</div>
 

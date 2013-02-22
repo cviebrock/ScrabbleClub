@@ -6,8 +6,10 @@ class About_Controller extends Base_Controller {
 	{
 
 		$this->layout->with('title', 'About')
-			->nest('content', 'about.index');
-
+			->nest('content', 'about.index')
+			->nest('fb', 'partials.facebook', array(
+				'fb' => Config::get('facebook')
+			));
 	}
 
 	public function get_resources()
