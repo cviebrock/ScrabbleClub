@@ -1,0 +1,47 @@
+[
+    {
+        "name": "facebook/php-sdk",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/facebook/facebook-php-sdk.git",
+            "reference": "bf99924386be074da30a8e9d6bbcb49d3333da12"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/bf99924386be074da30a8e9d6bbcb49d3333da12",
+            "reference": "bf99924386be074da30a8e9d6bbcb49d3333da12",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.0",
+            "ext-curl": "*",
+            "ext-json": "*"
+        },
+        "time": "2013-01-15 21:37:15",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache2"
+        ],
+        "authors": [
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+            }
+        ],
+        "description": "Facebook PHP SDK",
+        "homepage": "https://github.com/facebook/facebook-php-sdk",
+        "keywords": [
+            "facebook",
+            "sdk"
+        ]
+    }
+]

@@ -180,10 +180,10 @@ require path('app').'libraries'.DS.'helpers.php';
 
 set_path('uploads', path('storage').'uploads'.DS);
 
+require path('base').'vendor/autoload.php';
 
 IoC::register('facebook', function()
 {
-	require_once( path('base') . 'vendor'.DS.'facebook-php-sdk'.DS.'src'.DS.'facebook.php');
 	if ( !( $config = Config::get('facebook') ) ) {
 		throw new Exception('Facebook configuration missing');
 	}
