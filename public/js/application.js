@@ -44,13 +44,15 @@ if ($.tablesorter) {
 $('[rel="tooltip"]').tooltip();
 
 $('.fancybox').fancybox({
-	padding: 0,
-	nextEffect	: 'fade',
-	prevEffect	: 'fade',
+	// nextEffect	: 'fade',
+	// prevEffect	: 'fade',
 	helpers : {
 		title : {
-			type: 'over'
+			type: 'inside'
 		}
+	},
+	beforeLoad: function() {
+		this.title = $(this.element).data('original-title');
 	}
 });
 
