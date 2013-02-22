@@ -9,7 +9,7 @@ class News extends BaseModel {
 		'body'      => 'required',
 		'date'      => 'required|date',
 		'author_id' => 'required|exists:players,id',
-		'fb_album'	=> 'integer',
+		'fb_album'	=> 'numeric',
 	);
 
 	public function author()
