@@ -702,7 +702,7 @@ h3.latest-news{font-size:15px;color:#999999;font-weight:normal;text-transform:up
 .news-album{margin-top:20px;}.news-album ul{margin-left:0;list-style:none;*zoom:1;}.news-album ul:before,.news-album ul:after{display:table;content:"";}
 .news-album ul:after{clear:both;}
 .news-album ul li{float:left;margin:0 20px 20px 0;}
-.news-album ul a{display:block;-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);}.news-album ul a:hover{outline:1px solid #000;}
+.news-album ul a{display:block;-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);box-shadow:0 1px 3px rgba(0, 0, 0, 0.25);-webkit-transition:all 0.3s ease;-moz-transition:all 0.3s ease;-ms-transition:all 0.3s ease;-o-transition:all 0.3s ease;transition:all 0.3s ease;}.news-album ul a:hover{-webkit-box-shadow:1px 2px 4px rgba(0, 0, 0, 0.75);-moz-box-shadow:1px 2px 4px rgba(0, 0, 0, 0.75);box-shadow:1px 2px 4px rgba(0, 0, 0, 0.75);outline:1px solid #000;}
 .news-album ul img{display:block;}
 .tooltip{font-size:12px;line-height:16px;}
 .tooltip-inner{max-width:250px;text-align:left;padding:10px 15px;}

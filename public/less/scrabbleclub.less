@@ -395,7 +395,9 @@ h3.latest-news {
 		a {
 			display: block;
 			.box-shadow();
+			.transition(all .3s ease);
 			&:hover {
+				.box-shadow(1px 2px 4px rgba(0,0,0,.75);
 				outline: 1px solid #000;
 			}
 		}
@@ -416,4 +418,9 @@ h3.latest-news {
 	max-width: 250px;
 	text-align: left;
 	padding: 10px 15px;
+}
+
+.fancybox-title {
+	font-size: @baseFontSize;
+	line-height: @baseLineHeight;
 }
