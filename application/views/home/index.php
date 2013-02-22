@@ -8,16 +8,18 @@
 
 		<h3 class="pull-down latest-news">Latest News</h3>
 
-<?php foreach($news as $item): ?>
+<?php foreach($news as $k=>$item): ?>
 
-	<h2 class="news-title">
+	<div class="news-item">
+	<h1>
 		<?php echo $item->title; ?>
 		<span class="subhead">
 			<?php echo $item->formatted_date; ?> | <?php echo $item->author; ?>
 		</span>
-	</h2>
+	</h1>
 
 	<?php echo $item->summary_with_link; ?>
+	</div>
 
 <?php endforeach; ?>
 <?php endif; ?>
@@ -25,7 +27,8 @@
 
 
 <?php if( $url = Config::get('facebook.url') ): ?>
-	<h2 class="pull-down">Like Us on Facebook</h2>
+	<hr class="on">
+	<h2>Like Us on Facebook</h2>
 	<p>
 		Visit our Facebook page at <?php echo HTML::link($url, deprotofy($url), array('target'=>'_blank')); ?> and be sure to like us!
 	</p>

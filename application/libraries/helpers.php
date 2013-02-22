@@ -270,8 +270,16 @@ function paragraphs($value, $paragraphs = 2, $end = '...')
 
 	$num = ($paragraphs * 2 ) - 1;
 
-	$chunk = array_chunk($parts, $num);
+	$result = '';
+	while ($num--) {
+		$part = array_shift($parts);
+		if (substr($part, 0, 1) == '#') break;
+		$result .= $part;
+	}
 
-	return join($chunk[0]);
+	return $result;
+
+	// $chunk = array_chunk($parts, $num);
+	// return join($chunk[0]);
 
 }

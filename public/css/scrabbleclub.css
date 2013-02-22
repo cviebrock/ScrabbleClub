@@ -648,7 +648,8 @@ body{padding:60px 0;}
 h1{margin-bottom:20px;}
 .subhead{text-transform:uppercase;color:#999999;font-size:13px;font-weight:normal;}.subhead.large{font-size:15px;}
 h1 .subhead,h2 .subhead,h3 .subhead{display:block;line-height:20px;}
-h2.news-title{line-height:30px;margin-bottom:10px;}h2.news-title .subhead{text-transform:none;}
+.news-item{margin-bottom:40px;}.news-item h1{font-size:160%;line-height:30px;margin-bottom:10px;}
+.news-item h2{line-height:30px;margin-bottom:10px;}.news-item h2 .subhead{text-transform:none;}
 ul.sc_actions{margin:0;list-style:none;}ul.sc_actions li{display:inline;margin-right:5px;}
 .btn-small{padding:3px 7px;}
 .table-auto{width:auto;}

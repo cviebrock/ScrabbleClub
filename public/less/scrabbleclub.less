@@ -78,13 +78,25 @@ h3 .subhead {
 	line-height: @baseLineHeight;
 }
 
-h2.news-title {
-	line-height: 30px;
-	margin-bottom: 10px;
-	.subhead {
-		text-transform: none;
+.news-item {
+
+	margin-bottom: @baseLineHeight*2;
+
+	h1 {
+		font-size: 160%;
+		line-height: 30px;
+		margin-bottom: 10px;
+	}
+
+	h2 {
+		line-height: 30px;
+		margin-bottom: 10px;
+		.subhead {
+			text-transform: none;
+		}
 	}
 }
+
 
 // set up style for action buttons in tables
 ul.sc_actions {
@@ -336,7 +348,6 @@ ul.resources {
 		text-transform: uppercase;
 	}
 }
-
 
 
 .news-summary {
