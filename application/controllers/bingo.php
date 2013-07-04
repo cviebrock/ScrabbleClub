@@ -95,7 +95,11 @@ class Bingo_Controller extends Base_Controller {
 			ORDER BY r3, count DESC
 		';
 
-		$q = DB::query($temp, array($year));
+		if ($year) {
+			$q = DB::query($temp, array($year));
+		} else {
+			$q = DB::query($temp);
+		}
 
 		$d1 = $d2 = $d3 = array();
 		$s1 = $s2 = array();
