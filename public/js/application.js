@@ -43,16 +43,20 @@ if ($.tablesorter) {
 
 $('[rel="tooltip"]').tooltip();
 
-$('.fancybox').fancybox({
-	// nextEffect	: 'fade',
-	// prevEffect	: 'fade',
-	helpers : {
-		title : {
-			type: 'inside'
-		}
-	},
-	beforeLoad: function() {
-		this.title = $(this.element).data('original-title');
-	}
-});
 
+if ($.fancybox) {
+
+	$('.fancybox').fancybox({
+		// nextEffect	: 'fade',
+		// prevEffect	: 'fade',
+		helpers : {
+			title : {
+				type: 'inside'
+			}
+		},
+		beforeLoad: function() {
+			this.title = $(this.element).data('original-title');
+		}
+	});
+
+}
