@@ -10,6 +10,9 @@
 		<?php echo $item->title; ?>
 		<span class="subhead">
 			<?php echo $item->formatted_date; ?> | <?php echo $item->author; ?>
+			<?php if ( $item->fb_album ): ?>
+				| <i class="icon-picture"></i>
+			<?php endif; ?>
 		</span>
 	</h2>
 
