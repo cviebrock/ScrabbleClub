@@ -647,7 +647,7 @@ body{padding:60px 0}
 .page-header{border:0}.page-header h1{line-height:30px}
 h1{margin-bottom:20px}
 .subhead{text-transform:uppercase;color:#999;font-size:13px;font-weight:normal}.subhead.large{font-size:15px}
-.subhead i[class^="icon-"]{opacity:.005;filter:alpha(opacity=0.5)}
+.subhead i[class^="icon-"]{opacity:.5;filter:alpha(opacity=50)}
 h1 .subhead,h2 .subhead,h3 .subhead{display:block;line-height:20px}
 .news-item{margin-bottom:40px}.news-item h1{font-size:160%;line-height:30px;margin-bottom:10px}
 .news-item h2{line-height:30px;margin-bottom:10px}.news-item h2 .subhead{text-transform:none}
