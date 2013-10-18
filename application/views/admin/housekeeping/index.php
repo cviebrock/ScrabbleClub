@@ -12,7 +12,7 @@
 <ul>
 	<li><?php echo HTML::link_to_action('admin.housekeeping@backup_sql', 'Backup Entire Database (SQL)'); ?></li>
 	<li><?php echo HTML::link_to_action('admin.housekeeping@export_bingos', 'Export Full Bingo Listing (CSV)'); ?><br>
-	(<?php foreach ($years as $k=>$year): ?>
+	(or just for <?php foreach ($years as $k=>$year): ?>
 		<?php echo $k ? ', ' : ''; ?>
 		<?php echo HTML::link_to_action('admin.housekeeping@export_bingos', $year, array($year)); ?>
 	<?php endforeach; ?>)

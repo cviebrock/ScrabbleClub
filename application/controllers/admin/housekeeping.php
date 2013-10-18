@@ -15,11 +15,12 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 	public function get_index()
 	{
 
-		$years = DB::query('SELECT
+		$q = DB::query('SELECT
 			DISTINCT(YEAR(date)) as year
 			FROM bingos
 			ORDER BY year DESC
 		');
+		$q = array_pluck($years, 'year');
 
 		$this->layout->with('title', 'Housekeeping')
 			->nest('content', 'admin.housekeeping.index', array(
@@ -85,7 +86,7 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 			) . "\n";
 		}
 
-		$filename = 'bingos-' . format_date($bingo->date,'Ymd') . '.csv';
+		$filename = 'bingos-' . ($year ? $year.'.' : '') . format_date($bingo->date,'Ymd') . '.csv';
 
 		return Response::make($data, 200, array(
 			'Content-Description'       => 'File Transfer',
