@@ -14,7 +14,7 @@
 	<li><?php echo HTML::link_to_action('admin.housekeeping@export_bingos', 'Export Full Bingo Listing (CSV)'); ?><br>
 	(<?php foreach ($years as $k=>$year): ?>
 		<?php echo $k ? ', ' : ''; ?>
-		<?php echo HTML::link_to_action('admin.housekeeping@export_bingos', $year, $year); ?>
+		<?php echo HTML::link_to_action('admin.housekeeping@export_bingos', $year, array($year)); ?>
 	<?php endforeach; ?>)
 	</li>
 </ul>
