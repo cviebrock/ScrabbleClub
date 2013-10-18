@@ -15,8 +15,16 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 	public function get_index()
 	{
 
+		$years = DB::query('SELECT
+			DISTINCT(YEAR(date)) as year
+			FROM bingos
+			ORDER BY year DESC
+		');
+
 		$this->layout->with('title', 'Housekeeping')
-			->nest('content', 'admin.housekeeping.index');
+			->nest('content', 'admin.housekeeping.index', array(
+				'years' => $years
+			));
 
 	}
 
@@ -54,12 +62,15 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 	}
 
 
-	public function get_export_bingos()
+	public function get_export_bingos($year=null)
 	{
 
 		$bingos = Bingo::with(array('player'))
-			->order_by('date','asc')
-			->get();
+			->order_by('date','asc');
+		if ($year) {
+			$bingos->where(DB::raw('YEAR(date)'),'=',$year);
+		}
+		$bingos = $bingos->get();
 
 		$data = '"date","player","player naspa","bingo","phoney","score"' . "\n";
 
