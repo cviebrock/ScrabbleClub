@@ -20,7 +20,7 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 			FROM bingos
 			ORDER BY year DESC
 		');
-		$years = array_pluck($years, 'year');
+		$years = array_pluck($q, 'year');
 
 		$this->layout->with('title', 'Housekeeping')
 			->nest('content', 'admin.housekeeping.index', array(
