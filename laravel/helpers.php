@@ -560,9 +560,9 @@ function render_each($partial, array $data, $iterator, $empty = 'raw|')
  * @param  string  $section
  * @return string
  */
-function yield($section)
+function yeeld($section)
 {
-	return Laravel\Section::yield($section);
+	return Laravel\Section::yeeld($section);
 }
 
 /**
@@ -584,7 +584,7 @@ function get_cli_option($option, $default = null)
 
 	return value($default);
 }
-	
+
 /**
  * Calculate the human-readable file size (with proper units).
  *
