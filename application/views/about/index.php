@@ -30,7 +30,6 @@
 			<li>New players have the option of being provided with a list of allowable 2- and 3-letter words, until they are comfortable playing without it.</li>
 			<li>Usually 4 games are played per night, however sometimes you can squeeze in 5 games.</li>
 			<li>Tournament quality equipment is provided, plus some players bring their own.</li>
-			<li>Canned drinks are available for $.50 each, and for food you bring your own.</li>
 		</ul>
 
 		<p>
@@ -49,7 +48,7 @@
 			<li>Linda Pearn at 204-253-8978 or <?php echo HTML::mailto('lpearn@mts.net','via email'); ?></li>
 			<li>Julie Kading at 204-257-4742 or <?php echo HTML::mailto('jkading@shaw.ca','via email'); ?></li>
 			<li>Darlene McBride at 204-489-5418 or <?php echo HTML::mailto('darmc@shaw.ca','via email'); ?></li>
-			<li>Harold Stone at 204=339-5460 or <?php echo HTML::mailto('h_stone@shaw.ca','via email'); ?></li>
+			<li>Harold Stone at 204-339-5460 or <?php echo HTML::mailto('h_stone@shaw.ca','via email'); ?></li>
 			<li>Brian Williams at 204-489-0682 (evenings) or <?php echo HTML::mailto('thewall812@yahoo.com','via email'); ?></li>
 		</ul>
 
