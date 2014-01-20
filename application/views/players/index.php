@@ -65,7 +65,11 @@ foreach ($players as $player) {
 			$rankings['ratio'][$player->id] = $ratio;
 			$rankings['average_score'][$player->id] = $player->average_score;
 			$rankings['best_score'][$player->id] = $player->best_score;
-			$rankings['bingos'][$player->id] = $bingo ? $bingo->num_played / $player->games_played : 0;
+			if ($player->games_played && $bingo) {
+				$rankings['bingos'][$player->id] = $bingo->num_played / $player->games_played;
+			} else {
+				$rankings['bingos'][$player->id] = 0;
+			}
 			$rankings['phoniness'][$player->id] = $bingo ? $bingo->phoniness : 0;
 		}
 
@@ -87,7 +91,7 @@ foreach ($players as $player) {
 		echo '<td class="numeric r_best_score">' . $player->best_score . '</td>';
 		// echo '<td class="numeric">' . $player->best_spread . '</td>';
 
-		echo '<td class="numeric r_bingos">' . ($bingo ? sprintf('%.2f', $bingo->num_played / $player->games_played) : '&mdash;') . '</td>';
+		echo '<td class="numeric r_bingos">' . ($bingo && $player->games_played ? sprintf('%.2f', $bingo->num_played / $player->games_played) : '&mdash;') . '</td>';
 		echo '<td class="numeric r_phoniness">' . ($bingo ? sprintf('%.1f%%',100*$bingo->phoniness) : '&mdash;') . '</td>';
 
 		echo "</tr>\n";

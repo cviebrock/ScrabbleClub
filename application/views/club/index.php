@@ -30,7 +30,7 @@
 		<tr>
 			<th class="span3 horizontal-header">Average Games/Night</th>
 			<td class="span1 numeric"><?php
-if ($overall['total_dates']) {
+if ((int)$overall['total_dates']) {
 	echo round($overall['total_games']/$overall['total_dates']);
 } else {
 	echo '&mdash;';
@@ -60,7 +60,7 @@ if ($overall['total_dates']) {
 		<tr>
 			<th class="span3 horizontal-header">Bingo Phoniness</th>
 			<td class="span1 numeric"><?php
-if ($overall['total_bingos']) {
+if ((int)$overall['total_bingos']) {
 	printf('%.1f%%', 100*(1-$overall['valid_bingos']/$overall['total_bingos']) );
 } else {
 	echo '&mdash;';

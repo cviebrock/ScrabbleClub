@@ -75,7 +75,7 @@ foreach ($ratings as $rating) {
 		echo '<td>' . HTML::link_to_action('players@details', $rating->player->fullname, array($rating->player->id) ) . '</td>';
 		echo '<td class="numeric">' . $rating->starting_rating . '</td>';
 		echo '<td class="numeric">' . $rating->games_played . '</td>';
-		if ($rating->games_played) {
+		if ((int)$rating->games_played) {
 			echo '<td class="numeric">' . round($rating->total_opp_ratings / $rating->games_played) . '</td>';
 		} else {
 			echo '<td>&mdash;</td>';
