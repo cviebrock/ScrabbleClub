@@ -70,6 +70,7 @@ class Players_Controller extends Base_Controller {
 		} else {
 			// no games
 
+			$min_games_played = 0;
 			$players = array();
 			$bingos = array();
 			$ratings = array();
