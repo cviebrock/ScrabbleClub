@@ -160,7 +160,7 @@ foreach($rankings as $what=>$values) {
 });
 </script>
 
-<? else: // no players ?>
+<?php else: // no players ?>
 
 <p>
 	There are no statistics available for this time period.
