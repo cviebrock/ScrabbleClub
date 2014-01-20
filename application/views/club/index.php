@@ -50,7 +50,7 @@ if ((int)$overall['total_dates']) {
 		<tr>
 			<th class="span3 horizontal-header">Average Bingos/Game</th>
 			<td class="span1 numeric"><?php
-	if ($overall['total_games']) {
+	if ((int)$overall['total_games']) {
 		printf('%.1f', $overall['total_bingos']/$overall['total_games'] );
 	} else {
 		echo '&mdash;';
