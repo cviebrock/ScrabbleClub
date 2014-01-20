@@ -6,6 +6,8 @@
 	</h1>
 </div>
 
+<?php if($all_bingos->total): ?>
+
 <h2>All Bingos</h2>
 
 <table class="table table-condensed table-auto">
@@ -256,3 +258,12 @@ $(function() {
 });
 
 </script>
+
+
+<?php else: ?>
+
+<p>
+	There are no statistics available for this time period.
+</p>
+
+<?php endif; ?>
