@@ -144,6 +144,7 @@ if ((int)$overall['total_bingos']) {
 <script type="text/javascript">
 $(function() {
 
+<?php if(count($attendance)): ?>
 	var chart = new Highcharts.Chart({
 		chart: {
 			renderTo: 'graph_attendance',
@@ -222,6 +223,8 @@ $year = $date->format('Y');
 			]
 		}]
 	});
+
+<?php endif; ?>
 });
 
 </script>
