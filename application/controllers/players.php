@@ -13,58 +13,68 @@ class Players_Controller extends Base_Controller {
 			->take(1)
 			->first();
 
-		$players = DB::query('SELECT
-			p.id,
-			CONCAT (p.firstname," ",p.lastname) AS fullname,
-			COUNT(g.id) AS games_played,
-			SUM(IF(g.spread>0,1,0)) AS wins,
-			SUM(IF(g.spread=0,1,0)) AS ties,
-			SUM(IF(g.spread<0,1,0)) AS losses,
-			ROUND(AVG(g.player_score)) AS average_score,
-			ROUND(AVG(g.opponent_score)) AS average_opponent_score,
-			ROUND(AVG(g.spread)) AS average_spread,
-			MAX(g.player_score) AS best_score,
-			MAX(g.spread) AS best_spread
-			FROM players p
-				LEFT JOIN games g ON (p.id=g.player_id)
-			WHERE YEAR(g.date)=' . $year . '
-			GROUP BY p.id
-			HAVING games_played>0
-			ORDER BY games_played DESC
-		');
+		if ($lastgame) {
 
-		$total_games = Game::where(DB::raw('YEAR(date)'), '=', $year)
-			->count() / 2;
-		$min_games_played = Input::get('min_games', floor( $total_games / count($players) ) );
+			$players = DB::query('SELECT
+				p.id,
+				CONCAT (p.firstname," ",p.lastname) AS fullname,
+				COUNT(g.id) AS games_played,
+				SUM(IF(g.spread>0,1,0)) AS wins,
+				SUM(IF(g.spread=0,1,0)) AS ties,
+				SUM(IF(g.spread<0,1,0)) AS losses,
+				ROUND(AVG(g.player_score)) AS average_score,
+				ROUND(AVG(g.opponent_score)) AS average_opponent_score,
+				ROUND(AVG(g.spread)) AS average_spread,
+				MAX(g.player_score) AS best_score,
+				MAX(g.spread) AS best_spread
+				FROM players p
+					LEFT JOIN games g ON (p.id=g.player_id)
+				WHERE YEAR(g.date)=' . $year . '
+				GROUP BY p.id
+				HAVING games_played>0
+				ORDER BY games_played DESC
+			');
 
-		$temp = DB::query('SELECT
-			player_id,
-			COUNT(word) AS num_played,
-			SUM(1-valid)/COUNT(word) AS phoniness
-			FROM bingos
-			WHERE YEAR(date)=' . $year . '
-			GROUP BY player_id
-		');
+			$total_games = Game::where(DB::raw('YEAR(date)'), '=', $year)
+				->count() / 2;
+			$min_games_played = Input::get('min_games', floor( $total_games / count($players) ) );
 
-		$bingos = array();
-		foreach($temp as $data) {
-			$bingos[ $data->player_id ] = $data;
+			$temp = DB::query('SELECT
+				player_id,
+				COUNT(word) AS num_played,
+				SUM(1-valid)/COUNT(word) AS phoniness
+				FROM bingos
+				WHERE YEAR(date)=' . $year . '
+				GROUP BY player_id
+			');
+
+			$bingos = array();
+			foreach($temp as $data) {
+				$bingos[ $data->player_id ] = $data;
+			}
+
+			$temp = DB::query('SELECT
+				r1.player_id, r1.ending_rating
+				FROM ratings r1
+					LEFT JOIN ratings r2 ON (
+				 		r1.player_id = r2.player_id AND r1.date < r2.date
+				 	)
+				WHERE r2.id IS NULL
+				ORDER BY r1.player_id
+			');
+			$ratings = array();
+			foreach($temp as $data) {
+				$ratings[ $data->player_id ] = $data;
+			}
+
+		} else {
+			// no games
+
+			$players = array();
+			$bingos = array();
+			$ratings = array();
+
 		}
-
-		$temp = DB::query('SELECT
-			r1.player_id, r1.ending_rating
-			FROM ratings r1
-				LEFT JOIN ratings r2 ON (
-			 		r1.player_id = r2.player_id AND r1.date < r2.date
-			 	)
-			WHERE r2.id IS NULL
-			ORDER BY r1.player_id
-		');
-		$ratings = array();
-		foreach($temp as $data) {
-			$ratings[ $data->player_id ] = $data;
-		}
-
 
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
