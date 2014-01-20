@@ -15,6 +15,8 @@
 	</h1>
 </div>
 
+<?php if( count($players)): ?>
+
 <table class="table table-striped table-bordered sortable">
 	<thead class="small">
 		<tr>
@@ -125,7 +127,6 @@ foreach ($players as $player) {
 
 </div>
 
-
 <script>
 
 $(function() {
@@ -158,3 +159,11 @@ foreach($rankings as $what=>$values) {
 
 });
 </script>
+
+<? else: // no players ?>
+
+<p>
+	There are no statistics available for this time period.
+</p>
+
+<?php endif; ?>
