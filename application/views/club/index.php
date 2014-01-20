@@ -29,7 +29,12 @@
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Average Games/Night</th>
-			<td class="span1 numeric"><?php echo round($overall['total_games']/$overall['total_dates']); ?></td>
+			<td class="span1 numeric"><?php
+if ($overall['total_dates']) {
+	echo round($overall['total_games']/$overall['total_dates']);
+} else {
+	echo '&mdash;';
+} ?></td>
 			<td class="span3"></td>
 		</tr>
 		<tr>
@@ -44,12 +49,22 @@
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Average Bingos/Game</th>
-			<td class="span1 numeric"><?php printf('%.1f', $overall['total_bingos']/$overall['total_games'] ); ?></td>
+			<td class="span1 numeric"><?php
+	if ($overall['total_games']) {
+		printf('%.1f', $overall['total_bingos']/$overall['total_games'] );
+	} else {
+		echo '&mdash;';
+	} ?></td>
 			<td class="span3 help-text">both players combined</td>
 		</tr>
 		<tr>
 			<th class="span3 horizontal-header">Bingo Phoniness</th>
-			<td class="span1 numeric"><?php printf('%.1f%%', 100*(1-$overall['valid_bingos']/$overall['total_bingos']) ); ?></td>
+			<td class="span1 numeric"><?php
+if ($overall['total_bingos']) {
+	printf('%.1f%%', 100*(1-$overall['valid_bingos']/$overall['total_bingos']) );
+} else {
+	echo '&mdash;';
+} ?></td>
 			<td class="span3"></td>
 		</tr>
 	</tbody>
