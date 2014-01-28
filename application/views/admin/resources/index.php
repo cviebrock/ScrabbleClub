@@ -17,7 +17,9 @@
 <?php
 foreach ($resourcegroups as $group) {
 		echo '<tr>';
-		echo '<td>' . HTML::link_to_action('admin.resources@index', $group->title, array($group->id) ) . '</td>';
+		echo '<td>' . HTML::link_to_action('admin.resources@index', $group->title, array($group->id) ) .
+			($group->private ? ' <i class="icon-lock"></i>' : '') .
+			'</td>';
 		echo '<td>' . $group->resources()->count() . '</td>';
 		echo '<td><div class="sc_actions btn-group">' .
 			action_link_to_route('admin.resources@sort_group', '', array('up',$group->id),   'small|arrow-up', ($group->sort_order == $first_group ? array('disabled') : array() )  ) .

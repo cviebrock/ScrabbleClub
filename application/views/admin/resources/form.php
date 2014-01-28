@@ -25,6 +25,10 @@ echo Form::field('textarea', 'description', 'Description',
 	array('error' => $resource->error('description'))
 );
 
+echo Form::field('labelled_checkbox', 'active', 'Active?',
+	array('Yes', 1, $resource->active)
+);
+
 ?>
 
 <h3>Choose One</h3>

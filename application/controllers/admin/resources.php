@@ -61,6 +61,7 @@ class Admin_Resources_Controller extends Base_Controller {
 
 		$group->fill(array(
 			'title'      => Input::get('title'),
+			'private'    => Input::get('private',0),
 			'sort_order' => Resourcegroup::last_sort() + 1,
 		));
 
@@ -104,6 +105,7 @@ class Admin_Resources_Controller extends Base_Controller {
 
 		$group->fill(array(
 			'title'      => Input::get('title'),
+			'private'    => Input::get('private',0),
 		));
 
 
@@ -231,6 +233,7 @@ class Admin_Resources_Controller extends Base_Controller {
 			'resourcegroup_id' => $group_id,
 			'title'            => Input::get('title'),
 			'description'      => Input::get('description'),
+			'active'           => Input::get('active',0),
 			'sort_order'       => Resource::last_sort() + 1,
 		));
 
@@ -285,6 +288,7 @@ class Admin_Resources_Controller extends Base_Controller {
 		$resource->fill(array(
 			'title'       => Input::get('title'),
 			'description' => Input::get('description'),
+			'active'      => Input::get('active',0),
 		));
 
 		$newfile = Input::file('url_file');

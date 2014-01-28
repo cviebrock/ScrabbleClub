@@ -18,6 +18,10 @@ echo Form::field('text', 'title', 'Group Title',
 	array('error' => $group->error('title'))
 );
 
+echo Form::field('labelled_checkbox', 'private', 'Private?',
+	array('Yes, make this group private', 1, $group->private)
+);
+
 echo Form::actions(array(
 	Form::submit($submit_text, array('class' => 'btn-primary')),
 	action_link_to_route('admin.resources', 'Back to Resource Groups List', array(), 'arrow-left')

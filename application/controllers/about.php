@@ -16,6 +16,7 @@ class About_Controller extends Base_Controller {
 	{
 
 		$resourcegroups = Resourcegroup::with(array('resources'))
+			->where('private','=',0)
 			->order_by('sort_order','asc')->get();
 
 		$this->layout->with('title', 'Resources & Links')

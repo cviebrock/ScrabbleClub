@@ -178,8 +178,7 @@ class Home_Controller extends Base_Controller {
 	function get_download($id, $localfile, $filename) {
 
 		if ( $resource = Resource::find($id) ) {
-
-			if ( $resource->is_file && $resource->localfile==$localfile && $resource->filename==$filename) {
+			if ( $resource->is_file() && $resource->localfile==$localfile && $resource->filename==$filename) {
 				return Response::download( path('uploads').$resource->localfile, $resource->filename, array(
 					'Content-Type' => File::mime(File::extension($resource->filename)),
 				));
