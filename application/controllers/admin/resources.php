@@ -253,6 +253,8 @@ class Admin_Resources_Controller extends Base_Controller {
 				->with('success', 'Resource "' . $resource->title . '" added.');
 		}
 
+		$resource->delete_file();
+
 		$this->layout->with('title', 'New Resource')
 			->nest('content', 'admin.resources.form', array(
 				'resource'    => $resource,
