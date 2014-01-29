@@ -178,7 +178,7 @@ define('TITLE_DELIM', ' | ');
 
 require path('app').'libraries'.DS.'helpers.php';
 
-set_path('uploads', path('storage').'uploads'.DS);
+set_path('uploads', path('app').'../../shared/uploads'.DS);
 
 
 Autoloader::map(array(
