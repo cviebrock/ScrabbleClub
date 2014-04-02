@@ -65,7 +65,7 @@ Route::controller('admin.news');
 Route::get('admin/resources/(:num)', array('uses' => 'admin.resources@index') );
 Route::controller('admin.resources');
 
-
+Route::controller('wordlists');
 
 /*
 |--------------------------------------------------------------------------
