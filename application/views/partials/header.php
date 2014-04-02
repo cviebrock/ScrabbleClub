@@ -15,7 +15,6 @@
 						<ul class="dropdown-menu">
 							<li><?php echo HTML::link_to_action('about', 'About the Club'); ?></li>
 							<li><?php echo HTML::link_to_action('news', 'News Archive'); ?></li>
-							<li><?php echo HTML::link_to_action('about@resources', 'Resources & Links'); ?></li>
 						</ul>
 					</li>
 
@@ -25,6 +24,14 @@
 							<li><?php echo HTML::link_to_action('club', 'Club Statistics'); ?></li>
 							<li><?php echo HTML::link_to_action('players', 'Players'); ?></li>
 							<li><?php echo HTML::link_to_action('bingo', 'Bingos'); ?></li>
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo HTML::link_to_action('about@resources', 'Resources & Links'); ?></li>
+							<li><?php echo HTML::link_to_action('wordlists', 'Wordlists'); ?></li>
 						</ul>
 					</li>
 

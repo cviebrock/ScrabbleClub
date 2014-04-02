@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Six-Letter Stem - <?php echo $stem; ?>+?</h1>
+	<h1>Stem List - <?php echo $stem; ?>+?</h1>
 </div>
 
 <table class="table table-striped table-bordered sortable table-auto">
