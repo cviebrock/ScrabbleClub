@@ -4,7 +4,7 @@
 
 <div class="row">
 
-	<div class="span6">
+	<div class="span7">
 
 		<h2>Location</h2>
 
@@ -15,8 +15,13 @@
 
 		<p>
 			The club meets every Thursday evening 6:30 &ndash; 10:00 p.m. at the
-			Kenaston Village Recreation Centre, 516 Kenaston Boulevard, Winnipeg, MB
-			(northeast corner of Grant and Kenaston, behind the strip mall).
+			Canadian Mennonite University - South Campus, Room C09,
+			600 Shaftsbury Boulevard, Winnipeg, MB
+			(on the south-west corner of Grant and Shaftsbury).
+		</p>
+		<p>
+		  Parking is available in the "N" lot of the campus.  The university is also served by
+			<?php echo HTML::link('http://winnipegtransit.com/en/routes/find?location=600+shaftsbury&location_id=&commit=Submit', 'Winnipeg Transit', array('target'=>'_blank')); ?>.
 		</p>
 
 
@@ -66,8 +71,11 @@
 	</div>
 
 
-	<div class="span6">
-		<iframe width="380" height="380" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.ca/maps?client=safari&amp;oe=UTF-8&amp;q=516+Kenaston+Boulevard&amp;ie=UTF8&amp;hq=&amp;hnear=516+Kenaston+Blvd,+Winnipeg,+Division+No.+11,+Manitoba+R3N+1Z1&amp;gl=ca&amp;t=m&amp;ll=49.86604,-97.202911&amp;spn=0.021023,0.03253&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.ca/maps?client=safari&amp;oe=UTF-8&amp;q=516+Kenaston+Boulevard&amp;ie=UTF8&amp;hq=&amp;hnear=516+Kenaston+Blvd,+Winnipeg,+Division+No.+11,+Manitoba+R3N+1Z1&amp;gl=ca&amp;t=m&amp;ll=49.86604,-97.202911&amp;spn=0.021023,0.03253&amp;z=14&amp;iwloc=A&amp;source=embed" style="text-align:left" target="_blank">View Larger Map</a></small>
+	<div class="span5">
+		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2572.2273989219248!2d-97.23167515211485!3d49.8569729301699!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52ea74b64be04721%3A0x7bbf4524b6bee8d6!2s600+Shaftesbury+Blvd%2C+Canadian+Mennonite+University%2C+Winnipeg%2C+MB+R3P!5e0!3m2!1sen!2sca!4v1417325488588" width="380" height="380" frameborder="0" style="border:0"></iframe>
+		<p>
+			<img src="/img/cmu.jpg" alt="Canadian Mennonite University Campus Map" width="380" height="691" />
+		</p>
 	</div>
 
 
