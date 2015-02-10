@@ -2,6 +2,7 @@
 
 <div class="page-header">
 	<h1>
+		<?php echo $player->fullname; ?>
 		<span class="subhead"><?php echo $year ? 'For '.$year : 'All games'; ?></span>
 	</h1>
 </div>
