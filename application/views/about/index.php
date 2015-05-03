@@ -28,7 +28,7 @@
 		<h2>Club Rules</h2>
 
 		<ul>
-			<li>There are no membership requirements. Fee is $3.00 per night.</li>
+			<li>There are no membership requirements. Fee is $4.00 per night or $40.00 for ten nights (preferred).</li>
 			<li>North American Scrabble&reg; Players Association rules are followed, but are relaxed for new players.</li>
 			<li>Clocks are used with each player getting 25 minutes for their turns.</li>
 			<li>A computer word judge (e.g. <?php echo HTML::link('http://zyzzyva.net/','Zyzzyva',array('target'=>'_blank')); ?>) or dictionaries are consulted when a play is challenged.</li>
@@ -60,7 +60,8 @@
 <?php if( $url = Config::get('facebook.url') ): ?>
 		<h2>Like Us on Facebook</h2>
 		<p>
-			Visit our Facebook page at <?php echo HTML::link($url, deprotofy($url), array('target'=>'_blank')); ?> and be sure to like us!
+			Visit our Facebook page at <?php echo HTML::link($url, deprotofy($url), array('target'=>'_blank')); ?>
+			and be sure to like us!
 		</p>
 		<div class="fb-like" data-href="<?php echo $url; ?>"
 		 data-send="true" data-width="450" data-show-faces="true"></div>
