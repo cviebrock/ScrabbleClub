@@ -76,7 +76,7 @@ class Admin_Housekeeping_Controller extends Base_Controller {
 		$data = '"date","player","player naspa","bingo","phoney","score"' . "\n";
 
 		foreach($bingos as $bingo) {
-			$data .= sprintf('"%s","%s","%s","%s","%s"',
+			$data .= sprintf('"%s","%s","%s","%s","%s", %d',
 				$bingo->date,
 				$bingo->player,
 				$bingo->player->naspa_id,
