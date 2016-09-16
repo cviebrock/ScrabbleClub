@@ -17,7 +17,9 @@ if ($.tablesorter) {
 		id: 'sc_date',
 		is: function(s) { return false; },
 		format: function(s) {
-			return Date.parse(s)/1000;
+			var n = Date.parse(s);
+			if (isNaN(n)) return 0;
+			return n;
 		},
 		type: 'numeric'
 	});
