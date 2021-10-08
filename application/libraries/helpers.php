@@ -142,7 +142,7 @@ function find_subwords($word, $min_length=0, $max_length=false) {
 			$b = sprintf("%0".$count."b",$i);
 			$out = array();
 			for ($j = 0; $j < $count; $j++) {
-				 if ($b{$j} == '1') $out[] = $word[$j];
+				 if ($b[$j] == '1') $out[] = $word[$j];
 			}
 			if (count($out)>=$min_length) {
 				if ($max_length===false || count($out)<=$max_length) {
