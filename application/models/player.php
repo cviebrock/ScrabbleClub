@@ -51,13 +51,13 @@ class Player extends BaseModel {
 			$r = array_pop($ratings);
 			return $r->ending_rating;
 		}
-		return 1200;
+		return Config::get('scrabble.initial_rating');
 	}
 
 	public function rating_before_date($date)
 	{
 		$ratings = $this->ratings;
-		$r = 1200;
+		$r = Config::get('scrabble.initial_rating');
 
 		if (count($ratings)) {
 			foreach($ratings as $rating) {

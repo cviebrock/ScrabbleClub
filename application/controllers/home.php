@@ -188,5 +188,11 @@ class Home_Controller extends Base_Controller {
 		return Response::error('404');
 	}
 
+	public function get_privacy()
+	{
+		$this->layout->with('title', 'Privacy Policy')
+			->nest('content', 'home.privacy');
+	}
+
 
 }

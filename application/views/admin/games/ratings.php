@@ -43,7 +43,7 @@ foreach ($ratings as $rating) {
 
 <?php echo action_link_to_route('admin.games@index', 'Back to Games List', array(), 'arrow-left'); ?>
 
-
+<?php echo action_link_to_route('admin.games@clear_ratings', 'Clear Ratings', array($date), 'remove', ['class'=>'btn btn-warning'] ); ?>
 
 <script>
 $(document).ready( function() {

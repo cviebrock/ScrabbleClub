@@ -94,6 +94,7 @@ echo Form::field('textarea', 'bingo_list', 'Bingos',
 		'autocorrect'    => 'off',
 		'autocomplete'   => 'off',
 		'autocapitalize' => 'off',
+    'spellcheck'     => 'false',
 	)),
 	array('error' => (
 		$gameform->error('bingo_list') ? join('<br>',$gameform->error('bingo_list')) : ''

@@ -44,10 +44,12 @@ Route::any('logout',   array('as'=>'logout',   'uses'=>'home@logout')   );
 Route::get('download/(:num)/(:any)/(:all)', array('as'=>'download', 'uses'=>'home@download') );
 Route::any('/',        array('as'=>'home',     'uses'=>'home@index')    );
 
+Route::any('privacy',    array('as'=>'privacy',    'uses'=>'home@privacy')    );
+
 Route::controller('about');
 
 Route::controller('ajax');
-Route::get('ajax/games/(:num)/(:num)', array( 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
+Route::get('ajax/games/(:num)/(:num)', array( 'https' => true, 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
 
 Route::controller('bingo');
 Route::controller('club');
@@ -151,12 +153,12 @@ Route::filter('auth', function()
 
 View::composer('base', function($view)
 {
-	Asset::container('head')->add('html5shim','http://html5shim.googlecode.com/svn/trunk/html5.js');
-	Asset::container('head')->add('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+#	Asset::container('head')->add('html5shim','https://html5shim.googlecode.com/svn/trunk/html5.js');
+	Asset::container('head')->add('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
 	Asset::container('head')->add('sc', 'css/scrabbleclub.css');
 
 
-#	Asset::add('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+#	Asset::add('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
 	Asset::add('bootstrap', 'js/bootstrap.min.js', 'jquery');
 	Asset::add('app', 'js/scrabbleclub.min.js', 'jquery');
 

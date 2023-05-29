@@ -33,7 +33,7 @@ return array(
 	|
 	*/
 
-	'key' => 'winnipeg.scrabbleclub',
+	'key' => 'crs.scrabbleclub',
 
 	/*
 	|--------------------------------------------------------------------------

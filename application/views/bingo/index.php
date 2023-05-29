@@ -54,7 +54,7 @@
 				<tr <?php echo ($bingo->valid ? '' : ' class="phoney"'); ?>>
 					<td>
 						<i class="<?php echo $bingo->valid ? 'icon-ok' : 'icon-remove'; ?> icon-fade"></i>
-						<?php echo $bingo->word; ?>
+						<?php echo strtoupper($bingo->word); ?>
 					</td>
 					<td class="numeric"><?php echo ($bingo->times_played ? $bingo->times_played : '&mdash;'); ?></td>
 					<td class="numeric"><?php echo ($bingo->average_score ? $bingo->average_score : '&mdash;'); ?></td>

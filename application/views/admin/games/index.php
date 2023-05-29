@@ -27,7 +27,7 @@ foreach ($games as $game) {
 		echo '<td class="numeric">' . $game->complete_games . '</td>';
 		echo '<td class="numeric ' . $class . '">' . $game->unmatched_games . '</td>';
 		echo '<td><ul class="sc_actions">';
-		echo '<li>' . action_link_to_route('admin.games@bydate', 'View', array($game->date), 'small|search' ) . '</li>';
+		echo '<li>' . action_link_to_route('admin.games@bydate', 'View Games', array($game->date), 'small|search' ) . '</li>';
 		if (!$game->unmatched_games) {
 			if (array_key_exists($game->date, $ratings) &&
 				$ratings[$game->date]->players == $game->players &&
@@ -54,11 +54,11 @@ foreach ($games as $game) {
 $(document).ready( function() {
 
 	$('table.sortable').tablesorter({
-		sortList: [[0,1]],
 		headers: {
-			0: { sorter: 'sc_date' },
-			4: { sorter: false }
-		}
+			0: { sorter: 'sc_date' }
+//			4: { sorter: false }
+		},
+		sortList: [[0,1]]
 	});
 
 });

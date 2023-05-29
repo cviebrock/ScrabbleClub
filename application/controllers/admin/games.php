@@ -72,6 +72,11 @@ class Admin_Games_Controller extends Base_Controller {
 
 		$matched_games = $unmatched_games = $seen = array();
 
+if (count($temp)==0) {
+    return Redirect::to_action('admin.games@index')
+        ->with('success', 'No games exist on "' . format_date($date) . '".');
+}
+
 
 $x = array_pluck($temp,'id');
 $games = index_array( Game::with(array('player','opponent'))->where_in('id', $x )->get() );
@@ -439,6 +444,38 @@ $games = index_array( Game::with(array('player','opponent'))->where_in('id', $x 
 				'ratings' => $ratings,
 			));
 
+	}
+
+	public function get_clear_ratings($date)
+	{
+
+		$latestDate = Rating::order_by('date', 'DESC')
+				->first();
+
+		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
+
+		$this->layout->with('title', 'Clear Ratings')
+			->nest('content', 'admin.games.clear_ratings', array(
+				'date' => $date,
+				'latest_date' => $latestDate->date,
+			));
+
+	}
+
+	public function post_clear_ratings($date)
+	{
+
+		if ( !Input::get('confirm') ) {
+			return Redirect::to_action('admin.games@clear_ratings', array($date))
+				->with('warning', 'Ratings not cleared &mdash; confirmation not checked.');
+		}
+
+		// first remove all ratings on or after this date
+
+		Rating::where('date','>=',$date)->delete();
+
+		return Redirect::to_action('admin.games@index')
+			->with('success', 'Ratings cleared.');
 	}
 
 }

@@ -2,6 +2,7 @@
 
 <div class="page-header">
 	<h1>
+		<?php echo $player->fullname; ?>
 		<span class="subhead"><?php echo $year ? 'For '.$year : 'All games'; ?></span>
 	</h1>
 </div>
@@ -148,7 +149,7 @@
 		<tr>
 			<th class="span3 horizontal-header">Number</th>
 			<td class="span4"><?php echo $player->naspa_id; ?>
-				<a href="http://www.cross-tables.com/players.php?query=<?php echo HTML::entities($player->fullname); ?>"
+				<a href="https://www.cross-tables.com/players.php?query=<?php echo HTML::entities($player->fullname); ?>"
 					class="pull-right" target="_blank"><i class="icon-share-alt icon-small" title="search on cross-tables.com"></i></a>
 			</td>
 		</tr>

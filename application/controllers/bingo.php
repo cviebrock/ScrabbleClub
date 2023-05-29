@@ -54,25 +54,46 @@ class Bingo_Controller extends Base_Controller {
 			$bingos = $temp->take(30)
 				->get(array('bingos.*','validwords.playability'));
 
+			$temp = 'SELECT bingos.word,
+					bingos.valid,
+					 validwords.playability,
+					 COUNT(bingos.word) AS times_played,
+					 ROUND(AVG(bingos.score)) AS average_score
+				 FROM bingos LEFT JOIN validwords ON bingos.word = validwords.word ' .
+				($year ? 'WHERE YEAR(date) = ?' : '') . '
+				 GROUP BY bingos.word, bingos.valid, validwords.playability
+				 ORDER BY times_played DESC, 
+					average_score DESC
+				 LIMIT 15';
+
+			if ($year) {
+				$commonest = DB::query($temp, array($year));
+			} else {
+				$commonest = DB::query($temp);
+			}
+
+			/*
 			$temp = Bingo::with('player')
 				->left_join('validwords', 'bingos.word', '=', 'validwords.word')
 				->order_by('times_played','desc')
-				->order_by('average_score','desc')
-				->group_by('bingos.word');
+				->order_by('average_score','desc');
 
 			if ($year) {
 				$temp->where(DB::raw('YEAR(date)'),'=',$year);
 			}
+			
 
 			$commonest = $temp
 				// ->having('times_played','>',2)
+				->group_by('bingos.word, validwords.playability')
 				->take(15)
 				->get(array(
-					'bingos.*',
+					'bingos.word',
 					'validwords.playability',
 					DB::raw('COUNT(bingos.word) AS times_played'),
 					DB::raw('ROUND(AVG(bingos.score)) AS average_score'),
 				));
+			*/
 
 			$q = array();
 			$alpha = range('a','z');
@@ -104,7 +125,7 @@ class Bingo_Controller extends Base_Controller {
 				RIGHT(UPPER(word),1) AS r1
 				FROM bingos' .
 				($year ? ' WHERE YEAR(date) = ?' : '') . '
-				GROUP BY r3
+				GROUP BY r3, r2, r1
 				ORDER BY r3, count DESC
 			';
 

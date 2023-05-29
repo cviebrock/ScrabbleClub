@@ -32,7 +32,9 @@ class Bingo extends BaseModel {
 
 	public function save() {
 		$this->word = strtolower($this->word);
-		$this->valid = ValidWord::where('word','=',$this->word)->count();
+		$this->valid = ValidWord::where('word','=',$this->word)
+			->where('wordlist','=',Config::get('scrabble.current_wordlist'))
+			->count();
 		return parent::save();
 	}
 

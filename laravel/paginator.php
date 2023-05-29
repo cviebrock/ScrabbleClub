@@ -388,7 +388,7 @@ class Paginator {
 	 	// implementation of sorting or other things the developer may need.
 		if ( ! is_null($this->appendage)) return $this->appendage;
 
-		if (count($appends) <= 0)
+		if (!is_array($appends) || count($appends) <= 0)
 		{
 			return $this->appendage = '';
 		}

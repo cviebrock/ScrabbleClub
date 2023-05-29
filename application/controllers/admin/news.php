@@ -19,14 +19,14 @@ class Admin_News_Controller extends Base_Controller {
 
 		return Cache::remember('fb.albums', function() {
 
-			$fb = Ioc::resolve('facebook');
+			// $fb = Ioc::resolve('facebook');
 
-			$temp = $fb->api('/'.Config::get('facebook.uid').'/albums', 'GET', array('fields'=>'id,count,name,description') );
+			// $temp = $fb->api('/'.Config::get('facebook.uid').'/albums', 'GET', array('fields'=>'id,count,name,description') );
 
 			$albums = array(0=>'None');
-			foreach($temp['data'] as $v) {
-				$albums[ $v['id'] ] = $v['name'] . ' (' . pluralize( 'picture', $v['count'] ) . ')';
-			}
+			// foreach($temp['data'] as $v) {
+			// 	$albums[ $v['id'] ] = $v['name'] . ' (' . pluralize( 'picture', $v['count'] ) . ')';
+			// }
 
 			return $albums;
 		}, 10 );

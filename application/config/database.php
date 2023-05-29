@@ -69,10 +69,10 @@ return array(
 
 		'mysql' => array(
 			'driver'   => 'mysql',
-			'host'     => ini_get('mysql.default_host'),
+			'host'     => 'localhost',
 			'database' => 'scrabbleclub',
 			'username' => 'scrabble',
-			'password' => ini_get('mysql.default_password'),
+			'password' => $_SERVER['MYSQL_PASS'],
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),

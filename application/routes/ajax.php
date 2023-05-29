@@ -1,6 +1,6 @@
 <?php
 
-Route::get('ajax/players', array( 'as'=>'ajax_players', 'before' => 'ajax', function()
+Route::get('ajax/players', array( 'https' => true, 'as'=>'ajax_players', 'before' => 'ajax', function()
 {
 
 	$players = Player::all();
@@ -15,7 +15,7 @@ Route::get('ajax/players', array( 'as'=>'ajax_players', 'before' => 'ajax', func
 
 }));
 
-Route::get('ajax/games/(:num)/vs/(:num?)', array( 'as'=>'ajax_one_on_one', 'before' => 'ajax', function($player_id,$opponent_id=null)
+Route::get('ajax/games/(:num)/vs/(:num?)', array( 'https' => true, 'as'=>'ajax_one_on_one', 'before' => 'ajax', function($player_id,$opponent_id=null)
 {
 
 // the second arg isn't really optional, but if it isn't specified this way,

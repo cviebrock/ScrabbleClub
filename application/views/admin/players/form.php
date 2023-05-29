@@ -40,7 +40,7 @@ echo Form::field('text', 'naspa_id', 'NASPA ID',
 	array($player->naspa_id, array('class'=>'span2')),
 	array(
 		'post_field' => ' ' . HTML::link(
-			'http://scrabbleplayers.org/cgi-bin/members.pl?' . http_build_query($naspa),
+			'https://scrabbleplayers.org/cgi-bin/members.pl?' . http_build_query($naspa),
 			'Lookup',
 			array('class'=>'btn btn-small', 'id'=>'naspa_lookup', 'target'=>'blank')
 		),

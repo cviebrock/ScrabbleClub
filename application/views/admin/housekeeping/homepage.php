@@ -24,7 +24,7 @@ echo Form::field('textarea', 'body', 'Body',
 	array(
 		'error' => $homepage->error('body'),
 		'help' => '<a href="#" id="do-preview">Preview</a> or get help with ' .
-							'<a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>'
+							'<a href="https://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>'
 	)
 );
 
