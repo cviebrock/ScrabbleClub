@@ -4,7 +4,7 @@
 		<h2>Location</h2>
 		<p>
 			Winnipeg Scrabble&reg; Club #498 is a member of the
-			<?php echo HTML::link('https://www.scrabbleplayers.org/', 'North American Scrabble® Players Association', array('target'=>'_blank')); ?> (NASPA).
+			<?php echo HTML::link('http://www.scrabbleplayers.org/', 'North American Scrabble® Players Association', array('target'=>'_blank')); ?> (NASPA).
 		</p>
 		<p>
 			The club meets every Thursday evening 6:30 &ndash; 10:00 p.m. at the
@@ -14,7 +14,7 @@
 		</p>
 		<p>
 		  Parking is available in the "N" lot of the campus.  The university is also served by
-			<?php echo HTML::link('https://winnipegtransit.com/en/routes/find?location=600+shaftsbury&location_id=&commit=Submit', 'Winnipeg Transit', 
+			<?php echo HTML::link('http://winnipegtransit.com/en/routes/find?location=600+shaftsbury&location_id=&commit=Submit', 'Winnipeg Transit', 
 array('target'=>'_blank')); ?>.
 		</p>
 		<h2>Club Rules</h2>
@@ -22,33 +22,13 @@ array('target'=>'_blank')); ?>.
 			<li>There are no membership requirements. Fee is $5.00 per night, or blocks of 5 or 10 nights for $25 or $50 respectively.</li>
 			<li>North American Scrabble&reg; Players Association rules are followed, but are relaxed for new players.</li>
 			<li>Clocks are used with each player getting 25 minutes for their turns in the game.</li>
-			<li>A computer word judge (e.g. <?php echo HTML::link('https://zyzzyva.net/','Zyzzyva',array('target'=>'_blank')); ?>) or dictionaries are consulted when a play is 
+			<li>A computer word judge (e.g. <?php echo HTML::link('http://zyzzyva.net/','Zyzzyva',array('target'=>'_blank')); ?>) or dictionaries are consulted when a play is 
 challenged.</li>
 			<li>New players have the option of being provided with a list of allowable 2- and 3-letter words, until they are comfortable playing without it.</li>
 			<li>Usually 4 games are played per night, with the last 3 games sometimes being a round-robin format.</li>
 			<li>Tournament quality equipment is provided, plus some players bring their own.</li>
 			<li>A fragrance-free environment is encouraged.</li>
 		</ul>
-
-<?php if (false): // covid ?>
-
-<div class="alert alert-danger" style="margin: 2rem 0; color: inherit;">
-<h2>COVID-19 Rules</h2>
-<ul>
-<li>Players must wear a mask at all times in indoor public places.  The mask must be worn in a manner that covers your mouth, nose and chin without gapping.</li>
-<li>Players must be double-vaccinated.  Proof of vaccination will be checked (via MB's QR-code).</li>
-<li>Players are encouraged to use hand sanitizer, provided throughout CMU and in the room during play.  Sanitizing before games and when using the word judge computer is strongly recommended.</li>
-</ul>
-<p>
-If you are not feeling well, or otherwise suspect you may have COVID or another illness <strong>DO NOT ATTEND</strong>.
-</p>
-<p>
-Rules and club play are subject to change due to MB Health directives, CMU policies, and/or club decisions.
-</p>
-</div>
-
-<?php endif; ?>
-
 		<p>
 			Officially sanctioned (NASPA rated) tournaments are held once a year.
 			NASPA requires a membership fee of $30 US upon entering a sanctioned tournament.
@@ -58,12 +38,10 @@ Rules and club play are subject to change due to MB Health directives, CMU polic
 			For more information contact any of the following:
 		</p>
 		<ul>
-			<li>Julie Kading at 204-257-4742 or <?php echo HTML::mailto('jkading@shaw.ca','jkading@shaw.ca'); ?></li>
+			<li>Linda Pearn at 204-253-8978 or <?php echo HTML::mailto('lpearn@mts.net','via email'); ?></li>
+			<li>Julie Kading at 204-257-4742 or <?php echo HTML::mailto('jkading@shaw.ca','via email'); ?></li>
 			<li>Colin Viebrock at <?php echo HTML::mailto('colin@winnipeg.scrabbleclub.org','colin@winnipeg.scrabbleclub.org'); ?></li>
-			<li>Linda Pearn at <?php echo HTML::mailto('lpearn@mts.net','lpearn@mts.net'); ?></li>
-		</ul>
-
-<?php if( $url = Config::get('facebook.url') ): ?>
+		</ul> <?php if( $url = Config::get('facebook.url') ): ?>
 		<h2>Like Us on Facebook</h2>
 		<p>
 			Visit our Facebook page at <?php echo HTML::link($url, deprotofy($url), array('target'=>'_blank')); ?>
