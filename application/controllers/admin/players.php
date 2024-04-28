@@ -31,6 +31,7 @@ class Admin_Players_Controller extends Base_Controller {
 	{
 
 		$player = new Player;
+		$player->initial_rating = Config::get('scrabble.initial_rating');
 
 		$this->layout->with('title', 'New Player')
 			->nest('content', 'admin.players.form', array(
@@ -51,8 +52,9 @@ class Admin_Players_Controller extends Base_Controller {
 			'firstname'    => Input::get('firstname'),
 			'lastname'     => Input::get('lastname'),
 			'email'        => Input::get('email'),
-			'naspa_id'     => Input::get('naspa_id'),
-			'naspa_rating' => Input::get('naspa_rating'),
+			'initial_rating' => Input::get('initial_rating') ?: Config::get('scrabble.initial_rating'),
+			'naspa_id'     => Input::get('naspa_id') ?: null,
+			'naspa_rating' => Input::get('naspa_rating') ?: null,
 		));
 
 
@@ -76,7 +78,18 @@ class Admin_Players_Controller extends Base_Controller {
 
 
 		if ($player->is_valid()) {
+			$initial_rating = $player->initial_rating;
+			unset($player->initial_rating);
+
 			$player->save();
+
+			$rating = new Rating([
+                            'date'          => date('Y-m-d'),
+                            'player_id'     => $player->id,
+                            'ending_rating' => $initial_rating,
+                        ]);
+                        $rating->save();
+
 			return Redirect::to_action('admin.players')
 				->with('success', 'Player "' . $player->fullname . '" added.');
 		}
@@ -87,6 +100,7 @@ class Admin_Players_Controller extends Base_Controller {
 				'player'      => $player,
 				'title'       => 'New Player',
 				'submit_text' => 'Add Player',
+				'mode' => 'new',
 			));
 
 	}

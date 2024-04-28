@@ -24,6 +24,7 @@ class Player extends BaseModel {
 	public $rules = array(
 		'firstname'    => 'required|max:64',
 		'lastname'     => 'required|max:64',
+		'initial_rating' => 'integer',
 		'email'        => 'email|unique:players|max:64',
 		'naspa_rating' => 'integer',
 	);

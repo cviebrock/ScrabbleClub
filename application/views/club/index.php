@@ -179,12 +179,15 @@ $(function() {
 		},
 		xAxis: {
 <?php
+$end = end($attendance);
 $first = reset($attendance);
-$date = new DateTime($first->date);
-$year = $date->format('Y');
+$firstDate = new DateTime($first->date);
+$endDate = new DateTime($end->date);
+$firstYear = $firstDate->format('Y');
+$endYear = $endDate->format('Y');
 ?>
-			min: Date.UTC(<?php echo $year; ?>,0,1),
-			max: Date.UTC(<?php echo $year+1; ?>,0,1),
+			min: Date.UTC(<?php echo $firstYear; ?>,0,1),
+			max: Date.UTC(<?php echo $endYear+1; ?>,0,1),
 			minRange: 1000*60*60*24*365  // one year
 		},
 		yAxis: {

@@ -29,7 +29,9 @@ array('target'=>'_blank')); ?>.
 			<li>A fragrance-free environment is encouraged.</li>
 		</ul>
 
-<div class="alert alert-warning" style="margin: 2rem 0; color: inherit;">
+<?php if (false): // covid ?>
+
+<div class="alert alert-danger" style="margin: 2rem 0; color: inherit;">
 <h2>COVID-19 Rules</h2>
 <?php /*
 <ul>
@@ -49,28 +51,33 @@ Rules and club play are subject to change due to MB Health directives, CMU polic
 </p>
 </div>
 
-<h2>Tournaments</h2>
+<?php endif; ?>
+
+    <h2>Tournaments</h2>
 		<p>
-			Officially sanctioned (NASPA rated) tournaments are held once a year.
-			NASPA requires a membership fee of $30 US upon entering a sanctioned tournament.
+			Officially sanctioned tournaments are usually held once a year.  Check our <a href="/news">News page</a> or
+      <a href="#" class="ml-onclick-form" onclick="ml('show', 'TKTo7i', true)">subscribe to our mailing list</a>
+      for any announcements.
 		</p>
 
-<h2>Mailing List</h2>
-<p>To keep up-to-date on club play, upcoming tournaments, and closures
-(e.g. over holidays, etc.), <a href="#" class="ml-onclick-form"
-        onclick="ml('show', 'TKTo7i', true)">subscribe to our mailing list</a>.
-(We only send out notices once every few months, but you can always unsubscribe at any time.)
-        </p>
+    <h2>Mailing List</h2>
+    <p>
+      To keep up-to-date on club play, upcoming tournaments, and closures (e.g. over holidays, etc.),
+      <a href="#" class="ml-onclick-form" onclick="ml('show', 'TKTo7i', true)">subscribe to our mailing list</a>.
+      (We only send out notices once every few months, but you can always unsubscribe at any time.)
+    </p>
 
 		<h2>Contact</h2>
 		<p>
 			For more information contact any of the following:
 		</p>
 		<ul>
-			<li>Linda Pearn at 204-253-8978 or <?php echo HTML::mailto('lpearn@mts.net','via email'); ?></li>
-			<li>Julie Kading at 204-257-4742 or <?php echo HTML::mailto('jkading@shaw.ca','via email'); ?></li>
+			<li>Julie Kading at 204-257-4742 or <?php echo HTML::mailto('jkading@shaw.ca','jkading@shaw.ca'); ?></li>
+			<li>Blair Rutter at 204-298-6961 or <?php echo HTML::mailto('blairrutter@shaw.ca','blairrutter@shaw.ca'); ?></li>
 			<li>Colin Viebrock at <?php echo HTML::mailto('colin@winnipeg.scrabbleclub.org','colin@winnipeg.scrabbleclub.org'); ?></li>
-		</ul> <?php if( $url = Config::get('facebook.url') ): ?>
+		</ul>
+
+<?php if( $url = Config::get('facebook.url') ): ?>
 		<h2>Like Us on Facebook</h2>
 		<p>
 			Visit our Facebook page at <?php echo HTML::link($url, deprotofy($url), array('target'=>'_blank')); ?>

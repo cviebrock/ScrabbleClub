@@ -102,6 +102,7 @@ class Home_Controller extends Base_Controller {
 				'date'     => $date,
 				'sidebar'  => $sidebar,
 				'news'     => $news,
+				'showMailingListButton' => true
 			))
 			->nest('fb', 'partials.facebook', array(
 				'fb' => Config::get('facebook')

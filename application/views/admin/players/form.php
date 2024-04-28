@@ -28,6 +28,18 @@ echo Form::field('email', 'email', 'Email Address',
 	array('error' => $player->error('email'))
 );
 
+echo Form::field('number', 'initial_rating', 'Initial Rating',
+	array($player->initial_rating, array('class'=>'span1')),
+	array('error' => $player->error('initial_rating'))
+);
+
+?>
+
+<h2>NASPA Information</h2>
+<p>Optional information about the player's NASPA membership.</p>
+
+<?php
+
 $naspa = array(
 	'naspa_profile_search_key_given'   => $player->firstname,
 	'naspa_profile_search_key_surname' => $player->lastname,

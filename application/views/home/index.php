@@ -44,15 +44,18 @@
 
 	<div class="span4">
 
-	<div class="sidebar">
-		<h3>Join our Mailing List</h3>
-<button class="ml-onclick-form btn btn-primary"
-	style="width: 100%; margin-top: 0.5rem;"
-	onclick="ml('show', 'TKTo7i', true)">Sign Up</button>
-	</div>
+<?php if ($showMailingListButton): ?>
+<div class="mailing-list">
+	<button class="btn btn-primary btn-large ml-onclick-form"
+		style="width: 100%; margin-top: 20px;"
+		onclick="ml('show', 'TKTo7i', true)"
+	>
+		Signup to our mailing list
+	</button>
+</div>
+<?php endif; ?>
 
 	<div class="sidebar">
-
 		<?php if ($date): ?>
 
 		<h3>
@@ -134,6 +137,5 @@
 
 	</div>
 	</div>
-
 
 </div>
