@@ -33,6 +33,19 @@ echo Form::field('number', 'opponent_score', 'Opponent Score',
 	array('error' => $game->error('opponent_score'))
 );
 
+if ($game->matching_game) {
+?>
+
+<div class="control-group">
+  <label for="update_match" class="control-label">Update matched game?</label>
+  <div class="controls">
+    <label class="radio"><input type="radio" name="update_match" value="update" checked="checked"> Yes, update the matched game as well</label>
+    <label class="radio"><input type="radio" name="update_match" value="unmatch"> No, unmatch the game</label>
+  </div>
+</div>
+
+<?php
+}
 
 
 echo Form::actions(array(

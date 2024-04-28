@@ -64,7 +64,8 @@ foreach ($matched_games as $game) {
 		echo '<td class="numeric">' . $game->opponent_score . '</td>';
 		echo '<td class="numeric">' . $game->spread . '</td>';
 		echo '<td><ul class="sc_actions">' .
-#			HTML::link_to_route('view_games', 'view', array($game->date) ) .
+			'<li>' . action_link_to_route('admin.games@edit', 'edit', array($game->id), 'small|pencil' ) . '</li>' .
+#			'<li>' . action_link_to_route('admin.games@delete', 'delete', array($game->id), 'small|remove' ) . '</li>' .
 		 '</ul></td>';
 		echo "<tr>\n";
 }

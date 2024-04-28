@@ -38,6 +38,8 @@ class Home_Controller extends Base_Controller {
 			return $homepage->render;
 		}, 86400 );
 
+		Asset::container('head')->add('ml', 'js/mailerlite.js');
+
 		$news = News::where('active','=',true)
 			->order_by('date','desc')
 			->take(3)

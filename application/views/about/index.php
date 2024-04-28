@@ -7,7 +7,7 @@
 			<?php echo HTML::link('https://www.scrabbleplayers.org/', 'North American Scrabble® Players Association', array('target'=>'_blank')); ?> (NASPA).
 		</p>
 		<p>
-			The club meets every Thursday evening 6:30 &ndash; 10:00 p.m. at the
+			The club meets every Thursday evening 6:00 &ndash; 10:00 p.m. at the
 			Canadian Mennonite University - South Campus, Room C09,
 			600 Shaftsbury Boulevard, Winnipeg, MB
 			(on the south-west corner of Grant and Shaftsbury).
@@ -19,23 +19,28 @@ array('target'=>'_blank')); ?>.
 		</p>
 		<h2>Club Rules</h2>
 		<ul>
-			<li>There are no membership requirements. Fee is $5.00 per night, or blocks of 5 or 10 nights for $25 or $50 respectively.</li>
+			<li>There are no membership requirements. Fee is $6.00 per night, or blocks of 5 or 10 nights for $30 or $60 respectively.</li>
 			<li>North American Scrabble&reg; Players Association rules are followed, but are relaxed for new players.</li>
 			<li>Clocks are used with each player getting 25 minutes for their turns in the game.</li>
-			<li>A computer word judge (e.g. <?php echo HTML::link('https://zyzzyva.net/','Zyzzyva',array('target'=>'_blank')); ?>) or dictionaries are consulted when a play is 
-challenged.</li>
+			<li>A computer word judge (e.g. <?php echo HTML::link('https://www.scrabbleplayers.org/w/NASPA_Zyzzyva:_The_Last_Word_in_Word_Study','Zyzzyva',array('target'=>'_blank')); ?>) or dictionaries are consulted when a play is challenged.</li>
 			<li>New players have the option of being provided with a list of allowable 2- and 3-letter words, until they are comfortable playing without it.</li>
 			<li>Usually 4 games are played per night, with the last 3 games sometimes being a round-robin format.</li>
 			<li>Tournament quality equipment is provided, plus some players bring their own.</li>
 			<li>A fragrance-free environment is encouraged.</li>
 		</ul>
-<div class="alert alert-danger" style="margin: 2rem 0; color: inherit;">
+
+<div class="alert alert-warning" style="margin: 2rem 0; color: inherit;">
 <h2>COVID-19 Rules</h2>
+<?php /*
 <ul>
 <li>Players must wear a mask at all times in indoor public places.  The mask must be worn in a manner that covers your mouth, nose and chin without gapping.</li>
 <li>Players must be double-vaccinated.  Proof of vaccination will be checked (via MB's QR-code).</li>
 <li>Players are encouraged to use hand sanitizer, provided throughout CMU and in the room during play.  Sanitizing before games and when using the word judge computer is strongly recommended.</li>
 </ul>
+*/ ?>
+<p>
+Masks are optional.
+</p>
 <p>
 If you are not feeling well, or otherwise suspect you may have COVID or another illness <strong>DO NOT ATTEND</strong>.
 </p>
@@ -43,10 +48,20 @@ If you are not feeling well, or otherwise suspect you may have COVID or another 
 Rules and club play are subject to change due to MB Health directives, CMU policies, and/or club decisions.
 </p>
 </div>
+
+<h2>Tournaments</h2>
 		<p>
 			Officially sanctioned (NASPA rated) tournaments are held once a year.
 			NASPA requires a membership fee of $30 US upon entering a sanctioned tournament.
 		</p>
+
+<h2>Mailing List</h2>
+<p>To keep up-to-date on club play, upcoming tournaments, and closures
+(e.g. over holidays, etc.), <a href="#" class="ml-onclick-form"
+        onclick="ml('show', 'TKTo7i', true)">subscribe to our mailing list</a>.
+(We only send out notices once every few months, but you can always unsubscribe at any time.)
+        </p>
+
 		<h2>Contact</h2>
 		<p>
 			For more information contact any of the following:

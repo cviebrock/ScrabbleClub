@@ -60,6 +60,12 @@ foreach ($resourcegroups as $group) {
 		<tr>
 			<td>
 				<?php echo $resource->title; ?>
+<?php if ($resource->active): ?>
+ <span class="label label-success pull-right">Active</span>
+<?php else: ?>
+ <span class="label pull-right">Inactive</span>
+<?php endif; ?>
+
 				<div class="help-text"><?php echo $resource->downloadlink; ?></div>
 			</td>
 			<td><div class="sc_actions btn-group">

@@ -14,7 +14,7 @@
 	<h1>
 		<?php echo $item->title; ?>
 		<span class="subhead">
-			<?php echo $item->formatted_date; ?> | <?php echo $item->author; ?>
+			<?php echo $item->formatted_date; /* . ' | ' . $item->author; */ ?>
 			<?php if ( $item->fb_album ): ?>
 				| <i class="icon-picture"></i>
 			<?php endif; ?>
@@ -42,7 +42,16 @@
 
 	</div>
 
-	<div class="span4 sidebar">
+	<div class="span4">
+
+	<div class="sidebar">
+		<h3>Join our Mailing List</h3>
+<button class="ml-onclick-form btn btn-primary"
+	style="width: 100%; margin-top: 0.5rem;"
+	onclick="ml('show', 'TKTo7i', true)">Sign Up</button>
+	</div>
+
+	<div class="sidebar">
 
 		<?php if ($date): ?>
 
@@ -124,7 +133,7 @@
 		<?php endif; ?>
 
 	</div>
-
+	</div>
 
 
 </div>

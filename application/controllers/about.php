@@ -5,6 +5,8 @@ class About_Controller extends Base_Controller {
 	public function get_index()
 	{
 
+		Asset::container('head')->add('ml', 'js/mailerlite.js');
+
 		$this->layout->with('title', 'About')
 			->nest('content', 'about.index')
 			->nest('fb', 'partials.facebook', array(

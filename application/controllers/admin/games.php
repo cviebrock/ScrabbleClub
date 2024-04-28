@@ -241,9 +241,44 @@ $games = index_array( Game::with(array('player','opponent'))->where_in('id', $x 
 		Session::put('last_date', $game->date);
 
 		$game->save();
+
+    $match = Game::find($game->matching_game);
+
+    if (Input::get('update_match')==='update') {
+      try {
+        $match->date = $game->date;
+        $match->player_id = $game->opponent_id;
+        $match->player_score = $game->opponent_score;
+		    $match->opponent_id = $game->player_id;
+		    $match->opponent_score = $game->player_score;
+        $match->matching_game = $game->id;
+        $match->save();
+
+  			return Redirect::to_action('admin.games@bydate', array($game->date) )
+	  			->with('success', 'Game and matching game edited.');
+      } catch ( Exception $e ) {
+  			return Redirect::to_action('admin.games@edit', array($game->id) )
+	  			->with('warning', 'Game edited, but error updating matching game ('.$e->getMessage().').');
+      }
+    } elseif (Input::get('update_match')==='unmatch') {
+      try {
+        $game->matching_game = 0;
+        $game->save();
+        $match->matching_game = 0;
+        $match->save();
+
+  			return Redirect::to_action('admin.games@bydate', array($game->date) )
+	  			->with('success', 'Game editied and unmatched.');
+      } catch ( Exception $e ) {
+  			return Redirect::to_action('admin.games@edit', array($game->id) )
+	  			->with('warning', 'Game edited, but error unmatching ('.$e->getMessage().').');
+      }
+    }
+
+
 		if ($game->match_game()) {
 			return Redirect::to_action('admin.games@bydate', array($game->date) )
-				->with('success', 'Game edited and matched.');
+				->with('success', 'Game edited and auto-matched.');
 		} else {
 			return Redirect::to_action('admin.games@edit', array($game->id) )
 				->with('success', 'Game edited.');

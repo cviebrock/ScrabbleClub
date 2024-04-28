@@ -1,6 +1,7 @@
 # Capistrano
 Capfile
 config/*
+REVISION
 
 # Numerous always-ignore extensions
 *.diff
@@ -39,7 +40,9 @@ dwsync.xml
 intermediate
 publish
 .idea
+.well-known
 
 # Others
 *.sql
 temp
+
