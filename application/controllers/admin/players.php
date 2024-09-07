@@ -52,7 +52,7 @@ class Admin_Players_Controller extends Base_Controller {
 			'firstname'    => Input::get('firstname'),
 			'lastname'     => Input::get('lastname'),
 			'email'        => Input::get('email'),
-			'initial_rating' => Input::get('initial_rating') ?: Config::get('scrabble.initial_rating'),
+			'initial_rating' => Input::get('initial_rating'),
 			'naspa_id'     => Input::get('naspa_id') ?: null,
 			'naspa_rating' => Input::get('naspa_rating') ?: null,
 		));
