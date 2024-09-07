@@ -28,11 +28,16 @@ echo Form::field('email', 'email', 'Email Address',
 	array('error' => $player->error('email'))
 );
 
-echo Form::field('number', 'initial_rating', 'Initial Rating',
-	array($player->initial_rating, array('class'=>'span1')),
-	array('error' => $player->error('initial_rating'))
-);
-
+if ($mode === 'new') {
+  echo Form::field('number', 'initial_rating', 'Initial Rating',
+	  array($player->initial_rating, array('class'=>'span1')),
+	  array('error' => $player->error('initial_rating'))
+  );
+} else {
+  echo Form::field('text', 'initial_rating', 'Initial Rating',
+	  array('Inital ratings can not be changed', array('class'=>'span4','disabled'=>'disabled'))
+  );
+}
 ?>
 
 <h2>NASPA Information</h2>

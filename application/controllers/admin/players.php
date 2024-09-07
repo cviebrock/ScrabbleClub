@@ -52,7 +52,6 @@ class Admin_Players_Controller extends Base_Controller {
 			'firstname'    => Input::get('firstname'),
 			'lastname'     => Input::get('lastname'),
 			'email'        => Input::get('email'),
-			'initial_rating' => Input::get('initial_rating'),
 			'naspa_id'     => Input::get('naspa_id') ?: null,
 			'naspa_rating' => Input::get('naspa_rating') ?: null,
 		));
@@ -78,17 +77,16 @@ class Admin_Players_Controller extends Base_Controller {
 
 
 		if ($player->is_valid()) {
-			$initial_rating = $player->initial_rating;
-			unset($player->initial_rating);
+			$initial_rating = Input::get('initial_rating') ?? Config::get('scrabble.initial_rating');
 
 			$player->save();
 
 			$rating = new Rating([
-                            'date'          => date('Y-m-d'),
-                            'player_id'     => $player->id,
-                            'ending_rating' => $initial_rating,
-                        ]);
-                        $rating->save();
+        'date'          => '1970-01-01',
+        'player_id'     => $player->id,
+        'ending_rating' => $initial_rating,
+      ]);
+      $rating->save();
 
 			return Redirect::to_action('admin.players')
 				->with('success', 'Player "' . $player->fullname . '" added.');

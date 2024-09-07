@@ -6,5 +6,5 @@ return array(
 	'current_year' => date('Y'),
 	'current_wordlist' => 'wow24',
 
-	'initial_rating' => 800
+	'initial_rating' => 1000
 );
