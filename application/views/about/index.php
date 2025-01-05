@@ -1,5 +1,7 @@
 <div class="page-header">
-	<h1>About the Club</h1> </div> <div class="row">
+	<h1>About the Club</h1>
+</div>
+<div class="row">
 	<div class="span7">
 		<h2>Location</h2>
 		<p>
@@ -7,7 +9,7 @@
 			<?php echo HTML::link('https://www.scrabbleplayers.org/', 'North American Scrabble® Players Association', array('target'=>'_blank')); ?> (NASPA).
 		</p>
 		<p>
-			The club meets every Thursday evening 6:00 &ndash; 10:00 p.m. at the
+			The club meets every Thursday evening 6:15 &ndash; 10:00 p.m. at the
 			Canadian Mennonite University - South Campus, Room C09,
 			600 Shaftsbury Boulevard, Winnipeg, MB
 			(on the south-west corner of Grant and Shaftsbury).
@@ -33,13 +35,11 @@ array('target'=>'_blank')); ?>.
 
 <div class="alert alert-danger" style="margin: 2rem 0; color: inherit;">
 <h2>COVID-19 Rules</h2>
-<?php /*
 <ul>
 <li>Players must wear a mask at all times in indoor public places.  The mask must be worn in a manner that covers your mouth, nose and chin without gapping.</li>
 <li>Players must be double-vaccinated.  Proof of vaccination will be checked (via MB's QR-code).</li>
 <li>Players are encouraged to use hand sanitizer, provided throughout CMU and in the room during play.  Sanitizing before games and when using the word judge computer is strongly recommended.</li>
 </ul>
-*/ ?>
 <p>
 Masks are optional.
 </p>
@@ -74,7 +74,6 @@ Rules and club play are subject to change due to MB Health directives, CMU polic
 		<ul>
 			<li>Julie Kading at 204-257-4742 or <?php echo HTML::mailto('jkading@shaw.ca','jkading@shaw.ca'); ?></li>
 			<li>Blair Rutter at 204-298-6961 or <?php echo HTML::mailto('blairrutter@shaw.ca','blairrutter@shaw.ca'); ?></li>
-			<li>Colin Viebrock at <?php echo HTML::mailto('colin@winnipeg.scrabbleclub.org','colin@winnipeg.scrabbleclub.org'); ?></li>
 		</ul>
 
 <?php if( $url = Config::get('facebook.url') ): ?>
@@ -87,8 +86,7 @@ Rules and club play are subject to change due to MB Health directives, CMU polic
 		 data-send="true" data-width="450" data-show-faces="true"></div> <?php endif; ?>
 	</div>
 	<div class="span5">
-		<iframe 
-src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2572.2273989219248!2d-97.23167515211485!3d49.8569729301699!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52ea74b64be04721%3A0x7bbf4524b6bee8d6!2s600+Shaftesbury+Blvd%2C+Canadian+Mennonite+University%2C+Winnipeg%2C+MB+R3P!5e0!3m2!1sen!2sca!4v1417325488588" 
+		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2572.2273989219248!2d-97.23167515211485!3d49.8569729301699!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x52ea74b64be04721%3A0x7bbf4524b6bee8d6!2s600+Shaftesbury+Blvd%2C+Canadian+Mennonite+University%2C+Winnipeg%2C+MB+R3P!5e0!3m2!1sen!2sca!4v1417325488588" 
 width="380" height="380" frameborder="0" style="border:0"></iframe>
 		<p>
 			<img src="/img/cmu.jpg" alt="Canadian Mennonite University Campus Map" width="380" height="691" />
