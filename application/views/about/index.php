@@ -9,7 +9,7 @@
 			<?php echo HTML::link('https://www.scrabbleplayers.org/', 'North American Scrabble® Players Association', array('target'=>'_blank')); ?> (NASPA).
 		</p>
 		<p>
-			The club meets every Thursday evening 6:15 &ndash; 10:00 p.m. at the
+			The club meets every Thursday evening 6:15 &ndash; 9:30 p.m. at the
 			Canadian Mennonite University - South Campus, Room C09,
 			600 Shaftsbury Boulevard, Winnipeg, MB
 			(on the south-west corner of Grant and Shaftsbury).
