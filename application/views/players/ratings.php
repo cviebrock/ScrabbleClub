@@ -25,6 +25,9 @@
 	<tbody>
 <?php
 foreach ($ratings as $rating) {
+    if ($rating->date === '1970-01-01') {
+      continue;
+    }
 
 		$delta = $rating->ending_rating - $rating->starting_rating;
 
@@ -32,7 +35,13 @@ foreach ($ratings as $rating) {
 		echo '<td>' . format_date($rating->date) . '</td>';
 		echo '<td class="numeric">' . $rating->starting_rating . '</td>';
 		echo '<td class="numeric">' . $rating->games_played . '</td>';
-		echo '<td class="numeric">' . round($rating->total_opp_ratings / $rating->games_played) . '</td>';
+		echo '<td class="numeric">';
+    if ($rating->games_played == 0) {
+      echo '-';
+    } else {
+      echo round($rating->total_opp_ratings / $rating->games_played);
+    }
+    echo '</td>';
 		echo '<td class="numeric">' . $rating->expected_wins . '</td>';
 		echo '<td class="numeric">' . $rating->games_won . '</td>';
 		echo '<td class="numeric">' . $rating->kfactor . '</td>';
