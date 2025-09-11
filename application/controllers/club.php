@@ -3,10 +3,10 @@
 class Club_Controller extends Base_Controller {
 
 
-	public function get_index()
+	public function get_index($year = null)
 	{
 
-		$year = Input::get('year',null);
+		//$year = Input::get('year',null);
 
 		$overall = array();
 
@@ -153,7 +153,13 @@ class Club_Controller extends Base_Controller {
 
 		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
 
+    $canonical = 'club';
+    if ($year) {
+      $canonical .= '/' . $year;
+    }
+
 		$this->layout->with('title', 'Club Statistics')
+      ->with('canonical', $canonical)
 			->nest('content', 'club.index', array(
 				'year'        => $year,
 				'overall'     => $overall,
@@ -231,6 +237,7 @@ class Club_Controller extends Base_Controller {
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 
 		$this->layout->with('title', 'Game Night Summary'.TITLE_DELIM.$date)
+      ->with('canonical', '/club/summary/'.$date)
 			->nest('content', 'club.summary', array(
 				'date'      => $date,
 				'all_dates' => $all_dates,

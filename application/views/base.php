@@ -24,6 +24,9 @@
 	<?php echo Asset::container('head')->styles(); ?>
 	<?php echo Asset::styles(); ?>
 	<?php echo Asset::container('head')->scripts(); ?>
+  <?php if (isset($canonical)): ?>
+    <link rel="canonical" href="<?php echo URL::to($canonical); ?>">
+  <?php endif; ?>
 </head>
 <body>
 	<?php echo isset($fb) ? $fb : ''; ?>

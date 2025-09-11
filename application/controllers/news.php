@@ -12,6 +12,7 @@ class News_Controller extends Base_Controller {
 
 
 		$this->layout->with('title', 'News Archive')
+      ->with('canonical', 'news')
 			->nest('content', 'news.index', array(
 				'news'    => $news,
 			));
@@ -32,6 +33,7 @@ class News_Controller extends Base_Controller {
 		Asset::container('head')->add('fancybox', 'css/fancybox.css');
 
 		$this->layout->with('title', $item->title)
+      ->with('canonical', 'news/'.$item->id.'/'.$item->slug)
 			->nest('content', 'news.item', array(
 				'item'    => $item,
 			));

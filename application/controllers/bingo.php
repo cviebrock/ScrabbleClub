@@ -3,10 +3,8 @@
 class Bingo_Controller extends Base_Controller {
 
 
-	public function get_index()
+	public function get_index($year = null)
 	{
-
-		$year = Input::get('year', null);
 
 		$temp = 'SELECT
 			COUNT(word) AS total,
@@ -367,6 +365,7 @@ class Bingo_Controller extends Base_Controller {
 		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
 
 		$this->layout->with('title', 'Bingo Statistics')
+      ->with('canonical', 'bingo' . ($year ? '/'.$year : ''))
 			->nest('content', 'bingo.index', array(
 				'year'        => $year,
 				'all_bingos'  => $all_bingos,

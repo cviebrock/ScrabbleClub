@@ -1,4 +1,9 @@
-<?php echo View::make('partials.year_picker')->with('year', $year)->render(); ?>
+<?php
+echo View::make('partials.year_picker')
+  ->with('year', $year)
+  ->with('path', 'club')
+  ->render();
+?>
 
 <div class="page-header">
 	<h1>Club Statistics

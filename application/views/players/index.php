@@ -1,4 +1,10 @@
-<?php echo View::make('partials.year_picker')->with('year', $year)->with('hide_all',true)->render(); ?>
+<?php
+echo View::make('partials.year_picker')
+  ->with('year', $year)
+  ->with('path', 'players')
+  ->with('hide_all',true)
+  ->render();
+?>
 
 <div class="page-header">
 	<h1>

@@ -3,10 +3,12 @@
 class Players_Controller extends Base_Controller {
 
 
-	public function get_index()
+	public function get_index($year = null)
 	{
 
-		$year = Input::get('year', Config::get('scrabble.current_year') );
+		if ($year === null) {
+      $year = Config::get('scrabble.current_year');
+    }
 
 		$lastgame = Game::order_by('date', 'desc')
 			->where(DB::raw('YEAR(date)'), '=', $year)
@@ -81,6 +83,7 @@ class Players_Controller extends Base_Controller {
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
 		$this->layout->with('title', 'Players')
+      ->with('canonical', 'players/'.$year)
 			->nest('content', 'players.index', array(
 				'min_games_played' => $min_games_played,
 				'lastgame'         => $lastgame,
@@ -92,6 +95,7 @@ class Players_Controller extends Base_Controller {
 
 	}
 
+/*
 	public function get_slug($slug)
 	{
 		$player = Player::where(DB::raw('CONCAT(firstname,"-",lastname)'),'=',$slug)
@@ -100,15 +104,13 @@ class Players_Controller extends Base_Controller {
 		print_r($player);
 		die;
 	}
+*/
 
 
-
-	public function get_details($id)
+	public function get_details($id, $year = null)
 	{
 
 		$player = Player::find($id);
-
-		$year = Input::get('year', null);
 
 		$temp = DB::query(
 			'SELECT DISTINCT(YEAR(date)) AS year
@@ -255,8 +257,8 @@ class Players_Controller extends Base_Controller {
 
 		Asset::add('highcharts', 'js/highcharts/highcharts.js', 'jquery');
 
-
 		$this->layout->with('title', $player->fullname)
+      ->with('canonical', 'players/'.$player->id . '/details'. ($year ? '/'.$year : ''))
 			->nest('content', 'players.details', array(
 				'player'        => $player,
 				'ratings'       => $year ? $player->ratings()->where(DB::raw('YEAR(date)'),'=',$year)->get() : $player->ratings,
@@ -277,12 +279,10 @@ class Players_Controller extends Base_Controller {
 	}
 
 
-	public function get_bingos($id)
+	public function get_bingos($id, $year = null)
 	{
 
 		$player = Player::find($id);
-
-		$year = Input::get('year', null);
 
 		$temp = Bingo::left_join('validwords', 'bingos.word', '=', 'validwords.word')
 			->where('player_id','=',$id);
@@ -298,6 +298,7 @@ class Players_Controller extends Base_Controller {
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
 		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Bingos')
+      ->with('canonical', 'players/'.$player->id . '/bingos' .($year ? '/'.$year : ''))
 			->nest('content', 'players.bingos', array(
 				'player' => $player,
 				'year'   => $year,
@@ -308,17 +309,16 @@ class Players_Controller extends Base_Controller {
 	}
 
 
-	public function get_games($id)
+	public function get_games($id, $year = null)
 	{
 
 		$player = Player::find($id);
-
-		$year = Input::get('year', null);
 
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
 		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Games')
+      ->with('canonical', 'players/'.$player->id . '/games' . ($year ? '/'.$year : ''))
 			->nest('content', 'players.games', array(
 				'player' => $player,
 				'year'   => $year,
@@ -328,17 +328,16 @@ class Players_Controller extends Base_Controller {
 	}
 
 
-	public function get_ratings($id)
+	public function get_ratings($id, $year = null)
 	{
 
 		$player = Player::find($id);
-
-		$year = Input::get('year', null);
 
 		Asset::add('tablesorter', 'js/jquery.tablesorter.min.js', 'jquery');
 		Asset::add('tablesorter-pager', 'js/jquery.tablesorter.pager.js', 'jquery');
 
 		$this->layout->with('title', $player->fullname.TITLE_DELIM.'Ratings')
+      ->with('canonical', 'players/'.$player->id . '/ratings' .($year ? '/'.$year : ''))
 			->nest('content', 'players.ratings', array(
 				'player'  => $player,
 				'year'    => $year,

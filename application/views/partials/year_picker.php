@@ -16,8 +16,8 @@
 <script type="text/javascript">
 $(function() {
 	$('#year-picker select').on('change', function(e) {
-		var y = parseInt( $(this).val() );
-		location.href=location.pathname + ( y ? '?year='+y : '' );
+		const y = parseInt( $(this).val() );
+		location.href = '/<?php echo $path; ?>' + ( y ? '/'+y : '' );
 	});
 });
 </script>

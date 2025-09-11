@@ -51,13 +51,23 @@ Route::controller('about');
 Route::controller('ajax');
 Route::get('ajax/games/(:num)/(:num)', array( 'https' => true, 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
 
-Route::controller('bingo');
-Route::controller('club');
+Route::get('bingo/(:num?)', array('as'=>'bingo', 'uses'=>'bingo@index'));
+
+Route::get('club/(:num?)', array('as'=>'club_index', 'uses'=>'club@index'));
+Route::get('club/summary/(:num)', array('as'=>'club_summary', 'uses'=>'club@summary'));
+//Route::controller('club');
 
 Route::get('news/(:num)/(:all?)', array( 'as'=>'news_item', 'uses'=>'news@item' ));
 Route::controller('news');
 
-Route::controller('players');
+Route::get('players', function() {
+  return Redirect::to_route('players', array( Config::get('scrabble.current_year') ) );
+});
+Route::get('players/(:num?)', array('as'=>'players', 'uses'=>'players@index'));
+Route::get('players/(:num)/details/(:num?)', array('as'=>'players.details', 'uses'=>'players@details'));
+Route::get('players/(:num)/games/(:num?)', array('as'=>'players.games', 'uses'=>'players@games'));
+Route::get('players/(:num)/ratings/(:num?)', array('as'=>'players.ratings', 'uses'=>'players@ratings'));
+Route::get('players/(:num)/bingos/(:num?)', array('as'=>'players.bingos', 'uses'=>'players@bingos'));
 
 Route::controller('admin.games');
 Route::controller('admin.players');

@@ -11,6 +11,7 @@ class Wordlists_Controller extends Base_Controller {
 		);
 
 		$this->layout->with('title', 'Word Lists')
+      ->with('canonical','wordlists')
 			->nest('content', 'wordlists.index', compact('stem67'));
 	}
 
@@ -26,6 +27,7 @@ class Wordlists_Controller extends Base_Controller {
 		}
 
 		$this->layout->with('title', 'Stem List - '.$stem.'+?')
+        ->with('canonical', 'wordlists/'.Str::lower($stem))
 			->nest('content', 'wordlists.stem', compact('stem','words'));
 	}
 

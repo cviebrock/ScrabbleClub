@@ -97,6 +97,7 @@ class Home_Controller extends Base_Controller {
 		}
 
 		$this->layout->with('title', 'Home')
+      ->with('canonical','/')
 			->nest('content', 'home.index', array(
 				'homepage' => $homepage,
 				'date'     => $date,
