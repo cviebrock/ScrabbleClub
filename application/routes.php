@@ -50,12 +50,10 @@ Route::get('privacy',    array('as'=>'privacy',    'uses'=>'home@privacy')    );
 
 Route::controller('about');
 
-//Route::controller('ajax');
-
-Route::get('ajax/players', array('https'=>true, 'as'=>'ajax_players', 'uses'=>'ajax@players'));
-Route::get('ajax/games/(:num)/(:num)', array( 'https' => true, 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
-Route::post('ajax/markdown', array('https'=>true, 'as'=>'ajax_markdown', 'uses'=>'ajax@markdown'));
-Route::post('ajax/bingo_search', array('https'=>true, 'as'=>'ajax_bingo_search', 'uses'=>'ajax@bingo_search'));
+Route::get('ajax/players', array('before'=>'no-index', 'https'=>true, 'as'=>'ajax_players', 'uses'=>'ajax@players'));
+Route::get('ajax/games/(:num)/(:num)', array('before'=>'no-index', 'https' => true, 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
+Route::post('ajax/markdown', array('before'=>'no-index', 'https'=>true, 'as'=>'ajax_markdown', 'uses'=>'ajax@markdown'));
+Route::post('ajax/bingo_search', array('before'=>'no-index', 'https'=>true, 'as'=>'ajax_bingo_search', 'uses'=>'ajax@bingo_search'));
 
 Route::get('bingo/(:num?)', array('as'=>'bingo', 'uses'=>'bingo@index'));
 
@@ -102,11 +100,19 @@ Route::controller('admin.resources');
 
 Event::listen('404', function()
 {
+  header('X-Robots-Tag: noindex');
+  if (Request::ajax()) {
+    return Response::json(['error'=>'404'], 404);
+  }
 	return Response::error('404');
 });
 
 Event::listen('500', function()
 {
+  header('X-Robots-Tag: noindex');
+  if (Request::ajax()) {
+    return Response::json(['error'=>'500'], 500);
+  }
 	return Response::error('500');
 });
 
@@ -158,6 +164,10 @@ Route::filter('auth', function()
 	if (Auth::guest()) return Redirect::to('login');
 });
 
+Route::filter('no-index', function()
+{
+  header('X-Robots-Tag: noindex');
+});
 
 /****************************/
 

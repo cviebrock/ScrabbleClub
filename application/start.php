@@ -176,7 +176,7 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 
 define('TITLE_DELIM', ' | ');
 
-require path('app').'libraries'.DS.'helpers.php';
+require_once path('app').'libraries'.DS.'helpers.php';
 
 set_path('uploads', path('app').'../../../shared/uploads'.DS);
 
