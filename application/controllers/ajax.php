@@ -31,8 +31,6 @@ class Ajax_Controller extends Base_Controller {
 	public function get_games($player_id, $opponent_id, $year=null)
 	{
 
-		// usleep(500000);
-
 		$query = Game::with(array('player','opponent'))
 			->where('player_id','=',$player_id)
 			->where('opponent_id','=',$opponent_id);

@@ -50,9 +50,12 @@ Route::get('privacy',    array('as'=>'privacy',    'uses'=>'home@privacy')    );
 
 Route::controller('about');
 
-Route::controller('ajax');
+//Route::controller('ajax');
 
+Route::get('ajax/players', array('https'=>true, 'as'=>'ajax_players', 'uses'=>'ajax@players'));
 Route::get('ajax/games/(:num)/(:num)', array( 'https' => true, 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
+Route::post('ajax/markdown', array('https'=>true, 'as'=>'ajax_markdown', 'uses'=>'ajax@markdown'));
+Route::post('ajax/bingo_search', array('https'=>true, 'as'=>'ajax_bingo_search', 'uses'=>'ajax@bingo_search'));
 
 Route::get('bingo/(:num?)', array('as'=>'bingo', 'uses'=>'bingo@index'));
 
