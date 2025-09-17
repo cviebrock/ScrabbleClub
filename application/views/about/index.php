@@ -16,8 +16,13 @@
 		</p>
 		<p>
 		  Parking is available in the "N" lot of the campus.  The university is also served by
-			<?php echo HTML::link('https://winnipegtransit.com/en/routes/find?location=600+shaftsbury&location_id=&commit=Submit', 'Winnipeg Transit', 
-array('target'=>'_blank')); ?>.
+			<?php
+        echo HTML::link(
+          'https://winnipegtransit.com/navigo?dateTime=now&destination=addresses/113724',
+          'Winnipeg Transit',
+          array('target'=>'_blank')
+        );
+      ?>.
 		</p>
 		<h2>Club Rules</h2>
 		<ul>

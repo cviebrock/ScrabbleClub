@@ -37,28 +37,30 @@
 // 	return View::make('home.index');
 // });
 
+Route::get('sitemap.xml', array('as'=>'sitemap', 'uses'=>'sitemap@index'));
 
 Route::controller('home');
+
 Route::any('login',    array('as'=>'login',    'uses'=>'home@login')    );
 Route::any('logout',   array('as'=>'logout',   'uses'=>'home@logout')   );
 Route::get('download/(:num)/(:any)/(:all)', array('as'=>'download', 'uses'=>'home@download') );
 Route::any('/',        array('as'=>'home',     'uses'=>'home@index')    );
 
-Route::any('privacy',    array('as'=>'privacy',    'uses'=>'home@privacy')    );
+Route::get('privacy',    array('as'=>'privacy',    'uses'=>'home@privacy')    );
 
 Route::controller('about');
 
 Route::controller('ajax');
+
 Route::get('ajax/games/(:num)/(:num)', array( 'https' => true, 'as'=>'ajax_one_on_one', 'uses'=>'ajax@games' ));
 
 Route::get('bingo/(:num?)', array('as'=>'bingo', 'uses'=>'bingo@index'));
 
 Route::get('club/(:num?)', array('as'=>'club_index', 'uses'=>'club@index'));
-Route::get('club/summary/(:num)', array('as'=>'club_summary', 'uses'=>'club@summary'));
-//Route::controller('club');
+Route::get('club/summary/(:all)', array('as'=>'club_summary', 'uses'=>'club@summary'));
 
+Route::get('news', array( 'as'=>'news_index', 'uses'=>'news@index' ));
 Route::get('news/(:num)/(:all?)', array( 'as'=>'news_item', 'uses'=>'news@item' ));
-Route::controller('news');
 
 Route::get('players', function() {
   return Redirect::to_route('players', array( Config::get('scrabble.current_year') ) );
@@ -69,6 +71,9 @@ Route::get('players/(:num)/games/(:num?)', array('as'=>'players.games', 'uses'=>
 Route::get('players/(:num)/ratings/(:num?)', array('as'=>'players.ratings', 'uses'=>'players@ratings'));
 Route::get('players/(:num)/bingos/(:num?)', array('as'=>'players.bingos', 'uses'=>'players@bingos'));
 
+Route::controller('wordlists');
+
+
 Route::controller('admin.games');
 Route::controller('admin.players');
 Route::controller('admin.bingos');
@@ -76,8 +81,6 @@ Route::controller('admin.housekeeping');
 Route::controller('admin.news');
 Route::get('admin/resources/(:num)', array('uses' => 'admin.resources@index') );
 Route::controller('admin.resources');
-
-Route::controller('wordlists');
 
 /*
 |--------------------------------------------------------------------------

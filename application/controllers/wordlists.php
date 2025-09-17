@@ -2,17 +2,17 @@
 
 class Wordlists_Controller extends Base_Controller {
 
+	const STEM67 = array(
+		'tisane', 'retina', 'satire', 'arsine', 'senior'
+  );
 
 	public function get_index()
 	{
-
-		$stem67 = array(
-			'tisane', 'retina', 'satire', 'arsine', 'senior'
-		);
-
 		$this->layout->with('title', 'Word Lists')
       ->with('canonical','wordlists')
-			->nest('content', 'wordlists.index', compact('stem67'));
+			->nest('content', 'wordlists.index', array(
+        'stem67' => self::STEM67
+      ));
 	}
 
 	public function get_stem($stem)

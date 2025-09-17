@@ -1,7 +1,7 @@
 <div class="no-print" id="year-picker">
 <?php
 
-	$r = range( Config::get('scrabble.first_year'), Config::get('scrabble.current_year') );
+	$r = get_year_range();
 	$years = array_combine($r,$r);
 	if (!isset($hide_all)) {
 		$years[0] = 'All';

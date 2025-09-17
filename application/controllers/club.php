@@ -6,8 +6,6 @@ class Club_Controller extends Base_Controller {
 	public function get_index($year = null)
 	{
 
-		//$year = Input::get('year',null);
-
 		$overall = array();
 
 		$q = 'SELECT
@@ -178,20 +176,10 @@ class Club_Controller extends Base_Controller {
 
 	}
 
-
 	public function get_summary($date)
 	{
 
-		$temp = DB::query('SELECT
-			DISTINCT(date) as date
-			FROM games
-			ORDER BY date DESC
-		');
-
-		$all_dates = array();
-		foreach($temp as $v) {
-			$all_dates[$v->date] = format_date($v->date);
-		}
+		$all_dates = all_game_dates();
 
 		$temp = DB::query('SELECT
 			COUNT(g.id)/2 AS total_games,

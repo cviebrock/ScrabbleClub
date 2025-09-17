@@ -283,3 +283,29 @@ function paragraphs($value, $paragraphs = 2, $end = '...')
 	// return join($chunk[0]);
 
 }
+
+function all_game_dates()
+{
+  $temp = DB::query('SELECT
+      DISTINCT(date) as date
+      FROM games
+      ORDER BY date DESC
+  ');
+
+  $all_dates = array();
+  foreach($temp as $v) {
+    $all_dates[$v->date] = format_date($v->date);
+  }
+
+  return $all_dates;
+}
+
+function get_year_range($reverse = false)
+{
+  $range = range(
+    Config::get('scrabble.first_year'),
+    Config::get('scrabble.current_year')
+  );
+
+  return $reverse ? array_reverse($range) : $range;
+}

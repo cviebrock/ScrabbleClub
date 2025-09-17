@@ -32,11 +32,10 @@ class Home_Controller extends Base_Controller {
 
 	public function get_index()
 	{
-
-		$homepage = Cache::sear('page.home', function() {
+		$homepage = Cache::remember('page.home', function() {
 			$homepage = Page::load('home');
 			return $homepage->render;
-		}, 86400 );
+		}, 1440 );
 
 		Asset::container('head')->add('ml', 'js/mailerlite.js');
 
@@ -97,7 +96,7 @@ class Home_Controller extends Base_Controller {
 		}
 
 		$this->layout->with('title', 'Home')
-      ->with('canonical','/')
+      ->with('canonical','')
 			->nest('content', 'home.index', array(
 				'homepage' => $homepage,
 				'date'     => $date,
@@ -133,6 +132,7 @@ class Home_Controller extends Base_Controller {
 		}
 
 		$this->layout->with('title', 'Login')
+      ->with('canonical','login')
 			->nest('content', 'home.login', array(
 					'auth' => $auth,
 			));
@@ -195,6 +195,7 @@ class Home_Controller extends Base_Controller {
 	public function get_privacy()
 	{
 		$this->layout->with('title', 'Privacy Policy')
+      ->with('canonical','privacy')
 			->nest('content', 'home.privacy');
 	}
 

@@ -127,7 +127,6 @@ foreach ($players as $player) {
 	echo '<label for="min_games">Minimum Games</label> ';
 	echo Form::number('min_games', $min_games_played, array('class'=>'span1')) . ' ';
 	echo Form::submit('Reload', array('class' => 'btn-primary') );
-	echo Form::hidden('year', $year);
 	echo Form::close();
 ?>
 

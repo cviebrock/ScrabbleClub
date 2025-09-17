@@ -96,6 +96,12 @@ class Player extends BaseModel {
 		return $this->complete_games()->where('spread','<',0);
 	}
 
+  public function last_game()  {
+		return $this->games()->where('matching_game','!=',0)
+      ->order_by('date', 'DESC')
+      ->limit(1);
+  }
+
 	public function kfactor($date) {
 		$games = $this->complete_games()
 			->where('date','<',$date)

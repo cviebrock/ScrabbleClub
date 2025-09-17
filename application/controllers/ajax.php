@@ -23,7 +23,7 @@ class Ajax_Controller extends Base_Controller {
 			$data[ $player->id ] = $player->fullname;
 		}
 
-		header('application/json');
+		header('Content-type: application/json');
 		return json_encode($data);
 	}
 
