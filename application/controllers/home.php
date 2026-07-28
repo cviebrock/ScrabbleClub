@@ -183,6 +183,11 @@ class Home_Controller extends Base_Controller {
 
 		if ( $resource = Resource::find($id) ) {
 			if ( $resource->is_file() && $resource->localfile==$localfile && $resource->filename==$filename) {
+
+        if (!$resource->active) {
+          Return Response::error('410');
+        }
+
 				return Response::download( path('uploads').$resource->localfile, $resource->filename, array(
 					'Content-Type' => File::mime(File::extension($resource->filename)),
 				));
